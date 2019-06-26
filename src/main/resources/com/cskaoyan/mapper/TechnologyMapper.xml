@@ -273,4 +273,9 @@
       overfulfil_capacity = #{overfulfilCapacity,jdbcType=INTEGER}
     where technology_id = #{technologyId,jdbcType=VARCHAR}
   </update>
+  <select id="technologyList" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List"></include>
+    from technology
+  </select>
 </mapper>
