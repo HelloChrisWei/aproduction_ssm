@@ -113,4 +113,21 @@ public class Device {
     public void setNote(String note) {
         this.note = note == null ? null : note.trim();
     }
+
+    @Override
+    public String toString() {
+        return "Device{" +
+                "deviceId='" + deviceId + '\'' +
+                ", deviceName='" + deviceName + '\'' +
+                ", deviceTypeId='" + deviceTypeId + '\'' +
+                ", deviceStatusId='" + deviceStatusId + '\'' +
+                ", deviceStatus='" + deviceStatus + '\'' +
+                ", devicePurchaseDate=" + devicePurchaseDate +
+                ", devicePurchasePrice=" + devicePurchasePrice +
+                ", deviceManufactureDate=" + deviceManufactureDate +
+                ", deviceServiceLife=" + deviceServiceLife +
+                ", deviceKeeperId='" + deviceKeeperId + '\'' +
+                ", note='" + note + '\'' +
+                '}';
+    }
 }

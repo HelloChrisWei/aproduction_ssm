@@ -2,7 +2,9 @@ package com.cskaoyan.controller;
 
 import com.cskaoyan.pojo.*;
 import com.cskaoyan.service.impl.DeviceServiceImpl;
+import org.apache.maven.model.Model;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -26,11 +28,18 @@ public class DeviceController {
         List allDevice = deviceService.findAllDeviceList();
         return allDevice;
     }
-/*    @RequestMapping("eviceList/add_judge")
+    @RequestMapping("deviceList/add_judge")
     public String add(){
+        System.out.println("add-judge");
     return "deviceList_add";
     }
-     */
+    @RequestMapping("deviceList/add")
+//    @ResponseBody
+    public String addtest(){
+//        int i =deviceService.addList(device);
+        System.out.println("addtest");
+        return "deviceList_add";
+    }
 
 
     //-----------------------------------------------
