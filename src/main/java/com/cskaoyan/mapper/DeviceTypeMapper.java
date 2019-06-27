@@ -8,6 +8,8 @@ import org.apache.ibatis.annotations.Param;
 public interface DeviceTypeMapper {
     List<DeviceType> findAllDevice();
 
+    int insertTypeDevice(DeviceType deviceType);
+
     long countByExample(DeviceTypeExample example);
 
     int deleteByExample(DeviceTypeExample example);

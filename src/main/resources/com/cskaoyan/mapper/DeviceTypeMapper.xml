@@ -108,14 +108,19 @@
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.cskaoyan.pojo.DeviceType">
+<!--  !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+这里是插入语句，怕看不到所以加重一下
+
+
+-->
+  <insert id="insertTypeDevice" parameterType="com.cskaoyan.pojo.DeviceType">
     insert into device_type (device_type_id, device_type_name, device_type_model, 
       device_type_spec, device_type_supplier, device_type_producer, 
       device_type_quantity, device_type_warranty
       )
-    values (#{deviceTypeId,jdbcType=VARCHAR}, #{deviceTypeName,jdbcType=VARCHAR}, #{deviceTypeModel,jdbcType=VARCHAR}, 
-      #{deviceTypeSpec,jdbcType=VARCHAR}, #{deviceTypeSupplier,jdbcType=VARCHAR}, #{deviceTypeProducer,jdbcType=VARCHAR}, 
-      #{deviceTypeQuantity,jdbcType=INTEGER}, #{deviceTypeWarranty,jdbcType=TIMESTAMP}
+    values (#{deviceTypeId}, #{deviceTypeName}, #{deviceTypeModel},
+      #{deviceTypeSpec}, #{deviceTypeSupplier}, #{deviceTypeProducer},
+      #{deviceTypeQuantity}, #{deviceTypeWarranty}
       )
   </insert>
   <insert id="insertSelective" parameterType="com.cskaoyan.pojo.DeviceType">
