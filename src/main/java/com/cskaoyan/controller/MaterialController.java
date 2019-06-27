@@ -9,10 +9,6 @@ import java.util.ArrayList;
 @Controller
 @RequestMapping
 public class MaterialController {
-    @RequestMapping("/")
-    public String ia(){
-        return "home";
-    }
     @RequestMapping("material/find")
     public String materialFind(HttpSession session){
         ArrayList<String> objects = new ArrayList<>();

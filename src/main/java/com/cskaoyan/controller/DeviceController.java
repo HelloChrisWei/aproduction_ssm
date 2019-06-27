@@ -38,13 +38,24 @@ public class DeviceController {
         System.out.println("add-judge");
         return "deviceList_add";
     }
-
     @RequestMapping("deviceList/add")
-//    @ResponseBody
     public String addtest() {
 //        int i =deviceService.addList(device);
         System.out.println("addtest");
         return "deviceList_add";
+    }//---这两步的目的都是获取到提交的表单
+    //------这一步获取设备种类，通过json返回到页面，通过调用下面那显示种类管理获得方法
+    // 同理获取保管人信息可以通过其他人的方法，用来返回全部的保管人员
+    @RequestMapping("deviceType/get_data")
+    @ResponseBody
+    public List<DeviceType> deviceTypeId(){
+        return this.typelist();
+    }
+    @RequestMapping("employee/get_data")
+    @ResponseBody
+    public List<Employee> employeeId(){
+        List<Employee> list = new EmployeeController().list();
+        return list;
     }
 
 
