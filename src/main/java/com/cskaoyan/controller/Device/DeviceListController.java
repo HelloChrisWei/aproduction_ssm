@@ -1,8 +1,12 @@
 package com.cskaoyan.controller.Device;
 
-import com.cskaoyan.controller.EmployeeController;
-import com.cskaoyan.pojo.*;
-import com.cskaoyan.service.impl.DeviceServiceImpl;
+
+import com.cskaoyan.pojo.Device;
+import com.cskaoyan.pojo.DeviceType;
+import com.cskaoyan.pojo.Employee;
+import com.cskaoyan.service.DeviceService.ServiceImpl.DeviceListServiceImpl;
+import com.cskaoyan.service.DeviceService.ServiceImpl.DeviceTypeServiceImpl;
+import com.cskaoyan.service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -12,7 +16,9 @@ import java.util.List;
 @Controller
 public class DeviceListController {
     @Autowired
-    DeviceServiceImpl deviceService;
+    DeviceListServiceImpl deviceListService;
+    @Autowired
+    DeviceTypeServiceImpl deviceTypeService;
 
     //-----------------------------------------------
     //要实现查询设备台账功能
@@ -24,7 +30,7 @@ public class DeviceListController {
     @RequestMapping("deviceList/list")
     @ResponseBody
     public List<Device> Listlist() {
-        List allDevice = deviceService.findAllDeviceList();
+        List allDevice = deviceListService.findAllDeviceList();
         return allDevice;
     }
 
@@ -46,28 +52,16 @@ public class DeviceListController {
     @RequestMapping("deviceType/get_data")
     @ResponseBody
     public List<DeviceType> deviceTypeId(){
-        return new DeviceTypeController().typelist();
-    }
-    @RequestMapping("employee/get_data")
-    @ResponseBody
-    public List<Employee> employeeId(){
-        List<Employee> list = new EmployeeController().list();
-        return list;
-    }
-
-
-    //------------------------------------------------
-    //要实现设备维修查询功能
-    @RequestMapping("device/deviceMaintain")
-    public String deviceMaintain() {
-        return "deviceMaintain";
-    }
-
-    @RequestMapping("deviceMaintain/list")
-    @ResponseBody
-    public List<DeviceMaintain> Maintainlist() {
-        List<DeviceMaintain> allDevice = deviceService.findAllDeviceMaintain();
+        List allDevice = deviceTypeService.findAllTypeDevice();
         return allDevice;
     }
+/*    @RequestMapping("employee/get_data")
+    @ResponseBody
+    public List<Employee> employeeId(){
+        List<Employee> allEmployee = employeeService.findAllEmployee();
+        return allEmployee;
+    }*/
+
+
 
 }

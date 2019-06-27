@@ -1,7 +1,7 @@
 package com.cskaoyan.controller.Device;
 
 import com.cskaoyan.pojo.DeviceFault;
-import com.cskaoyan.service.impl.DeviceServiceImpl;
+import com.cskaoyan.service.DeviceService.ServiceImpl.DeviceFaultServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,8 +13,10 @@ import java.util.List;
 public class DeviceFaultController {
 
     @Autowired
-    DeviceServiceImpl deviceService;
+    DeviceFaultServiceImpl deviceFaultService;
 
+    //--------------------------------------------------------
+    //实现设备故障模块
     @RequestMapping("device/deviceFault")
     public String deviceFault() {
         return "deviceFault";
@@ -23,7 +25,7 @@ public class DeviceFaultController {
     @RequestMapping("deviceFault/list")
     @ResponseBody
     public List<DeviceFault> faultlist() {
-        List<DeviceFault> allDevice = deviceService.findAllDeviceFault();
+        List<DeviceFault> allDevice = deviceFaultService.findAllDeviceFault();
         return allDevice;
     }
 }
