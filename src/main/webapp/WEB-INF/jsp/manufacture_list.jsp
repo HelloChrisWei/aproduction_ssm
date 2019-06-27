@@ -13,7 +13,7 @@
         <tr>
         	<th data-options="field:'ck',checkbox:true"></th>
         	<th data-options="field:'manufactureSn',align:'center',width:150">生产批号</th>
-            <th data-options="field:'cOrder',align:'center',width:150,formatter:formatManuOrder">订单</th>
+            <th data-options="field:'order',align:'center',width:150,formatter:formatManuOrder">订单</th>
             <th data-options="field:'technology',align:'center',width:150,formatter:formatManuTechnology">工艺</th>
             <th data-options="field:'launchQuantity',align:'center',width:100">投产数量</th>
             <th data-options="field:'beginDate',width:130,align:'center',formatter:TAOTAO.formatDateTime">开始日期</th>
@@ -233,7 +233,7 @@ function doSearch_manufacture(value,name){ //用户输入用户名,点击搜素,
 	        columns : [ [ 
 				{field : 'ck', checkbox:true },
 				{field : 'manufactureSn', width : 150, title : '生产批号', align:'center'},
-				{field : 'cOrder', width : 100, align : 'center', title : '订单', formatter:formatManuOrder},
+				{field : 'order', width : 100, align : 'center', title : '订单', formatter:formatManuOrder},
 				{field : 'technology', width : 100, align : 'center', title : '工艺', formatter:formatManuTechnology},
 				{field : 'launchQuantity', width : 100, title : '投产数量', align:'center'},
 				{field : 'beginDate', width : 130, title : '开始日期', align:'center', formatter:TAOTAO.formatDateTime},
@@ -248,7 +248,7 @@ function doSearch_manufacture(value,name){ //用户输入用户名,点击搜素,
 	        columns : [ [ 
 				{field : 'ck', checkbox:true },
 				{field : 'manufactureSn', width : 150, title : '生产批号', align:'center'},
-				{field : 'cOrder', width : 100, align : 'center', title : '订单', formatter:formatManuOrder},
+				{field : 'order', width : 100, align : 'center', title : '订单', formatter:formatManuOrder},
 				{field : 'technology', width : 100, align : 'center', title : '工艺', formatter:formatManuTechnology},
 				{field : 'launchQuantity', width : 100, title : '投产数量', align:'center'},
 				{field : 'beginDate', width : 130, title : '开始日期', align:'center', formatter:TAOTAO.formatDateTime},
@@ -269,8 +269,8 @@ function doSearch_manufacture(value,name){ //用户输入用户名,点击搜素,
 	
 	//格式化订单信息
 	function formatManuOrder(value, row, index){ 
-		if(row.cOrder.orderId !=null && row.cOrder.orderId != ''){
-			return "<a href=javascript:openManuOrder("+index+")>"+row.cOrder.orderId+"</a>";
+		if(row.order.orderId !=null && row.order.orderId != ''){
+			return "<a href=javascript:openManuOrder("+index+")>"+row.order.orderId+"</a>";
 		}else{
 			return "无";
 		}
@@ -280,7 +280,7 @@ function doSearch_manufacture(value,name){ //用户输入用户名,点击搜素,
 		var row = onManufactureClickRow(index);
 		$("#manuOrderInfo").dialog({
     		onOpen :function(){
-    			$.get("order/get/"+row.cOrder.orderId,'',function(data){
+    			$.get("order/get/"+row.order.orderId,'',function(data){
     				manuOrderEditor = TAOTAO.createEditor("#manuOrderEditForm [name=note]");	
  		    		//回显数据
  	        		data.customId = data.custom.customId; 
@@ -463,7 +463,7 @@ function doSearch_manufacture(value,name){ //用户输入用户名,点击搜素,
 	        		onLoad :function(){
 	        			//回显数据
 	        			var data = $("#manufactureList").datagrid("getSelections")[0];
-	        			data.orderId = data.cOrder.orderId; 
+	        			data.orderId = data.order.orderId;
 	        			data.technologyId = data.technology.technologyId; 
 	        			data.beginDate = TAOTAO.formatDateTime(data.beginDate);
                			data.endDate = TAOTAO.formatDateTime(data.endDate);
