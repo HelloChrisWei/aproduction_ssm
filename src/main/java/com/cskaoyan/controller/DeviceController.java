@@ -2,7 +2,9 @@ package com.cskaoyan.controller;
 
 import com.cskaoyan.pojo.*;
 import com.cskaoyan.service.impl.DeviceServiceImpl;
+import org.apache.maven.model.Model;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -14,23 +16,47 @@ import java.util.List;
 public class DeviceController {
     @Autowired
     DeviceServiceImpl deviceService;
+
     //-----------------------------------------------
     //要实现查询设备台账功能
     @RequestMapping("device/deviceList")
     public String deviceList() {
         return "deviceList";
     }
+
     @RequestMapping("deviceList/list")
     @ResponseBody
     public List<Device> Listlist() {
         List allDevice = deviceService.findAllDeviceList();
         return allDevice;
     }
-/*    @RequestMapping("eviceList/add_judge")
-    public String add(){
-    return "deviceList_add";
+
+    //------------------------------------------------
+//    设备台账新增功能实现
+    @RequestMapping("deviceList/add_judge")
+    public String add() {
+        System.out.println("add-judge");
+        return "deviceList_add";
     }
-     */
+    @RequestMapping("deviceList/add")
+    public String addtest() {
+//        int i =deviceService.addList(device);
+        System.out.println("addtest");
+        return "deviceList_add";
+    }//---这两步的目的都是获取到提交的表单
+    //------这一步获取设备种类，通过json返回到页面，通过调用下面那显示种类管理获得方法
+    // 同理获取保管人信息可以通过其他人的方法，用来返回全部的保管人员
+    @RequestMapping("deviceType/get_data")
+    @ResponseBody
+    public List<DeviceType> deviceTypeId(){
+        return this.typelist();
+    }
+    @RequestMapping("employee/get_data")
+    @ResponseBody
+    public List<Employee> employeeId(){
+        List<Employee> list = new EmployeeController().list();
+        return list;
+    }
 
 
     //-----------------------------------------------
@@ -39,6 +65,7 @@ public class DeviceController {
     public String deviceType() {
         return "deviceType";
     }
+
     @RequestMapping("deviceType/list")
     @ResponseBody
     public List<DeviceType> typelist() {
@@ -52,42 +79,40 @@ public class DeviceController {
     public String deviceCheck() {
         return "deviceCheck";
     }
+
     @RequestMapping("deviceCheck/list")
     @ResponseBody
     public List<DeviceCheck> checklist() {
-        List<DeviceCheck>allDevice = deviceService.findAllDeviceCheck();
+        List<DeviceCheck> allDevice = deviceService.findAllDeviceCheck();
         return allDevice;
     }
+
     //------------------------------------------------
     //要实现设备故障查询功能
     @RequestMapping("device/deviceFault")
     public String deviceFault() {
         return "deviceFault";
     }
+
     @RequestMapping("deviceFault/list")
     @ResponseBody
     public List<DeviceFault> faultlist() {
-        List<DeviceFault>allDevice = deviceService.findAllDeviceFault();
+        List<DeviceFault> allDevice = deviceService.findAllDeviceFault();
         return allDevice;
     }
+
     //------------------------------------------------
     //要实现设备维修查询功能
     @RequestMapping("device/deviceMaintain")
     public String deviceMaintain() {
         return "deviceMaintain";
     }
+
     @RequestMapping("deviceMaintain/list")
     @ResponseBody
     public List<DeviceMaintain> Maintainlist() {
-        List<DeviceMaintain>allDevice = deviceService.findAllDeviceMaintain();
+        List<DeviceMaintain> allDevice = deviceService.findAllDeviceMaintain();
         return allDevice;
     }
 
-
-    @RequestMapping("/homeinit")
-    public ModelAndView home() {
-        ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("home1");
-        return modelAndView;
-    }
 }

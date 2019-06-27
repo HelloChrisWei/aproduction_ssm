@@ -7,7 +7,6 @@ import com.cskaoyan.pojo.DeviceCheck;
 import com.cskaoyan.pojo.DeviceFault;
 import com.cskaoyan.pojo.DeviceType;
 import com.cskaoyan.service.DeviceService;
-import org.checkerframework.checker.units.qual.A;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -24,6 +23,7 @@ public class DeviceServiceImpl implements DeviceService {
     DeviceMaintainMapper deviceMaintainMapper;
     @Autowired
     DeviceMapper deviceListMapper;
+
     //获取全部的设备种类，并存入集合
     @Override
     public List findAllDevice() {
@@ -53,5 +53,11 @@ public class DeviceServiceImpl implements DeviceService {
     public List findAllDeviceList() {
         List<Device>allDevice = deviceListMapper.findAllDeviceList();
         return allDevice;
+    }
+
+    @Override
+    public int addList(Device device) {
+        int i = deviceListMapper.addList(device);
+        return i;
     }
 }

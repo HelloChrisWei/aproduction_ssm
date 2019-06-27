@@ -81,9 +81,9 @@
 
   <select id="findAllEmployee" parameterType="com.cskaoyan.pojo.Employee" resultMap="BaseResultMap">
     select
-    <include refid="Base_Column_List"/>
-    from
-    employee
+    *
+    from employee
+
 --     e.emp_id,
 --     e.emp_name,
 --     e.sex,

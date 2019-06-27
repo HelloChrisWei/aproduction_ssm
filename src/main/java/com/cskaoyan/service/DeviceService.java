@@ -1,5 +1,6 @@
 package com.cskaoyan.service;
 
+import com.cskaoyan.pojo.Device;
 import com.cskaoyan.pojo.DeviceType;
 import org.springframework.stereotype.Service;
 
@@ -11,5 +12,6 @@ public interface DeviceService {
     public List findAllDeviceFault();
     public List findAllDeviceMaintain();
     public List findAllDeviceList();
+    public int addList(Device device);
 
 }

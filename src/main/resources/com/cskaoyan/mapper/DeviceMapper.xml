@@ -82,6 +82,21 @@
     <include refid="Base_Column_List" />
     from device
   </select>
+  <insert id="addList" parameterType="com.cskaoyan.pojo.Device">
+    insert into device ( <include refid="Base_Column_List"/> )
+    values (#{deviceId},
+    #{deviceName},
+    #{deviceTypeId},
+    #{deviceStatusId},
+    #{deviceStatus},
+    #{devicePurchaseDate},
+    #{devicePurchasePrice},
+    #{deviceManufactureDate},
+    #{deviceServiceLife},
+    #{deviceKeeperId},
+    #{note})
+
+  </insert>
   <select id="selectByExample" parameterType="com.cskaoyan.pojo.DeviceExample" resultMap="BaseResultMap">
     select
     <if test="distinct">
