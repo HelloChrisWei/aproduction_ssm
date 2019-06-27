@@ -77,6 +77,11 @@
     device_purchase_price, device_manufacture_date, device_service_life, device_keeper_id, 
     note
   </sql>
+  <select id="findAllDeviceList" parameterType="com.cskaoyan.pojo.Device" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from device
+  </select>
   <select id="selectByExample" parameterType="com.cskaoyan.pojo.DeviceExample" resultMap="BaseResultMap">
     select
     <if test="distinct">

@@ -10,7 +10,7 @@ import java.util.ArrayList;
 @RequestMapping
 public class MaterialController {
     @RequestMapping("/")
-    public String init(){
+    public String ia(){
         return "home";
     }
     @RequestMapping("material/find")

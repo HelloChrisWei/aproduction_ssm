@@ -24,7 +24,7 @@ public class DeparmentController {
         List<Department> allDeparment = deparmentService.findAllDeparment();
         return allDeparment;
     }
-    @RequestMapping("/home")
+    @RequestMapping("/home23")
     public String home(){
         return "home";
     }
