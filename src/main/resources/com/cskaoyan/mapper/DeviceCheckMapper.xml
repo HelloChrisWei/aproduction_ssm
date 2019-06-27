@@ -71,6 +71,11 @@
     device_check_id, device_id, device_check_emp_id, device_check_date, device_check_result, 
     device_check_fault_id
   </sql>
+  <select id="findAllDeviceCheck" parameterType="com.cskaoyan.pojo.DeviceCheck" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from device_check
+  </select>
   <select id="selectByExample" parameterType="com.cskaoyan.pojo.DeviceCheckExample" resultMap="BaseResultMap">
     select
     <if test="distinct">

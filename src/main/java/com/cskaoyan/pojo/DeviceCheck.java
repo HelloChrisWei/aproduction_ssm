@@ -62,4 +62,16 @@ public class DeviceCheck {
     public void setDeviceCheckFaultId(String deviceCheckFaultId) {
         this.deviceCheckFaultId = deviceCheckFaultId == null ? null : deviceCheckFaultId.trim();
     }
+
+    @Override
+    public String toString() {
+        return "DeviceCheck{" +
+                "deviceCheckId='" + deviceCheckId + '\'' +
+                ", deviceId='" + deviceId + '\'' +
+                ", deviceCheckEmpId='" + deviceCheckEmpId + '\'' +
+                ", deviceCheckDate=" + deviceCheckDate +
+                ", deviceCheckResult='" + deviceCheckResult + '\'' +
+                ", deviceCheckFaultId='" + deviceCheckFaultId + '\'' +
+                '}';
+    }
 }

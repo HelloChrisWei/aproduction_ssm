@@ -6,6 +6,8 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
 public interface DepartmentMapper {
+    List<Department> findAllDeparment();
+
     long countByExample(DepartmentExample example);
 
     int deleteByExample(DepartmentExample example);

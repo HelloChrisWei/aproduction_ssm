@@ -6,6 +6,8 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
 public interface DeviceFaultMapper {
+    List<DeviceFault> findAllDeviceFault();
+
     long countByExample(DeviceFaultExample example);
 
     int deleteByExample(DeviceFaultExample example);

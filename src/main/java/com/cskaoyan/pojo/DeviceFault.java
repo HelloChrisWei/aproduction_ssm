@@ -62,4 +62,16 @@ public class DeviceFault {
     public void setDeviceFaultMaintenance(String deviceFaultMaintenance) {
         this.deviceFaultMaintenance = deviceFaultMaintenance == null ? null : deviceFaultMaintenance.trim();
     }
+
+    @Override
+    public String toString() {
+        return "DeviceFault{" +
+                "deviceFaultId='" + deviceFaultId + '\'' +
+                ", deviceId='" + deviceId + '\'' +
+                ", deviceFaultCause='" + deviceFaultCause + '\'' +
+                ", deviceFaultDetail='" + deviceFaultDetail + '\'' +
+                ", deviceFaultDate=" + deviceFaultDate +
+                ", deviceFaultMaintenance='" + deviceFaultMaintenance + '\'' +
+                '}';
+    }
 }

@@ -67,6 +67,11 @@
   <sql id="Base_Column_List">
     department_id, department_name, note
   </sql>
+  <select id="findAllDeparment" parameterType="com.cskaoyan.pojo.Department" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from department
+  </select>
   <select id="selectByExample" parameterType="com.cskaoyan.pojo.DepartmentExample" resultMap="BaseResultMap">
     select
     <if test="distinct">

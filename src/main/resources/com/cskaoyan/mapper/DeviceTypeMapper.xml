@@ -73,6 +73,11 @@
     device_type_id, device_type_name, device_type_model, device_type_spec, device_type_supplier, 
     device_type_producer, device_type_quantity, device_type_warranty
   </sql>
+  <select id="findAllDevice" parameterType="com.cskaoyan.pojo.DeviceType" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+     from device_type
+  </select>
   <select id="selectByExample" parameterType="com.cskaoyan.pojo.DeviceTypeExample" resultMap="BaseResultMap">
     select
     <if test="distinct">
