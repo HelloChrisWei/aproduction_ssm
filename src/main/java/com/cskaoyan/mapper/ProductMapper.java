@@ -27,4 +27,13 @@ public interface ProductMapper {
     int updateByPrimaryKeySelective(Product record);
 
     int updateByPrimaryKey(Product record);
+
+    // 自主添加接口
+    List<Product> selectAllProductByPage(@Param("rows") int rows,@Param("offset") int offset);
+
+    int selectProductCountByCondition(@Param("product") Product product);
+
+    List<Product> selectProductByConditionByPage(@Param("custom") Product product, @Param("rows") int rows, @Param("offset") int offset);
+
+    List<Product> selectAllProduct();
 }
