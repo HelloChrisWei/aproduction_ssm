@@ -82,14 +82,4 @@
     <!-- 定义统一异常处理器 -->
 <!--    <bean class="com.zck.erp.exception.CustomExceptionResolver"/>-->
 
-<!--    &lt;!&ndash; 转换器 &ndash;&gt;-->
-<!--    <bean id="conversionService" class="org.springframework.format.support.FormattingConversionServiceFactoryBean">-->
-<!--        <property name="converters">-->
-<!--            <set>-->
-<!--                <bean class="com.zck.erp.controller.converter.CustomDateConverter"/>-->
-<!--                <bean class="com.zck.erp.controller.converter.StringTrimConverter"/>-->
-<!--            </set>-->
-<!--        </property>-->
-<!--    </bean>-->
-
 </beans>
