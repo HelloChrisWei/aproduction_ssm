@@ -1,4 +1,4 @@
-package com.cskaoyan.service.impl;
+package com.cskaoyan.service.scheduling.impl;
 
 import com.cskaoyan.exception.CustomException;
 import com.cskaoyan.mapper.CustomMapper;
@@ -6,7 +6,7 @@ import com.cskaoyan.pojo.Custom;
 import com.cskaoyan.pojo.CustomExample;
 import com.cskaoyan.pojo.EasyUiDataGridResult;
 import com.cskaoyan.pojo.ResponseStatus;
-import com.cskaoyan.service.CustomService;
+import com.cskaoyan.service.scheduling.CustomService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
