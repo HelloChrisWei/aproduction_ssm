@@ -24,27 +24,27 @@
 
 <div  id="toolbar_manufacture" style=" height: 22px; padding: 3px 11px; background: #fafafa;">  
 	
-	<c:forEach items="${sessionScope.sysPermissionList}" var="per" >
-		<c:if test="${per=='manufacture:add' }" >
+	<%--<c:forEach items="${sessionScope.sysPermissionList}" var="per" >--%>
+		<%--<c:if test="${per=='manufacture:add' }" >--%>
 		    <div style="float: left;">  
 		        <a href="#" class="easyui-linkbutton" plain="true" icon="icon-add" onclick="manufacture_add()">新增</a>  
 		    </div>  
-		</c:if>
-		<c:if test="${per=='manufacture:edit' }" >
+		<%--</c:if>--%>
+		<%--<c:if test="${per=='manufacture:edit' }" >--%>
 		    <div style="float: left;">  
 		        <a href="#" class="easyui-linkbutton" plain="true" icon="icon-edit" onclick="manufacture_edit()">
 					编辑
 				</a>
 		    </div>  
-		</c:if>
-		<c:if test="${per=='manufacture:delete' }" >
+		<%--</c:if>--%>
+		<%--<c:if test="${per=='manufacture:delete' }" >--%>
 		    <div style="float: left;">  
 		        <a href="#" class="easyui-linkbutton" plain="true" icon="icon-cancel" onclick="manufacture_delete()">
 					删除
 				</a>
 		    </div>  
-		</c:if>
-	</c:forEach>
+		<%--</c:if>--%>
+	<%--</c:forEach>--%>
 	
 	<div class="datagrid-btn-separator"></div>  
 	

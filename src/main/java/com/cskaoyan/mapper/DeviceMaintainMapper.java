@@ -6,6 +6,8 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
 public interface DeviceMaintainMapper {
+    List findAllDeviceMaintain();
+
     long countByExample(DeviceMaintainExample example);
 
     int deleteByExample(DeviceMaintainExample example);

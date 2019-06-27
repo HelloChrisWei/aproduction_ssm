@@ -71,6 +71,11 @@
     device_fault_id, device_id, device_fault_cause, device_fault_detail, device_fault_date, 
     device_fault_maintenance
   </sql>
+  <select id="findAllDeviceFault" parameterType="com.cskaoyan.pojo.DeviceFault" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from device_fault
+  </select>
   <select id="selectByExample" parameterType="com.cskaoyan.pojo.DeviceFaultExample" resultMap="BaseResultMap">
     select
     <if test="distinct">

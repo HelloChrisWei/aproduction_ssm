@@ -78,6 +78,34 @@
     emp_id, emp_name, sex, id_code, birthday, join_date, status, education, degree, major, 
     graduate_school, education_form, department_id
   </sql>
+
+  <select id="findAllEmployee" parameterType="com.cskaoyan.pojo.Employee" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List"/>
+    from
+    employee
+--     e.emp_id,
+--     e.emp_name,
+--     e.sex,
+--     e.id_code,
+--     e.birthday,
+--     e.join_date,
+--     e.status,
+--     e.education,
+--     e.degree,
+--     e.major,
+--     e.graduate_school,
+--     e.education_form,
+--     e.department_id,
+--     d.department_name
+--     from employee e
+--     left join department d on d.department_id = e.department_id
+
+  </select>
+
+
+
+
   <select id="selectByExample" parameterType="com.cskaoyan.pojo.EmployeeExample" resultMap="BaseResultMap">
     select
     <if test="distinct">

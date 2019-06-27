@@ -27,4 +27,7 @@ public interface EmployeeMapper {
     int updateByPrimaryKeySelective(Employee record);
 
     int updateByPrimaryKey(Employee record);
+
+    //新增方法
+    List<Employee> findAllEmployee();
 }
