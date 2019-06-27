@@ -1,19 +1,16 @@
-package com.cskaoyan.controller;
+package com.cskaoyan.controller.Device;
 
+import com.cskaoyan.controller.EmployeeController;
 import com.cskaoyan.pojo.*;
 import com.cskaoyan.service.impl.DeviceServiceImpl;
-import org.apache.maven.model.Model;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.ModelAndView;
-
 import java.util.List;
 
 @Controller
-public class DeviceController {
+public class DeviceListController {
     @Autowired
     DeviceServiceImpl deviceService;
 
@@ -49,7 +46,7 @@ public class DeviceController {
     @RequestMapping("deviceType/get_data")
     @ResponseBody
     public List<DeviceType> deviceTypeId(){
-        return this.typelist();
+        return new DeviceTypeController().typelist();
     }
     @RequestMapping("employee/get_data")
     @ResponseBody
@@ -58,48 +55,6 @@ public class DeviceController {
         return list;
     }
 
-
-    //-----------------------------------------------
-    //要实现查询设备种类功能
-    @RequestMapping("device/deviceType")
-    public String deviceType() {
-        return "deviceType";
-    }
-
-    @RequestMapping("deviceType/list")
-    @ResponseBody
-    public List<DeviceType> typelist() {
-        List allDevice = deviceService.findAllDevice();
-        return allDevice;
-    }
-
-    //--------------------------------------------------
-    //要实现设备例检功能
-    @RequestMapping("device/deviceCheck")
-    public String deviceCheck() {
-        return "deviceCheck";
-    }
-
-    @RequestMapping("deviceCheck/list")
-    @ResponseBody
-    public List<DeviceCheck> checklist() {
-        List<DeviceCheck> allDevice = deviceService.findAllDeviceCheck();
-        return allDevice;
-    }
-
-    //------------------------------------------------
-    //要实现设备故障查询功能
-    @RequestMapping("device/deviceFault")
-    public String deviceFault() {
-        return "deviceFault";
-    }
-
-    @RequestMapping("deviceFault/list")
-    @ResponseBody
-    public List<DeviceFault> faultlist() {
-        List<DeviceFault> allDevice = deviceService.findAllDeviceFault();
-        return allDevice;
-    }
 
     //------------------------------------------------
     //要实现设备维修查询功能
