@@ -106,4 +106,22 @@
 <!--        &lt;!&ndash;切入点必须是在service层&ndash;&gt;-->
 <!--        <aop:advisor advice-ref="txAdvice" pointcut="execution(* com.zck.erp.service.*.*(..))" />-->
 <!--    </aop:config>-->
+    <!--分页插件-->
+    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <property name="dataSource" ref="datasource"/>
+        <!--自动扫描mapper.xml文件-->
+        <property name="mapperLocations" value="classpath:com/cskaoyan/mapper/*.xml"/>
+        <property name="plugins">
+            <array>
+                <bean class="com.github.pagehelper.PageHelper">
+                    <property name="properties">
+                        <value>
+                            dialect=mysql
+                            reasonable=true
+                        </value>
+                    </property>
+                </bean>
+            </array>
+        </property>
+    </bean>
 </beans>

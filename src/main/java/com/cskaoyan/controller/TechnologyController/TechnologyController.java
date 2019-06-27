@@ -1,11 +1,12 @@
-package com.cskaoyan.controller;
+package com.cskaoyan.controller.TechnologyController;
 
 import com.cskaoyan.pojo.EasyUiDataGridResult;
 import com.cskaoyan.pojo.Technology;
-import com.cskaoyan.service.TechnologyService;
+import com.cskaoyan.service.TechnologyService.TechnologyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -16,13 +17,7 @@ import java.util.List;
 public class TechnologyController {
     @Autowired
     TechnologyService technologyService;
-    /*home*/
-    @RequestMapping("home")
-    public ModelAndView findHome(){
-        ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("home");
-        return modelAndView;
-    }
+
     /*find页面*/
     @RequestMapping("/technology/find")
     public ModelAndView findTechnology(){
@@ -33,8 +28,8 @@ public class TechnologyController {
     /*返回list json数据*/
     @RequestMapping("technology/list")
     @ResponseBody
-    public EasyUiDataGridResult<Technology> technologyList(int page,int rows){
-        EasyUiDataGridResult<Technology> technologies = technologyService.selectAllTechnologyByPage(page,rows);
+    public List<Technology> technologyList(@RequestParam("currentPage") Integer currentPage, @RequestParam("currentPage") Integer size){
+        List<Technology> technologies = technologyService.selectAllTechnologyByPage(currentPage,size);
         return technologies;
     }
 

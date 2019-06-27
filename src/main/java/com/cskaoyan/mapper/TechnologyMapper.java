@@ -31,6 +31,6 @@ public interface TechnologyMapper {
     //自增接口
     List<Technology> technologyList();
 
-    List<Technology> selectAllTechnologyByPage(@Param("rows") int rows, @Param("offset") int offset);
+    List<Technology> selectAllTechnologyByPage(int currentPage, int size);
 
 }

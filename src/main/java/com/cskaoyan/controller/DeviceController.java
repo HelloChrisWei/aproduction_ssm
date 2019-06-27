@@ -2,13 +2,12 @@ package com.cskaoyan.controller;
 
 import com.cskaoyan.pojo.*;
 import com.cskaoyan.service.impl.DeviceServiceImpl;
-import org.apache.maven.model.Model;
+
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
 
