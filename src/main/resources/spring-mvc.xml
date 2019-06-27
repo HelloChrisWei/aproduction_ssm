@@ -21,7 +21,15 @@
     </context:component-scan>
 
 
-    <mvc:annotation-driven />
+    <mvc:annotation-driven conversion-service="conversionService"/>
+    <bean id="myconverter" class="com.cskaoyan.controller.Device.StringtoDateConverter"/>
+    <bean id="conversionService" class="org.springframework.format.support.FormattingConversionServiceFactoryBean">
+        <property name="converters">
+            <set>
+                <ref bean="myconverter"/>
+            </set>
+        </property>
+    </bean>
 
     <!-- 视图解析器 -->
     <bean class="org.springframework.web.servlet.view.BeanNameViewResolver"/>
