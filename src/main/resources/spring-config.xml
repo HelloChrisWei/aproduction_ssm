@@ -30,11 +30,11 @@
 
 
     <!--SqlSessionFactory工厂类-->
-    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+    <!--<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
         <property name="dataSource" ref="datasource"/>
-        <!--给POJO起别名-->
+        &lt;!&ndash;给POJO起别名&ndash;&gt;
         <property name="configLocation" value="classpath:mybatis.xml"/>
-    </bean>
+    </bean>-->
 
 
     <!-- druid datasource配置  需要自己新建一个jdbc.properties -->
@@ -107,17 +107,19 @@
 <!--        <aop:advisor advice-ref="txAdvice" pointcut="execution(* com.zck.erp.service.*.*(..))" />-->
 <!--    </aop:config>-->
     <!--分页插件-->
+
     <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
         <property name="dataSource" ref="datasource"/>
+        <property name="configLocation" value="classpath:mybatis.xml"/>
         <!--自动扫描mapper.xml文件-->
-        <property name="mapperLocations" value="classpath:com/cskaoyan/mapper/*.xml"/>
+        <property name="mapperLocations" value="classpath:com/cskaoyan/mapper/*.xml"></property>
         <property name="plugins">
             <array>
-                <bean class="com.github.pagehelper.PageHelper">
+                <bean class="com.github.pagehelper.PageInterceptor">
                     <property name="properties">
+                        <!--使用下面的方式配置参数，一行配置一个 -->
                         <value>
-                            dialect=mysql
-                            reasonable=true
+                            params=value1
                         </value>
                     </property>
                 </bean>

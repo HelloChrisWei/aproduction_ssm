@@ -8,8 +8,9 @@ public class EasyUiDataGridResult<T> {
 
     private List<T> rows;
 
-    public int getTotal(int total) {
-        return this.total;
+
+    public int getTotal() {
+        return total;
     }
 
     public void setTotal(int total) {
