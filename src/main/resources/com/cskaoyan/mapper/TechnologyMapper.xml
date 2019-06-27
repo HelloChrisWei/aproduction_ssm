@@ -278,4 +278,10 @@
     <include refid="Base_Column_List"></include>
     from technology
   </select>
+  <select id="selectAllTechnologyByPage" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List"/>
+    from custom
+    limit #{rows} offset #{offset}
+  </select>
 </mapper>

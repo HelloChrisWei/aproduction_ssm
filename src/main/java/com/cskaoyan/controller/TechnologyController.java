@@ -1,5 +1,6 @@
 package com.cskaoyan.controller;
 
+import com.cskaoyan.pojo.EasyUiDataGridResult;
 import com.cskaoyan.pojo.Technology;
 import com.cskaoyan.service.TechnologyService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,8 +33,8 @@ public class TechnologyController {
     /*返回list json数据*/
     @RequestMapping("technology/list")
     @ResponseBody
-    public List<Technology> technologyList(){
-        List<Technology> technologies = technologyService.technologyList();
+    public EasyUiDataGridResult<Technology> technologyList(int page,int rows){
+        EasyUiDataGridResult<Technology> technologies = technologyService.selectAllTechnologyByPage(page,rows);
         return technologies;
     }
 

@@ -45,7 +45,7 @@
 <!-- Toolbar -->
 <div  id="toolbar_device" style=" height: 22px; padding: 3px 11px; background: #fafafa;">  
 	
-	<c:forEach items="${sessionScope.sysPermissionList}" var="per" > 
+	<c:forEach items="${sessionScope.sysPermissionList}" var="per" >
 		<c:if test="${per=='device:add'}">
 		    <div style="float: left;">  
 		        <a href="#" class="easyui-linkbutton" plain="true" icon="icon-add" onclick="device_add()">新增</a>  

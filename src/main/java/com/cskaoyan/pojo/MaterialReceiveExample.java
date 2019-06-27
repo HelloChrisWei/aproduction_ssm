@@ -5,6 +5,13 @@ import java.util.Date;
 import java.util.List;
 
 public class MaterialReceiveExample {
+    /*
+    * distinct字段用于指定DISTINCT查询。
+
+        orderByClause字段用于指定ORDER BY条件,这个条件没有构造方法,直接通过传递字符串值指定。
+
+        oredCriteria字段用于自定义查询条件
+    * */
     protected String orderByClause;
 
     protected boolean distinct;

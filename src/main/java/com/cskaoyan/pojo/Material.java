@@ -50,4 +50,15 @@ public class Material {
     public void setNote(String note) {
         this.note = note == null ? null : note.trim();
     }
+
+    @Override
+    public String toString() {
+        return "Material{" +
+                "materialId='" + materialId + '\'' +
+                ", materialType='" + materialType + '\'' +
+                ", status='" + status + '\'' +
+                ", remaining=" + remaining +
+                ", note='" + note + '\'' +
+                '}';
+    }
 }
