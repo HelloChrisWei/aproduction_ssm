@@ -31,7 +31,7 @@ public interface UnqualifyApplyMapper {
     int updateByPrimaryKey(UnqualifyApply record);
 
     /* The following are custom methods -- Chris*/
-    List<UnqualifyApplyVO> selectAllRecords(int rows, int offset);
+    List<UnqualifyApplyVO> selectAllRecords(@Param("rows")int rows, @Param("offset")int offset);
 
 
 }
