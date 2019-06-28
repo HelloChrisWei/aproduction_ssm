@@ -3,10 +3,11 @@ package com.cskaoyan.controller.Device;
 
 import com.cskaoyan.pojo.Device;
 import com.cskaoyan.pojo.DeviceType;
+import com.cskaoyan.pojo.EasyUiDataGridResult;
 import com.cskaoyan.service.DeviceService.ServiceImpl.DeviceListServiceImpl;
-import com.cskaoyan.service.DeviceService.ServiceImpl.DeviceTypeServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import java.util.List;
@@ -15,8 +16,18 @@ import java.util.List;
 public class DeviceListController {
     @Autowired
     DeviceListServiceImpl deviceListService;
-    @Autowired
-    DeviceTypeServiceImpl deviceTypeService;
+    @RequestMapping("deviceList/get_data")
+    @ResponseBody
+    public List<Device> deviceTypeId(){
+        List allDevice = deviceListService.findDeviceList();
+        return allDevice;
+    }
+    @RequestMapping("deviceList/get/{deviceId}")
+    @ResponseBody
+    public Device SsearchDeviceDetail(@PathVariable("deviceId") String deviceId){
+        return deviceListService.searchDeviceById(deviceId);
+    }
+
 
     //-----------------------------------------------
     //要实现查询设备台账功能
@@ -27,9 +38,8 @@ public class DeviceListController {
 
     @RequestMapping("deviceList/list")
     @ResponseBody
-    public List<Device> Listlist() {
-        List allDevice = deviceListService.findAllDeviceList();
-        return allDevice;
+    public EasyUiDataGridResult Listlist(int page,int rows) {
+        return deviceListService.findAllDeviceList(page, rows);
     }
 
     //------------------------------------------------
@@ -45,14 +55,7 @@ public class DeviceListController {
         System.out.println("addtest");
         return "deviceList_add";
     }//---这两步的目的都是获取到提交的表单
-    //------这一步获取设备种类，通过json返回到页面，通过调用下面那显示种类管理获得方法
-    // 同理获取保管人信息可以通过其他人的方法，用来返回全部的保管人员
-    @RequestMapping("deviceType/get_data")
-    @ResponseBody
-    public List<DeviceType> deviceTypeId(){
-        List allDevice = deviceTypeService.findAllTypeDevice();
-        return allDevice;
-    }
+
 /*    @RequestMapping("employee/get_data")
     @ResponseBody
     public List<Employee> employeeId(){

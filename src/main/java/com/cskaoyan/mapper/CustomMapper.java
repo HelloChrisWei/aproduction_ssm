@@ -31,7 +31,7 @@ public interface CustomMapper {
     //自增接口
     List<Custom> selectAllCustomByPage(@Param("rows") int rows, @Param("offset") int offset);
 
-    int selectCustomCountByCondition(@Param("custom") Custom custom);
+    int selectCustomCountByCondition(Custom custom);
 
     List<Custom> selectCustomByConditionByPage(@Param("custom") Custom custom, @Param("rows") int rows, @Param("offset") int offset);
 

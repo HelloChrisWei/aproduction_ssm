@@ -1,11 +1,14 @@
 package com.cskaoyan.service.scheduling.impl;
 
+import com.cskaoyan.annotation.ProceedTime;
 import com.cskaoyan.exception.TaskException;
 import com.cskaoyan.mapper.TaskMapper;
 import com.cskaoyan.pojo.*;
 import com.cskaoyan.service.scheduling.TaskService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -16,6 +19,7 @@ public class TaskServiceImpl implements TaskService {
     private TaskMapper taskMapper;
 
     @Override
+    @ProceedTime
     public EasyUiDataGridResult<TaskVO> selectAllTaskByPage(int page, int rows) {
         EasyUiDataGridResult<TaskVO> result = new EasyUiDataGridResult<>();
         TaskExample example = new TaskExample();
@@ -31,6 +35,7 @@ public class TaskServiceImpl implements TaskService {
     }
 
     @Override
+    @ProceedTime
     public ResponseStatus insert(Task task) {
         ResponseStatus status = new ResponseStatus();
         try {
@@ -48,6 +53,7 @@ public class TaskServiceImpl implements TaskService {
     }
 
     @Override
+    @ProceedTime
     public ResponseStatus updateByPrimaryKeySelective(Task task) {
         ResponseStatus status = new ResponseStatus();
         try {
@@ -65,6 +71,8 @@ public class TaskServiceImpl implements TaskService {
     }
 
     @Override
+    @ProceedTime
+    @Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
     public ResponseStatus deleteBatch(String[] ids) throws TaskException {
         ResponseStatus status = new ResponseStatus();
         try {
@@ -96,50 +104,55 @@ public class TaskServiceImpl implements TaskService {
     }
 
     @Override
+    @ProceedTime
     public EasyUiDataGridResult<TaskVO> searchTaskByTaskId(String taskId, int page, int rows) {
         TaskVO task = new TaskVO();
         Work work = new Work();
         Manufacture manufacture = new Manufacture();
 
-        task.setTaskId("%" + taskId +"%");
+        task.setTaskId("%" + taskId + "%");
         task.setWork(work);
         task.setManufacture(manufacture);
 
-        return pageHandle(task,rows,page);
+        return pageHandle(task, rows, page);
     }
 
     @Override
+    @ProceedTime
     public EasyUiDataGridResult<TaskVO> searchTaskByWorkId(String workId, int page, int rows) {
         TaskVO task = new TaskVO();
         Work work = new Work();
         Manufacture manufacture = new Manufacture();
 
-        work.setWorkId("%" + workId +"%");
+        work.setWorkId("%" + workId + "%");
         task.setWork(work);
         task.setManufacture(manufacture);
 
-        return pageHandle(task,rows,page);
+        return pageHandle(task, rows, page);
     }
 
     @Override
+    @ProceedTime
     public EasyUiDataGridResult<TaskVO> searchTaskByManufactureSn(String manufactureSn, int page, int rows) {
         TaskVO task = new TaskVO();
         Work work = new Work();
         Manufacture manufacture = new Manufacture();
 
-        manufacture.setManufactureSn("%" + manufactureSn +"%");
+        manufacture.setManufactureSn("%" + manufactureSn + "%");
         task.setWork(work);
         task.setManufacture(manufacture);
 
-        return pageHandle(task,rows,page);
+        return pageHandle(task, rows, page);
     }
 
     @Override
+    @ProceedTime
     public TaskVO selectWorkByTaskId(String taskId) {
         return taskMapper.selectTaskByTaskId(taskId);
     }
 
     @Override
+    @ProceedTime
     public List<TaskVO> selectAllTask() {
         return taskMapper.selectAllTask();
     }

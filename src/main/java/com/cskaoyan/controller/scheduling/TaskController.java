@@ -65,6 +65,12 @@ public class TaskController {
         return taskService.updateByPrimaryKeySelective(task);
     }
 
+    @RequestMapping("/update_note")
+    @ResponseBody
+    public ResponseStatus updateNote(Task task) {
+        return taskService.updateByPrimaryKeySelective(task);
+    }
+
     @RequestMapping("/delete_batch")
     @ResponseBody
     public ResponseStatus deleteBatch(String[] ids) {

@@ -274,6 +274,7 @@
 
 
   <!--VO对象新增-->
+<!--  TODO 使用动态SQL简化-->
   <select id="selectAllRecords" resultMap="BaseResultMapForVO">
     SELECT
     t1.unqualify_apply_id,
@@ -291,5 +292,51 @@
     LEFT JOIN product t3 on t1.product_id = t3.product_id
     limit #{rows} offset #{offset}
   </select>
+
+  <!--LIMIT 1 查到一个记录即停止-->
+  <select id="selectByPrimaryKeyVO" parameterType="java.lang.String" resultMap="BaseResultMapForVO">
+    SELECT
+    t1.unqualify_apply_id,
+    t1.product_id,
+    t1.unqualify_item,
+    t1.unqualify_count,
+    t1.assembly_date,
+    t1.emp_id,
+    t1.apply_date,
+    t1.note,
+    t2.emp_name,
+    t3.product_name
+    FROM unqualify_apply t1
+    LEFT JOIN `employee` t2 on t1.emp_id = t2.emp_id
+    LEFT JOIN product t3 on t1.product_id = t3.product_id
+    WHERE t1.unqualify_apply_id = #{unqualify_apply_id}
+    LIMIT 1
+  </select>
+
+
+  <!--VO条件查询-->
+    <!--多参数情况 不需要写parameterType参数 改用@Param实现-->
+  <!--TODO 先做按productName  后期用<if test>标签实现多条件通用性-->
+  <select id="selectByExampleVO" resultMap="BaseResultMapForVO">
+    SELECT
+    t1.unqualify_apply_id,
+    t1.product_id,
+    t1.unqualify_item,
+    t1.unqualify_count,
+    t1.assembly_date,
+    t1.emp_id,
+    t1.apply_date,
+    t1.note,
+    t2.emp_name,
+    t3.product_name
+    FROM unqualify_apply t1
+    LEFT JOIN `employee` t2 on t1.emp_id = t2.emp_id
+    LEFT JOIN product t3 on t1.product_id = t3.product_id
+--     TODO 实现通用SQL语句
+-- 使用CONCAT实现模糊查询
+    WHERE t3.product_name LIKE CONCAT(CONCAT('%', #{example.productName}), '%')
+    limit #{rows} offset #{offset}
+  </select>
+
 
 </mapper>

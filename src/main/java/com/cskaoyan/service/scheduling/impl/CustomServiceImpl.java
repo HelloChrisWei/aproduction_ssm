@@ -1,5 +1,6 @@
 package com.cskaoyan.service.scheduling.impl;
 
+import com.cskaoyan.annotation.ProceedTime;
 import com.cskaoyan.exception.CustomException;
 import com.cskaoyan.mapper.CustomMapper;
 import com.cskaoyan.pojo.Custom;
@@ -9,6 +10,8 @@ import com.cskaoyan.pojo.ResponseStatus;
 import com.cskaoyan.service.scheduling.CustomService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -19,6 +22,7 @@ public class CustomServiceImpl implements CustomService {
     private CustomMapper customMapper;
 
     @Override
+    @ProceedTime
     public EasyUiDataGridResult<Custom> selectAllCustomByPage(int page, int rows) {
         EasyUiDataGridResult<Custom> result = new EasyUiDataGridResult<>();
         CustomExample example = new CustomExample();
@@ -34,6 +38,7 @@ public class CustomServiceImpl implements CustomService {
     }
 
     @Override
+    @ProceedTime
     public ResponseStatus insert(Custom custom) {
         ResponseStatus status = new ResponseStatus();
         try {
@@ -51,6 +56,7 @@ public class CustomServiceImpl implements CustomService {
     }
 
     @Override
+    @ProceedTime
     public ResponseStatus updateByPrimaryKeySelective(Custom custom) {
         ResponseStatus status = new ResponseStatus();
         try {
@@ -68,6 +74,8 @@ public class CustomServiceImpl implements CustomService {
     }
 
     @Override
+    @ProceedTime
+    @Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
     public ResponseStatus deleteBatch(String[] ids) throws CustomException {
         ResponseStatus status = new ResponseStatus();
         try {
@@ -99,6 +107,7 @@ public class CustomServiceImpl implements CustomService {
     }
 
     @Override
+    @ProceedTime
     public EasyUiDataGridResult<Custom> searchCustomByCustomId(String customId, int page, int rows) {
         Custom custom = new Custom();
         custom.setCustomId("%" + customId + "%");
@@ -106,6 +115,7 @@ public class CustomServiceImpl implements CustomService {
     }
 
     @Override
+    @ProceedTime
     public EasyUiDataGridResult<Custom> searchCustomByCustomName(String customName, int page, int rows) {
         Custom custom = new Custom();
         custom.setCustomId("%" + customName + "%");
@@ -113,11 +123,13 @@ public class CustomServiceImpl implements CustomService {
     }
 
     @Override
+    @ProceedTime
     public Custom selectCustomByCustomId(String customId) {
         return customMapper.selectByPrimaryKey(customId);
     }
 
     @Override
+    @ProceedTime
     public List<Custom> selectAllCustom() {
         return customMapper.selectAllCustom();
     }

@@ -33,5 +33,7 @@ public interface UnqualifyApplyMapper {
     /* The following are custom methods -- Chris*/
     List<UnqualifyApplyVO> selectAllRecords(@Param("rows")int rows, @Param("offset")int offset);
 
+    UnqualifyApplyVO selectByPrimaryKeyVO(@Param("unqualify_apply_id") String unqualifyApplyId);
 
+    List<UnqualifyApplyVO> selectByExampleVO(@Param("example") UnqualifyApplyVO example, @Param("rows") int rows, @Param("offset") int offset);
 }
