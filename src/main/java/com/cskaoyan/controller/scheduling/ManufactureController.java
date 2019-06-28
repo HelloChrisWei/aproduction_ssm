@@ -65,6 +65,12 @@ public class ManufactureController {
         return manufactureService.updateByPrimaryKeySelective(manufacture);
     }
 
+    @RequestMapping("/update_note")
+    @ResponseBody
+    public ResponseStatus updateNote(Manufacture manufacture) {
+        return manufactureService.updateByPrimaryKeySelective(manufacture);
+    }
+
     @RequestMapping("/delete_batch")
     @ResponseBody
     public ResponseStatus deleteBatch(String[] ids) {

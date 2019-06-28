@@ -307,7 +307,7 @@
         select count(*)
         from custom
         <where>
-            <if test="record.customId != null">
+            <if test="customId != null">
                 custom_id like #{record.customId}
             </if>
             <if test="record.customName != null">

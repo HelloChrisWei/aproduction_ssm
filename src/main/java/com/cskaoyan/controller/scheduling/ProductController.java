@@ -70,6 +70,12 @@ public class ProductController {
         return productService.updateByPrimaryKeySelective(product);
     }
 
+    @RequestMapping("/update_note")
+    @ResponseBody
+    public ResponseStatus updateNote(Product product) {
+        return productService.updateByPrimaryKeySelective(product);
+    }
+
     @RequestMapping("/delete_batch")
     @ResponseBody
     public ResponseStatus deleteBatch(String[] ids) {

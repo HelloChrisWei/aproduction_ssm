@@ -1,11 +1,14 @@
 package com.cskaoyan.service.scheduling.impl;
 
+import com.cskaoyan.annotation.ProceedTime;
 import com.cskaoyan.exception.ManufactureException;
 import com.cskaoyan.mapper.ManufactureMapper;
 import com.cskaoyan.pojo.*;
 import com.cskaoyan.service.scheduling.ManufactureService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -16,6 +19,7 @@ public class ManufactureServiceImpl implements ManufactureService {
     private ManufactureMapper manufactureMapper;
 
     @Override
+    @ProceedTime
     public EasyUiDataGridResult<ManufactureVO> selectAllManufactureByPage(int page, int rows) {
         EasyUiDataGridResult<ManufactureVO> result = new EasyUiDataGridResult<>();
         ManufactureExample example = new ManufactureExample();
@@ -31,6 +35,7 @@ public class ManufactureServiceImpl implements ManufactureService {
     }
 
     @Override
+    @ProceedTime
     public ResponseStatus insert(Manufacture manufacture) {
         ResponseStatus status = new ResponseStatus();
         try {
@@ -48,6 +53,7 @@ public class ManufactureServiceImpl implements ManufactureService {
     }
 
     @Override
+    @ProceedTime
     public ResponseStatus updateByPrimaryKeySelective(Manufacture manufacture) {
         ResponseStatus status = new ResponseStatus();
         try {
@@ -65,6 +71,8 @@ public class ManufactureServiceImpl implements ManufactureService {
     }
 
     @Override
+    @ProceedTime
+    @Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
     public ResponseStatus deleteBatch(String[] ids) throws ManufactureException {
         ResponseStatus status = new ResponseStatus();
         try {
@@ -96,6 +104,7 @@ public class ManufactureServiceImpl implements ManufactureService {
     }
 
     @Override
+    @ProceedTime
     public EasyUiDataGridResult<ManufactureVO> searchManufactureByManufactureSn(String manufactureSn, int page, int rows) {
         ManufactureVO manufacture = new ManufactureVO();
         Order order = new Order();
@@ -110,6 +119,7 @@ public class ManufactureServiceImpl implements ManufactureService {
     }
 
     @Override
+    @ProceedTime
     public EasyUiDataGridResult<ManufactureVO> searchManufactureByOrderId(String orderId, int page, int rows) {
         ManufactureVO manufacture = new ManufactureVO();
         Order order = new Order();
@@ -123,6 +133,7 @@ public class ManufactureServiceImpl implements ManufactureService {
     }
 
     @Override
+    @ProceedTime
     public EasyUiDataGridResult<ManufactureVO> searchManufactureByTechnologyName(String technologyName, int page, int rows) {
         ManufactureVO manufacture = new ManufactureVO();
         Order order = new Order();
@@ -136,11 +147,13 @@ public class ManufactureServiceImpl implements ManufactureService {
     }
 
     @Override
+    @ProceedTime
     public ManufactureVO selectManufactureByManufactureSn(String manufactureSn) {
         return manufactureMapper.selectManufactureByManufactureSn(manufactureSn);
     }
 
     @Override
+    @ProceedTime
     public List<ManufactureVO> selectAllManufacture() {
         return manufactureMapper.selectAllManufacture();
     }
