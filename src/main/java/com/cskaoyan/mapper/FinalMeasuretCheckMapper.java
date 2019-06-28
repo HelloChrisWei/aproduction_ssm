@@ -3,6 +3,8 @@ package com.cskaoyan.mapper;
 import com.cskaoyan.pojo.FinalMeasuretCheck;
 import com.cskaoyan.pojo.FinalMeasuretCheckExample;
 import java.util.List;
+
+import com.cskaoyan.pojo.FinalMeasuretCheckVO;
 import org.apache.ibatis.annotations.Param;
 
 public interface FinalMeasuretCheckMapper {
@@ -27,4 +29,7 @@ public interface FinalMeasuretCheckMapper {
     int updateByPrimaryKeySelective(FinalMeasuretCheck record);
 
     int updateByPrimaryKey(FinalMeasuretCheck record);
+
+    /* The following are custom methods -- Chris */
+    List<FinalMeasuretCheckVO> selectAllRecords(int rows, int offset);
 }
