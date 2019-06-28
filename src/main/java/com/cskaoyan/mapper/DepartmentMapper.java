@@ -7,12 +7,13 @@ import org.apache.ibatis.annotations.Param;
 
 public interface DepartmentMapper {
     List<Department> findAllDeparment();
-
+    int addDepartment(Department department);
+    int  editDeparmentById(Department record );
+    int deleteByPrimaryKey(String departmentId);
+//逆向工程自动生成的方法
     long countByExample(DepartmentExample example);
 
     int deleteByExample(DepartmentExample example);
-
-    int deleteByPrimaryKey(String departmentId);
 
     int insert(Department record);
 

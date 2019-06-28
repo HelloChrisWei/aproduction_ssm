@@ -71,7 +71,7 @@
 	            <td>合同扫描件:</td>
 	            <td>
 	            	 <a href="javascript:void(0)" class="easyui-linkbutton picFileUpload">上传图片</a>
-	                 <input type="hidden" id="image" name="image"/>
+	                 <input type="hidden" id="f" name="image"/>
 	            </td>
 	        </tr>
 	        <tr>

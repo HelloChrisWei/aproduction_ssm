@@ -1,5 +1,6 @@
 package com.cskaoyan.service.scheduling.impl;
 
+import com.cskaoyan.annotation.ProceedTime;
 import com.cskaoyan.exception.WorkException;
 import com.cskaoyan.mapper.WorkMapper;
 import com.cskaoyan.pojo.*;
@@ -7,6 +8,8 @@ import com.cskaoyan.pojo.Process;
 import com.cskaoyan.service.scheduling.WorkService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -17,6 +20,7 @@ public class WorkServiceImpl implements WorkService {
     private WorkMapper workMapper;
 
     @Override
+    @ProceedTime
     public EasyUiDataGridResult<WorkVO> selectAllWorkByPage(int page, int rows) {
         EasyUiDataGridResult<WorkVO> result = new EasyUiDataGridResult<>();
         WorkExample example = new WorkExample();
@@ -32,6 +36,7 @@ public class WorkServiceImpl implements WorkService {
     }
 
     @Override
+    @ProceedTime
     public ResponseStatus insert(Work work) {
         ResponseStatus status = new ResponseStatus();
         try {
@@ -49,6 +54,7 @@ public class WorkServiceImpl implements WorkService {
     }
 
     @Override
+    @ProceedTime
     public ResponseStatus updateByPrimaryKeySelective(Work work) {
         ResponseStatus status = new ResponseStatus();
         try {
@@ -66,6 +72,8 @@ public class WorkServiceImpl implements WorkService {
     }
 
     @Override
+    @ProceedTime
+    @Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
     public ResponseStatus deleteBatch(String[] ids) throws WorkException {
         ResponseStatus status = new ResponseStatus();
         try {
@@ -97,6 +105,7 @@ public class WorkServiceImpl implements WorkService {
     }
 
     @Override
+    @ProceedTime
     public EasyUiDataGridResult<WorkVO> searchWorkByWorkId(String workId, int page, int rows) {
         WorkVO work = new WorkVO();
         Product product = new Product();
@@ -112,6 +121,7 @@ public class WorkServiceImpl implements WorkService {
     }
 
     @Override
+    @ProceedTime
     public EasyUiDataGridResult<WorkVO> searchWorkByProductName(String productName, int page, int rows) {
         WorkVO work = new WorkVO();
         Product product = new Product();
@@ -127,6 +137,7 @@ public class WorkServiceImpl implements WorkService {
     }
 
     @Override
+    @ProceedTime
     public EasyUiDataGridResult<WorkVO> searchWorkByDeviceName(String deviceName, int page, int rows) {
         WorkVO work = new WorkVO();
         Product product = new Product();
@@ -142,6 +153,7 @@ public class WorkServiceImpl implements WorkService {
     }
 
     @Override
+    @ProceedTime
     public EasyUiDataGridResult<WorkVO> searchWorkByProcessId(String processId, int page, int rows) {
         WorkVO work = new WorkVO();
         Product product = new Product();
@@ -157,11 +169,13 @@ public class WorkServiceImpl implements WorkService {
     }
 
     @Override
+    @ProceedTime
     public WorkVO selectWorkByWorkId(String workId) {
         return workMapper.selectWorkByWorkId(workId);
     }
 
     @Override
+    @ProceedTime
     public List<WorkVO> selectAllWork() {
         return workMapper.selectAllWork();
     }

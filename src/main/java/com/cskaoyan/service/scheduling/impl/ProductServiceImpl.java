@@ -1,5 +1,6 @@
 package com.cskaoyan.service.scheduling.impl;
 
+import com.cskaoyan.annotation.ProceedTime;
 import com.cskaoyan.exception.ProductException;
 import com.cskaoyan.mapper.ProductMapper;
 import com.cskaoyan.pojo.EasyUiDataGridResult;
@@ -9,6 +10,8 @@ import com.cskaoyan.pojo.ResponseStatus;
 import com.cskaoyan.service.scheduling.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -19,6 +22,7 @@ public class ProductServiceImpl implements ProductService {
     private ProductMapper productMapper;
 
     @Override
+    @ProceedTime
     public EasyUiDataGridResult<Product> selectAllProductByPage(int page, int rows) {
         EasyUiDataGridResult<Product> result = new EasyUiDataGridResult<>();
         ProductExample example = new ProductExample();
@@ -34,6 +38,7 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
+    @ProceedTime
     public ResponseStatus insert(Product product) {
         ResponseStatus status = new ResponseStatus();
         try {
@@ -51,6 +56,7 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
+    @ProceedTime
     public ResponseStatus updateByPrimaryKeySelective(Product product) {
         ResponseStatus status = new ResponseStatus();
         try {
@@ -68,6 +74,8 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
+    @ProceedTime
+    @Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
     public ResponseStatus deleteBatch(String[] ids) throws ProductException {
         ResponseStatus status = new ResponseStatus();
         try {
@@ -99,6 +107,7 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
+    @ProceedTime
     public EasyUiDataGridResult<Product> searchProductByProductId(String productId, int page, int rows) {
         Product product = new Product();
         product.setProductId("%" + productId + "%");
@@ -106,6 +115,7 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
+    @ProceedTime
     public EasyUiDataGridResult<Product> searchProductByProductName(String productName, int page, int rows) {
         Product product = new Product();
         product.setProductId("%" + productName + "%");
@@ -113,6 +123,7 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
+    @ProceedTime
     public EasyUiDataGridResult<Product> searchProductByProductType(String productType, int page, int rows) {
         Product product = new Product();
         product.setProductId("%" + productType + "%");
@@ -120,11 +131,13 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
+    @ProceedTime
     public Product selectProductByProductId(String productId) {
         return productMapper.selectByPrimaryKey(productId);
     }
 
     @Override
+    @ProceedTime
     public List<Product> selectAllProduct() {
         return productMapper.selectAllProduct();
     }

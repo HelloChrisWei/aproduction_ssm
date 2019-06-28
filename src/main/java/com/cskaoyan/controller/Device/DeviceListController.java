@@ -3,10 +3,8 @@ package com.cskaoyan.controller.Device;
 
 import com.cskaoyan.pojo.Device;
 import com.cskaoyan.pojo.DeviceType;
-import com.cskaoyan.pojo.Employee;
 import com.cskaoyan.service.DeviceService.ServiceImpl.DeviceListServiceImpl;
 import com.cskaoyan.service.DeviceService.ServiceImpl.DeviceTypeServiceImpl;
-import com.cskaoyan.service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;

@@ -102,7 +102,7 @@
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.cskaoyan.pojo.Department">
+  <insert id="addDepartment" parameterType="com.cskaoyan.pojo.Department">
     insert into department (department_id, department_name, note
       )
     values (#{departmentId,jdbcType=VARCHAR}, #{departmentName,jdbcType=VARCHAR}, #{note,jdbcType=VARCHAR}
@@ -177,10 +177,11 @@
     </set>
     where department_id = #{departmentId,jdbcType=VARCHAR}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.cskaoyan.pojo.Department">
+  <update id="editDeparmentById" parameterType="com.cskaoyan.pojo.Department">
     update department
     set department_name = #{departmentName,jdbcType=VARCHAR},
       note = #{note,jdbcType=VARCHAR}
     where department_id = #{departmentId,jdbcType=VARCHAR}
   </update>
+
 </mapper>
