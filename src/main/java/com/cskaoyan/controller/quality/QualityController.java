@@ -2,6 +2,7 @@ package com.cskaoyan.controller.quality;
 
 import com.cskaoyan.pojo.EasyUiDataGridResult;
 import com.cskaoyan.pojo.ResponseStatus;
+import com.cskaoyan.pojo.UnqualifyApply;
 import com.cskaoyan.pojo.UnqualifyApplyVO;
 import com.cskaoyan.service.quality.UnQualityService;
 
@@ -24,6 +25,8 @@ public class QualityController {
     private UnQualityService unQualityService;
 
     /*查询业务代码*/
+
+
     @RequestMapping("/find")
     public String turnToUnqualifyList() {
         return "unqualify_list";
@@ -45,6 +48,24 @@ public class QualityController {
     }
 
 
+
+    // TODO
+    @RequestMapping(value = "/search_unqualify_by_unqualifyId",method = RequestMethod.GET)
+    @ResponseBody
+    public EasyUiDataGridResult searchById(@RequestParam("searchValue") String unqualifyApplyId, @RequestParam("page") int page, @RequestParam("rows") int rows) {
+        EasyUiDataGridResult<UnqualifyApplyVO> result = new EasyUiDataGridResult<>();
+
+        List<UnqualifyApplyVO> list = unQualityService.getUnqualityList(page, rows);
+        int total = unQualityService.getTotalRecordNum();
+
+        result.setRows(list);
+        result.setTotal(total);
+
+        return result;
+    }
+
+
+
     /*插入业务代码*/
 
     /**
@@ -55,7 +76,6 @@ public class QualityController {
     public String add_judge() {
         return "forward:/unqualify/add";
     }
-
 
     @RequestMapping("/add")
     public String turnToAddPage() {
@@ -80,6 +100,11 @@ public class QualityController {
 //    }
 
     /*删除业务代码*/
+
+    /**
+     * 权限控制 不处理 直接转发
+     * @return
+     */
     @RequestMapping("/delete_judge")
     @ResponseBody
     public ResponseStatus delete_judge() {
@@ -95,6 +120,55 @@ public class QualityController {
         }
         return new ResponseStatus(0, "Fail", null, 0, null);
     }
+
+
+    /*修改业务代码*/
+    /**
+     * 权限控制 不处理 直接转发
+     * @return
+     */
+    @RequestMapping("/edit_judge")
+    @ResponseBody
+    public ResponseStatus edit_judge() {
+        return new ResponseStatus();
+    }
+
+    @RequestMapping("/edit")
+    public String turnToEditPage() {
+        return "unqualify_edit";
+    }
+
+
+    /**
+     * 修改条目的单个项目：备注
+     * @param unqualifyApplyId 待修改项目的主键
+     * @param note 新备注
+     * @return
+     */
+    @RequestMapping("/update_note")
+    @ResponseBody
+    public ResponseStatus updateNote(@RequestParam("unqualifyApplyId") String unqualifyApplyId, @RequestParam("note") String note) {
+        UnqualifyApply unqualifyApply = new UnqualifyApply();
+        unqualifyApply.setUnqualifyApplyId(unqualifyApplyId);
+        unqualifyApply.setNote(note);
+
+        return unQualityService.updateByPrimaryKeySelective(unqualifyApply);
+    }
+
+
+    /**
+     * 修改条目的多个项目
+     * @param record
+     * @return
+     */
+    @RequestMapping("/update_all")
+    @ResponseBody
+    public ResponseStatus updateAll(UnqualifyApply record) {
+
+        return unQualityService.updateByPrimaryKey(record);
+    }
+
+
 
 
 

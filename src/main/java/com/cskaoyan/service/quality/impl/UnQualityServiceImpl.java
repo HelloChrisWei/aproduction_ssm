@@ -61,4 +61,22 @@ public class UnQualityServiceImpl implements UnQualityService {
         }
         return true;
     }
+
+
+    @Override
+    public ResponseStatus updateByPrimaryKeySelective(UnqualifyApply record) {
+        if (unqualifyApplyMapper.updateByPrimaryKeySelective(record) != 1) {
+            return new ResponseStatus(0, "更新备注失败", null, 0, null);
+        }
+        return new ResponseStatus(200, null, null, 0, null);
+    }
+
+
+    @Override
+    public ResponseStatus updateByPrimaryKey(UnqualifyApply record) {
+        if (unqualifyApplyMapper.updateByPrimaryKey(record) != 1) {
+            return new ResponseStatus(0, "更新失败", null, 0, null);
+        }
+        return new ResponseStatus(200, null, null, 0, null);
+    }
 }

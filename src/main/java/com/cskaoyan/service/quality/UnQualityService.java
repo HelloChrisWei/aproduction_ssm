@@ -1,6 +1,7 @@
 package com.cskaoyan.service.quality;
 
 import com.cskaoyan.pojo.ResponseStatus;
+import com.cskaoyan.pojo.UnqualifyApply;
 import com.cskaoyan.pojo.UnqualifyApplyVO;
 import org.apache.ibatis.annotations.Param;
 
@@ -18,4 +19,8 @@ public interface UnQualityService {
     int getTotalRecordNum();
 
     boolean deleteBatch(String[] ids);
+
+    ResponseStatus updateByPrimaryKeySelective(UnqualifyApply unqualifyApply);
+
+    ResponseStatus updateByPrimaryKey(UnqualifyApply record);
 }
