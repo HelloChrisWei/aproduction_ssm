@@ -11,12 +11,12 @@ import java.util.ArrayList;
 @RequestMapping
 public class MaterialConsumController {
     @RequestMapping("materialConsume/find")
-    public String materialConsumeFind(HttpSession session){
-        ArrayList<String> objects = new ArrayList<>();
+    public String materialConsumeFind(/*HttpSession session*/){
+      /*  ArrayList<String> objects = new ArrayList<>();
         objects.add("materialConsume:add");
         objects.add("materialConsume:edit");
         objects.add("materialConsume:delete");
-        session.setAttribute("sysPermissionList",objects);
+        session.setAttribute("sysPermissionList",objects);*/
         return "materialConsume_list";
     }
 }
