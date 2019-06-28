@@ -14,7 +14,7 @@ public interface DeviceCheckMapper {
 
     int deleteByPrimaryKey(String deviceCheckId);
 
-    int insert(DeviceCheck record);
+    int insert(DeviceCheck deviceCheck);
 
     int insertSelective(DeviceCheck record);
 

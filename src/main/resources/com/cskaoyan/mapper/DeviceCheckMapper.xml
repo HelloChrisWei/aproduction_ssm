@@ -110,7 +110,7 @@
     insert into device_check (device_check_id, device_id, device_check_emp_id, 
       device_check_date, device_check_result, device_check_fault_id
       )
-    values (#{deviceCheckId,jdbcType=VARCHAR}, #{deviceId,jdbcType=VARCHAR}, #{deviceCheckEmpId,jdbcType=VARCHAR}, 
+    values (#{deviceCheckId,jdbcType=VARCHAR}, #{deviceId,jdbcType=VARCHAR}, #{deviceCheckEmpId,jdbcType=VARCHAR},
       #{deviceCheckDate,jdbcType=TIMESTAMP}, #{deviceCheckResult,jdbcType=VARCHAR}, #{deviceCheckFaultId,jdbcType=VARCHAR}
       )
   </insert>

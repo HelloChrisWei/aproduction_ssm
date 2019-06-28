@@ -1,27 +1,28 @@
 package com.cskaoyan.controller.Device;
 
 
-import com.cskaoyan.exception.OrderException;
 import com.cskaoyan.pojo.DeviceType;
-import com.cskaoyan.pojo.DeviceType2;
 import com.cskaoyan.pojo.EasyUiDataGridResult;
 import com.cskaoyan.pojo.ResponseStatus;
 import com.cskaoyan.service.DeviceService.ServiceImpl.DeviceTypeServiceImpl;
-import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 
 @Controller
 public class DeviceTypeController {
     @Autowired
     DeviceTypeServiceImpl deviceTypeService;
+
+    @RequestMapping("deviceType/get_data")
+    @ResponseBody
+    public List<DeviceType> deviceTypeId(){
+        List allDevice = deviceTypeService.findAllTypeDevice();
+        return allDevice;
+    }
 
     //-------------------------------------------
     //实现设备种类查询模块
