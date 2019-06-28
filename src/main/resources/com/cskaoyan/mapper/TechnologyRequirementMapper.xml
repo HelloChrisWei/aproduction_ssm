@@ -7,6 +7,8 @@
     <result column="requirement" jdbcType="VARCHAR" property="requirement" />
     <result column="add_time" jdbcType="TIMESTAMP" property="addTime" />
     <result column="revise_time" jdbcType="TIMESTAMP" property="reviseTime" />
+    <!--不能直接这样写-->
+    <!--<association property="technologyId" select="com.cskaoyan.mapper.TechnologyMapper.queryTechnologyNameById" column="technology_id"/>-->
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -210,4 +212,11 @@
       revise_time = #{reviseTime,jdbcType=TIMESTAMP}
     where technology_requirement_id = #{technologyRequirementId,jdbcType=VARCHAR}
   </update>
+  <!--新建查询一对一-->
+  <select id="selectAllTechnologyRequirementByPage" resultMap="BaseResultMap">
+
+  </select>
+  <select id="queryTechnologyNameById" resultType="string">
+    select technology_name from technology where technology_id = #{technology_id}
+  </select>
 </mapper>
