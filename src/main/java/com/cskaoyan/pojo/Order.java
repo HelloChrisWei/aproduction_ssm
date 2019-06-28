@@ -3,7 +3,7 @@ package com.cskaoyan.pojo;
 import java.math.BigDecimal;
 import java.util.Date;
 
-public class COrder {
+public class Order {
     private String orderId;
 
     private String customId;

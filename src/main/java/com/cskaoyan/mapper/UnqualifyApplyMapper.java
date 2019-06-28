@@ -3,6 +3,8 @@ package com.cskaoyan.mapper;
 import com.cskaoyan.pojo.UnqualifyApply;
 import com.cskaoyan.pojo.UnqualifyApplyExample;
 import java.util.List;
+
+import com.cskaoyan.pojo.UnqualifyApplyVO;
 import org.apache.ibatis.annotations.Param;
 
 public interface UnqualifyApplyMapper {
@@ -27,4 +29,9 @@ public interface UnqualifyApplyMapper {
     int updateByPrimaryKeySelective(UnqualifyApply record);
 
     int updateByPrimaryKey(UnqualifyApply record);
+
+    /* The following are custom methods -- Chris*/
+    List<UnqualifyApplyVO> selectAllRecords(@Param("rows")int rows, @Param("offset")int offset);
+
+
 }

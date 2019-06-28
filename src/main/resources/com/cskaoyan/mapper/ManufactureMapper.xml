@@ -1,228 +1,332 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.cskaoyan.mapper.ManufactureMapper">
-  <resultMap id="BaseResultMap" type="com.cskaoyan.pojo.Manufacture">
-    <id column="manufacture_sn" jdbcType="VARCHAR" property="manufactureSn" />
-    <result column="order_id" jdbcType="VARCHAR" property="orderId" />
-    <result column="technology_id" jdbcType="VARCHAR" property="technologyId" />
-    <result column="launch_quantity" jdbcType="INTEGER" property="launchQuantity" />
-    <result column="begin_date" jdbcType="TIMESTAMP" property="beginDate" />
-    <result column="end_date" jdbcType="TIMESTAMP" property="endDate" />
-  </resultMap>
-  <sql id="Example_Where_Clause">
-    <where>
-      <foreach collection="oredCriteria" item="criteria" separator="or">
-        <if test="criteria.valid">
-          <trim prefix="(" prefixOverrides="and" suffix=")">
-            <foreach collection="criteria.criteria" item="criterion">
-              <choose>
-                <when test="criterion.noValue">
-                  and ${criterion.condition}
-                </when>
-                <when test="criterion.singleValue">
-                  and ${criterion.condition} #{criterion.value}
-                </when>
-                <when test="criterion.betweenValue">
-                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
-                </when>
-                <when test="criterion.listValue">
-                  and ${criterion.condition}
-                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
-                    #{listItem}
-                  </foreach>
-                </when>
-              </choose>
+    <resultMap id="BaseResultMap" type="com.cskaoyan.pojo.Manufacture">
+        <id column="manufacture_sn" jdbcType="VARCHAR" property="manufactureSn"/>
+        <result column="order_id" jdbcType="VARCHAR" property="orderId"/>
+        <result column="technology_id" jdbcType="VARCHAR" property="technologyId"/>
+        <result column="launch_quantity" jdbcType="INTEGER" property="launchQuantity"/>
+        <result column="begin_date" jdbcType="TIMESTAMP" property="beginDate"/>
+        <result column="end_date" jdbcType="TIMESTAMP" property="endDate"/>
+    </resultMap>
+    <sql id="Example_Where_Clause">
+        <where>
+            <foreach collection="oredCriteria" item="criteria" separator="or">
+                <if test="criteria.valid">
+                    <trim prefix="(" prefixOverrides="and" suffix=")">
+                        <foreach collection="criteria.criteria" item="criterion">
+                            <choose>
+                                <when test="criterion.noValue">
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue">
+                                    and ${criterion.condition} #{criterion.value}
+                                </when>
+                                <when test="criterion.betweenValue">
+                                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                                </when>
+                                <when test="criterion.listValue">
+                                    and ${criterion.condition}
+                                    <foreach close=")" collection="criterion.value" item="listItem" open="("
+                                             separator=",">
+                                        #{listItem}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                    </trim>
+                </if>
             </foreach>
-          </trim>
-        </if>
-      </foreach>
-    </where>
-  </sql>
-  <sql id="Update_By_Example_Where_Clause">
-    <where>
-      <foreach collection="example.oredCriteria" item="criteria" separator="or">
-        <if test="criteria.valid">
-          <trim prefix="(" prefixOverrides="and" suffix=")">
-            <foreach collection="criteria.criteria" item="criterion">
-              <choose>
-                <when test="criterion.noValue">
-                  and ${criterion.condition}
-                </when>
-                <when test="criterion.singleValue">
-                  and ${criterion.condition} #{criterion.value}
-                </when>
-                <when test="criterion.betweenValue">
-                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
-                </when>
-                <when test="criterion.listValue">
-                  and ${criterion.condition}
-                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
-                    #{listItem}
-                  </foreach>
-                </when>
-              </choose>
+        </where>
+    </sql>
+    <sql id="Update_By_Example_Where_Clause">
+        <where>
+            <foreach collection="example.oredCriteria" item="criteria" separator="or">
+                <if test="criteria.valid">
+                    <trim prefix="(" prefixOverrides="and" suffix=")">
+                        <foreach collection="criteria.criteria" item="criterion">
+                            <choose>
+                                <when test="criterion.noValue">
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue">
+                                    and ${criterion.condition} #{criterion.value}
+                                </when>
+                                <when test="criterion.betweenValue">
+                                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                                </when>
+                                <when test="criterion.listValue">
+                                    and ${criterion.condition}
+                                    <foreach close=")" collection="criterion.value" item="listItem" open="("
+                                             separator=",">
+                                        #{listItem}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                    </trim>
+                </if>
             </foreach>
-          </trim>
+        </where>
+    </sql>
+    <sql id="Base_Column_List">
+        manufacture_sn, order_id, technology_id, launch_quantity, begin_date, end_date
+    </sql>
+    <select id="selectByExample" parameterType="com.cskaoyan.pojo.ManufactureExample" resultMap="BaseResultMap">
+        select
+        <if test="distinct">
+            distinct
         </if>
-      </foreach>
-    </where>
-  </sql>
-  <sql id="Base_Column_List">
-    manufacture_sn, order_id, technology_id, launch_quantity, begin_date, end_date
-  </sql>
-  <select id="selectByExample" parameterType="com.cskaoyan.pojo.ManufactureExample" resultMap="BaseResultMap">
-    select
-    <if test="distinct">
-      distinct
-    </if>
-    <include refid="Base_Column_List" />
-    from manufacture
-    <if test="_parameter != null">
-      <include refid="Example_Where_Clause" />
-    </if>
-    <if test="orderByClause != null">
-      order by ${orderByClause}
-    </if>
-  </select>
-  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
-    select 
-    <include refid="Base_Column_List" />
-    from manufacture
-    where manufacture_sn = #{manufactureSn,jdbcType=VARCHAR}
-  </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
-    delete from manufacture
-    where manufacture_sn = #{manufactureSn,jdbcType=VARCHAR}
-  </delete>
-  <delete id="deleteByExample" parameterType="com.cskaoyan.pojo.ManufactureExample">
-    delete from manufacture
-    <if test="_parameter != null">
-      <include refid="Example_Where_Clause" />
-    </if>
-  </delete>
-  <insert id="insert" parameterType="com.cskaoyan.pojo.Manufacture">
-    insert into manufacture (manufacture_sn, order_id, technology_id, 
-      launch_quantity, begin_date, end_date
-      )
-    values (#{manufactureSn,jdbcType=VARCHAR}, #{orderId,jdbcType=VARCHAR}, #{technologyId,jdbcType=VARCHAR}, 
-      #{launchQuantity,jdbcType=INTEGER}, #{beginDate,jdbcType=TIMESTAMP}, #{endDate,jdbcType=TIMESTAMP}
-      )
-  </insert>
-  <insert id="insertSelective" parameterType="com.cskaoyan.pojo.Manufacture">
-    insert into manufacture
-    <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="manufactureSn != null">
-        manufacture_sn,
-      </if>
-      <if test="orderId != null">
-        order_id,
-      </if>
-      <if test="technologyId != null">
-        technology_id,
-      </if>
-      <if test="launchQuantity != null">
-        launch_quantity,
-      </if>
-      <if test="beginDate != null">
-        begin_date,
-      </if>
-      <if test="endDate != null">
-        end_date,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="manufactureSn != null">
-        #{manufactureSn,jdbcType=VARCHAR},
-      </if>
-      <if test="orderId != null">
-        #{orderId,jdbcType=VARCHAR},
-      </if>
-      <if test="technologyId != null">
-        #{technologyId,jdbcType=VARCHAR},
-      </if>
-      <if test="launchQuantity != null">
-        #{launchQuantity,jdbcType=INTEGER},
-      </if>
-      <if test="beginDate != null">
-        #{beginDate,jdbcType=TIMESTAMP},
-      </if>
-      <if test="endDate != null">
-        #{endDate,jdbcType=TIMESTAMP},
-      </if>
-    </trim>
-  </insert>
-  <select id="countByExample" parameterType="com.cskaoyan.pojo.ManufactureExample" resultType="java.lang.Long">
-    select count(*) from manufacture
-    <if test="_parameter != null">
-      <include refid="Example_Where_Clause" />
-    </if>
-  </select>
-  <update id="updateByExampleSelective" parameterType="map">
-    update manufacture
-    <set>
-      <if test="record.manufactureSn != null">
-        manufacture_sn = #{record.manufactureSn,jdbcType=VARCHAR},
-      </if>
-      <if test="record.orderId != null">
+        <include refid="Base_Column_List"/>
+        from manufacture
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+        <if test="orderByClause != null">
+            order by ${orderByClause}
+        </if>
+    </select>
+    <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from manufacture
+        where manufacture_sn = #{manufactureSn,jdbcType=VARCHAR}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+        delete
+        from manufacture
+        where manufacture_sn = #{manufactureSn,jdbcType=VARCHAR}
+    </delete>
+    <delete id="deleteByExample" parameterType="com.cskaoyan.pojo.ManufactureExample">
+        delete from manufacture
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+    </delete>
+    <insert id="insert" parameterType="com.cskaoyan.pojo.Manufacture">
+        insert into manufacture (manufacture_sn, order_id, technology_id, launch_quantity, begin_date, end_date)
+        values (#{manufactureSn,jdbcType=VARCHAR},
+                #{orderId,jdbcType=VARCHAR},
+                #{technologyId,jdbcType=VARCHAR},
+                #{launchQuantity,jdbcType=INTEGER},
+                #{beginDate,jdbcType=TIMESTAMP},
+                #{endDate,jdbcType=TIMESTAMP})
+    </insert>
+    <insert id="insertSelective" parameterType="com.cskaoyan.pojo.Manufacture">
+        insert into manufacture
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="manufactureSn != null">
+                manufacture_sn,
+            </if>
+            <if test="orderId != null">
+                order_id,
+            </if>
+            <if test="technologyId != null">
+                technology_id,
+            </if>
+            <if test="launchQuantity != null">
+                launch_quantity,
+            </if>
+            <if test="beginDate != null">
+                begin_date,
+            </if>
+            <if test="endDate != null">
+                end_date,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="manufactureSn != null">
+                #{manufactureSn,jdbcType=VARCHAR},
+            </if>
+            <if test="orderId != null">
+                #{orderId,jdbcType=VARCHAR},
+            </if>
+            <if test="technologyId != null">
+                #{technologyId,jdbcType=VARCHAR},
+            </if>
+            <if test="launchQuantity != null">
+                #{launchQuantity,jdbcType=INTEGER},
+            </if>
+            <if test="beginDate != null">
+                #{beginDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="endDate != null">
+                #{endDate,jdbcType=TIMESTAMP},
+            </if>
+        </trim>
+    </insert>
+    <select id="countByExample" parameterType="com.cskaoyan.pojo.ManufactureExample" resultType="java.lang.Long">
+        select count(*) from manufacture
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+    </select>
+    <update id="updateByExampleSelective" parameterType="map">
+        update manufacture
+        <set>
+            <if test="record.manufactureSn != null">
+                manufacture_sn = #{record.manufactureSn,jdbcType=VARCHAR},
+            </if>
+            <if test="record.orderId != null">
+                order_id = #{record.orderId,jdbcType=VARCHAR},
+            </if>
+            <if test="record.technologyId != null">
+                technology_id = #{record.technologyId,jdbcType=VARCHAR},
+            </if>
+            <if test="record.launchQuantity != null">
+                launch_quantity = #{record.launchQuantity,jdbcType=INTEGER},
+            </if>
+            <if test="record.beginDate != null">
+                begin_date = #{record.beginDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="record.endDate != null">
+                end_date = #{record.endDate,jdbcType=TIMESTAMP},
+            </if>
+        </set>
+        <if test="_parameter != null">
+            <include refid="Update_By_Example_Where_Clause"/>
+        </if>
+    </update>
+    <update id="updateByExample" parameterType="map">
+        update manufacture
+        set manufacture_sn = #{record.manufactureSn,jdbcType=VARCHAR},
         order_id = #{record.orderId,jdbcType=VARCHAR},
-      </if>
-      <if test="record.technologyId != null">
         technology_id = #{record.technologyId,jdbcType=VARCHAR},
-      </if>
-      <if test="record.launchQuantity != null">
         launch_quantity = #{record.launchQuantity,jdbcType=INTEGER},
-      </if>
-      <if test="record.beginDate != null">
         begin_date = #{record.beginDate,jdbcType=TIMESTAMP},
-      </if>
-      <if test="record.endDate != null">
-        end_date = #{record.endDate,jdbcType=TIMESTAMP},
-      </if>
-    </set>
-    <if test="_parameter != null">
-      <include refid="Update_By_Example_Where_Clause" />
-    </if>
-  </update>
-  <update id="updateByExample" parameterType="map">
-    update manufacture
-    set manufacture_sn = #{record.manufactureSn,jdbcType=VARCHAR},
-      order_id = #{record.orderId,jdbcType=VARCHAR},
-      technology_id = #{record.technologyId,jdbcType=VARCHAR},
-      launch_quantity = #{record.launchQuantity,jdbcType=INTEGER},
-      begin_date = #{record.beginDate,jdbcType=TIMESTAMP},
-      end_date = #{record.endDate,jdbcType=TIMESTAMP}
-    <if test="_parameter != null">
-      <include refid="Update_By_Example_Where_Clause" />
-    </if>
-  </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.cskaoyan.pojo.Manufacture">
-    update manufacture
-    <set>
-      <if test="orderId != null">
-        order_id = #{orderId,jdbcType=VARCHAR},
-      </if>
-      <if test="technologyId != null">
-        technology_id = #{technologyId,jdbcType=VARCHAR},
-      </if>
-      <if test="launchQuantity != null">
-        launch_quantity = #{launchQuantity,jdbcType=INTEGER},
-      </if>
-      <if test="beginDate != null">
-        begin_date = #{beginDate,jdbcType=TIMESTAMP},
-      </if>
-      <if test="endDate != null">
-        end_date = #{endDate,jdbcType=TIMESTAMP},
-      </if>
-    </set>
-    where manufacture_sn = #{manufactureSn,jdbcType=VARCHAR}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="com.cskaoyan.pojo.Manufacture">
-    update manufacture
-    set order_id = #{orderId,jdbcType=VARCHAR},
-      technology_id = #{technologyId,jdbcType=VARCHAR},
-      launch_quantity = #{launchQuantity,jdbcType=INTEGER},
-      begin_date = #{beginDate,jdbcType=TIMESTAMP},
-      end_date = #{endDate,jdbcType=TIMESTAMP}
-    where manufacture_sn = #{manufactureSn,jdbcType=VARCHAR}
-  </update>
+        end_date = #{record.endDate,jdbcType=TIMESTAMP}
+        <if test="_parameter != null">
+            <include refid="Update_By_Example_Where_Clause"/>
+        </if>
+    </update>
+    <update id="updateByPrimaryKeySelective" parameterType="com.cskaoyan.pojo.Manufacture">
+        update manufacture
+        <set>
+            <if test="orderId != null">
+                order_id = #{orderId,jdbcType=VARCHAR},
+            </if>
+            <if test="technologyId != null">
+                technology_id = #{technologyId,jdbcType=VARCHAR},
+            </if>
+            <if test="launchQuantity != null">
+                launch_quantity = #{launchQuantity,jdbcType=INTEGER},
+            </if>
+            <if test="beginDate != null">
+                begin_date = #{beginDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="endDate != null">
+                end_date = #{endDate,jdbcType=TIMESTAMP},
+            </if>
+        </set>
+        where manufacture_sn = #{manufactureSn,jdbcType=VARCHAR}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.cskaoyan.pojo.Manufacture">
+        update manufacture
+        set order_id        = #{orderId,jdbcType=VARCHAR},
+            technology_id   = #{technologyId,jdbcType=VARCHAR},
+            launch_quantity = #{launchQuantity,jdbcType=INTEGER},
+            begin_date      = #{beginDate,jdbcType=TIMESTAMP},
+            end_date        = #{endDate,jdbcType=TIMESTAMP}
+        where manufacture_sn = #{manufactureSn,jdbcType=VARCHAR}
+    </update>
+
+    <resultMap id="manufactureResultMap" type="com.cskaoyan.pojo.ManufactureVO">
+        <id column="manufacture_sn" property="manufactureSn"/>
+        <result column="order_id" property="orderId"/>
+        <result column="technology_id" property="technologyId"/>
+        <result column="launch_quantity" property="launchQuantity"/>
+        <result column="begin_date" property="beginDate"/>
+        <result column="end_date" property="endDate"/>
+        <association property="order" javaType="com.cskaoyan.pojo.Order">
+            <result column="order_id" property="orderId"/>
+        </association>
+        <association property="technology" javaType="com.cskaoyan.pojo.Technology">
+            <result column="technology_id" property="technologyId"/>
+            <result column="technology_name" property="technologyName"/>
+        </association>
+    </resultMap>
+
+    <select id="selectAllManufactureByPage" parameterType="com.cskaoyan.pojo.ManufactureVO" resultMap="manufactureResultMap">
+        SELECT m.manufacture_sn,
+               m.order_id,
+               m.technology_id,
+               t.technology_name,
+               m.launch_quantity,
+               m.begin_date,
+               m.end_date
+        FROM manufacture m
+                 LEFT JOIN c_order o ON m.order_id = o.order_id
+                 LEFT JOIN technology t ON m.technology_id = t.technology_id
+        limit #{rows} offset #{offset}
+    </select>
+
+    <select id="selectManufactureCountByCondition" parameterType="com.cskaoyan.pojo.ManufactureVO" resultType="java.lang.Integer">
+        select count(*)
+        FROM manufacture m
+        LEFT JOIN c_order o ON m.order_id = o.order_id
+        LEFT JOIN technology t ON m.technology_id = t.technology_id
+        <where>
+            <if test="manufacture.manufactureSn != null">
+                and manufacture_sn like #{manufacture.manufactureSn}
+            </if>
+            <if test="manufacture.order.orderId != null">
+                and o.order_id like #{manufacture.order.orderId}
+            </if>
+            <if test="manufacture.technology.technologyName != null">
+                and technology_name like #{manufacture.technology.technologyName}
+            </if>
+        </where>
+    </select>
+
+    <select id="selectManufactureByConditionByPage" parameterType="com.cskaoyan.pojo.ManufactureVO" resultMap="manufactureResultMap">
+        SELECT m.manufacture_sn,
+        m.order_id,
+        m.technology_id,
+        t.technology_name,
+        m.launch_quantity,
+        m.begin_date,
+        m.end_date
+        FROM manufacture m
+        LEFT JOIN c_order o ON m.order_id = o.order_id
+        LEFT JOIN technology t ON m.technology_id = t.technology_id
+        <where>
+            <if test="manufacture.manufactureSn != null">
+                and manufacture_sn like #{manufacture.manufactureSn}
+            </if>
+            <if test="manufacture.order.orderId != null">
+                and o.order_id like #{manufacture.order.orderId}
+            </if>
+            <if test="manufacture.technology.technologyName != null">
+                and technology_name like #{manufacture.technology.technologyName}
+            </if>
+        </where>
+        limit #{rows} offset #{offset}
+    </select>
+
+    <select id="selectAllManufacture" resultMap="BaseResultMap">
+        SELECT m.manufacture_sn,
+               m.order_id,
+               m.technology_id,
+               t.technology_name,
+               m.launch_quantity,
+               m.begin_date,
+               m.end_date
+        FROM manufacture m
+                 LEFT JOIN c_order o ON m.order_id = o.order_id
+                 LEFT JOIN technology t ON m.technology_id = t.technology_id
+    </select>
+
+    <select id="selectManufactureByManufactureSn" parameterType="java.lang.String" resultMap="manufactureResultMap">
+        SELECT m.manufacture_sn,
+               m.order_id,
+               m.technology_id,
+               t.technology_name,
+               m.launch_quantity,
+               m.begin_date,
+               m.end_date
+        FROM manufacture m
+                 LEFT JOIN c_order o ON m.order_id = o.order_id
+                 LEFT JOIN technology t ON m.technology_id = t.technology_id
+        where manufacture_sn = #{manufactureSn}
+    </select>
 </mapper>

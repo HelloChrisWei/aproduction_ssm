@@ -1,5 +1,6 @@
 package com.cskaoyan.mapper;
 
+import com.cskaoyan.pojo.Custom;
 import com.cskaoyan.pojo.Technology;
 import com.cskaoyan.pojo.TechnologyExample;
 import java.util.List;
@@ -27,4 +28,9 @@ public interface TechnologyMapper {
     int updateByPrimaryKeySelective(Technology record);
 
     int updateByPrimaryKey(Technology record);
+    //自增接口
+    List<Technology> technologyList();
+
+    List<Technology> selectAllTechnologyByPage();
+
 }
