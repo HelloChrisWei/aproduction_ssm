@@ -1,228 +1,354 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.cskaoyan.mapper.WorkMapper">
-  <resultMap id="BaseResultMap" type="com.cskaoyan.pojo.Work">
-    <id column="work_id" jdbcType="VARCHAR" property="workId" />
-    <result column="process_number" jdbcType="VARCHAR" property="processNumber" />
-    <result column="product_id" jdbcType="VARCHAR" property="productId" />
-    <result column="process_id" jdbcType="VARCHAR" property="processId" />
-    <result column="device_id" jdbcType="VARCHAR" property="deviceId" />
-    <result column="rating" jdbcType="INTEGER" property="rating" />
-  </resultMap>
-  <sql id="Example_Where_Clause">
-    <where>
-      <foreach collection="oredCriteria" item="criteria" separator="or">
-        <if test="criteria.valid">
-          <trim prefix="(" prefixOverrides="and" suffix=")">
-            <foreach collection="criteria.criteria" item="criterion">
-              <choose>
-                <when test="criterion.noValue">
-                  and ${criterion.condition}
-                </when>
-                <when test="criterion.singleValue">
-                  and ${criterion.condition} #{criterion.value}
-                </when>
-                <when test="criterion.betweenValue">
-                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
-                </when>
-                <when test="criterion.listValue">
-                  and ${criterion.condition}
-                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
-                    #{listItem}
-                  </foreach>
-                </when>
-              </choose>
+    <resultMap id="BaseResultMap" type="com.cskaoyan.pojo.Work">
+        <id column="work_id" jdbcType="VARCHAR" property="workId"/>
+        <result column="process_number" jdbcType="VARCHAR" property="processNumber"/>
+        <result column="product_id" jdbcType="VARCHAR" property="productId"/>
+        <result column="process_id" jdbcType="VARCHAR" property="processId"/>
+        <result column="device_id" jdbcType="VARCHAR" property="deviceId"/>
+        <result column="rating" jdbcType="INTEGER" property="rating"/>
+    </resultMap>
+    <sql id="Example_Where_Clause">
+        <where>
+            <foreach collection="oredCriteria" item="criteria" separator="or">
+                <if test="criteria.valid">
+                    <trim prefix="(" prefixOverrides="and" suffix=")">
+                        <foreach collection="criteria.criteria" item="criterion">
+                            <choose>
+                                <when test="criterion.noValue">
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue">
+                                    and ${criterion.condition} #{criterion.value}
+                                </when>
+                                <when test="criterion.betweenValue">
+                                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                                </when>
+                                <when test="criterion.listValue">
+                                    and ${criterion.condition}
+                                    <foreach close=")" collection="criterion.value" item="listItem" open="("
+                                             separator=",">
+                                        #{listItem}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                    </trim>
+                </if>
             </foreach>
-          </trim>
-        </if>
-      </foreach>
-    </where>
-  </sql>
-  <sql id="Update_By_Example_Where_Clause">
-    <where>
-      <foreach collection="example.oredCriteria" item="criteria" separator="or">
-        <if test="criteria.valid">
-          <trim prefix="(" prefixOverrides="and" suffix=")">
-            <foreach collection="criteria.criteria" item="criterion">
-              <choose>
-                <when test="criterion.noValue">
-                  and ${criterion.condition}
-                </when>
-                <when test="criterion.singleValue">
-                  and ${criterion.condition} #{criterion.value}
-                </when>
-                <when test="criterion.betweenValue">
-                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
-                </when>
-                <when test="criterion.listValue">
-                  and ${criterion.condition}
-                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
-                    #{listItem}
-                  </foreach>
-                </when>
-              </choose>
+        </where>
+    </sql>
+    <sql id="Update_By_Example_Where_Clause">
+        <where>
+            <foreach collection="example.oredCriteria" item="criteria" separator="or">
+                <if test="criteria.valid">
+                    <trim prefix="(" prefixOverrides="and" suffix=")">
+                        <foreach collection="criteria.criteria" item="criterion">
+                            <choose>
+                                <when test="criterion.noValue">
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue">
+                                    and ${criterion.condition} #{criterion.value}
+                                </when>
+                                <when test="criterion.betweenValue">
+                                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                                </when>
+                                <when test="criterion.listValue">
+                                    and ${criterion.condition}
+                                    <foreach close=")" collection="criterion.value" item="listItem" open="("
+                                             separator=",">
+                                        #{listItem}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                    </trim>
+                </if>
             </foreach>
-          </trim>
+        </where>
+    </sql>
+    <sql id="Base_Column_List">
+        work_id, process_number, product_id, process_id, device_id, rating
+    </sql>
+    <select id="selectByExample" parameterType="com.cskaoyan.pojo.WorkExample" resultMap="BaseResultMap">
+        select
+        <if test="distinct">
+            distinct
         </if>
-      </foreach>
-    </where>
-  </sql>
-  <sql id="Base_Column_List">
-    work_id, process_number, product_id, process_id, device_id, rating
-  </sql>
-  <select id="selectByExample" parameterType="com.cskaoyan.pojo.WorkExample" resultMap="BaseResultMap">
-    select
-    <if test="distinct">
-      distinct
-    </if>
-    <include refid="Base_Column_List" />
-    from work
-    <if test="_parameter != null">
-      <include refid="Example_Where_Clause" />
-    </if>
-    <if test="orderByClause != null">
-      order by ${orderByClause}
-    </if>
-  </select>
-  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
-    select 
-    <include refid="Base_Column_List" />
-    from work
-    where work_id = #{workId,jdbcType=VARCHAR}
-  </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
-    delete from work
-    where work_id = #{workId,jdbcType=VARCHAR}
-  </delete>
-  <delete id="deleteByExample" parameterType="com.cskaoyan.pojo.WorkExample">
-    delete from work
-    <if test="_parameter != null">
-      <include refid="Example_Where_Clause" />
-    </if>
-  </delete>
-  <insert id="insert" parameterType="com.cskaoyan.pojo.Work">
-    insert into work (work_id, process_number, product_id, 
-      process_id, device_id, rating
-      )
-    values (#{workId,jdbcType=VARCHAR}, #{processNumber,jdbcType=VARCHAR}, #{productId,jdbcType=VARCHAR}, 
-      #{processId,jdbcType=VARCHAR}, #{deviceId,jdbcType=VARCHAR}, #{rating,jdbcType=INTEGER}
-      )
-  </insert>
-  <insert id="insertSelective" parameterType="com.cskaoyan.pojo.Work">
-    insert into work
-    <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="workId != null">
-        work_id,
-      </if>
-      <if test="processNumber != null">
-        process_number,
-      </if>
-      <if test="productId != null">
-        product_id,
-      </if>
-      <if test="processId != null">
-        process_id,
-      </if>
-      <if test="deviceId != null">
-        device_id,
-      </if>
-      <if test="rating != null">
-        rating,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="workId != null">
-        #{workId,jdbcType=VARCHAR},
-      </if>
-      <if test="processNumber != null">
-        #{processNumber,jdbcType=VARCHAR},
-      </if>
-      <if test="productId != null">
-        #{productId,jdbcType=VARCHAR},
-      </if>
-      <if test="processId != null">
-        #{processId,jdbcType=VARCHAR},
-      </if>
-      <if test="deviceId != null">
-        #{deviceId,jdbcType=VARCHAR},
-      </if>
-      <if test="rating != null">
-        #{rating,jdbcType=INTEGER},
-      </if>
-    </trim>
-  </insert>
-  <select id="countByExample" parameterType="com.cskaoyan.pojo.WorkExample" resultType="java.lang.Long">
-    select count(*) from work
-    <if test="_parameter != null">
-      <include refid="Example_Where_Clause" />
-    </if>
-  </select>
-  <update id="updateByExampleSelective" parameterType="map">
-    update work
-    <set>
-      <if test="record.workId != null">
-        work_id = #{record.workId,jdbcType=VARCHAR},
-      </if>
-      <if test="record.processNumber != null">
+        <include refid="Base_Column_List"/>
+        from work
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+        <if test="orderByClause != null">
+            order by ${orderByClause}
+        </if>
+    </select>
+    <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from work
+        where work_id = #{workId,jdbcType=VARCHAR}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+        delete
+        from work
+        where work_id = #{workId,jdbcType=VARCHAR}
+    </delete>
+    <delete id="deleteByExample" parameterType="com.cskaoyan.pojo.WorkExample">
+        delete from work
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+    </delete>
+    <insert id="insert" parameterType="com.cskaoyan.pojo.Work">
+        insert into work (work_id, process_number, product_id, process_id, device_id, rating)
+        values (#{workId,jdbcType=VARCHAR},
+                #{processNumber,jdbcType=VARCHAR},
+                #{productId,jdbcType=VARCHAR},
+                #{processId,jdbcType=VARCHAR},
+                #{deviceId,jdbcType=VARCHAR},
+                #{rating,jdbcType=INTEGER})
+    </insert>
+    <insert id="insertSelective" parameterType="com.cskaoyan.pojo.Work">
+        insert into work
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="workId != null">
+                work_id,
+            </if>
+            <if test="processNumber != null">
+                process_number,
+            </if>
+            <if test="productId != null">
+                product_id,
+            </if>
+            <if test="processId != null">
+                process_id,
+            </if>
+            <if test="deviceId != null">
+                device_id,
+            </if>
+            <if test="rating != null">
+                rating,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="workId != null">
+                #{workId,jdbcType=VARCHAR},
+            </if>
+            <if test="processNumber != null">
+                #{processNumber,jdbcType=VARCHAR},
+            </if>
+            <if test="productId != null">
+                #{productId,jdbcType=VARCHAR},
+            </if>
+            <if test="processId != null">
+                #{processId,jdbcType=VARCHAR},
+            </if>
+            <if test="deviceId != null">
+                #{deviceId,jdbcType=VARCHAR},
+            </if>
+            <if test="rating != null">
+                #{rating,jdbcType=INTEGER},
+            </if>
+        </trim>
+    </insert>
+    <select id="countByExample" parameterType="com.cskaoyan.pojo.WorkExample" resultType="java.lang.Long">
+        select count(*) from work
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+    </select>
+    <update id="updateByExampleSelective" parameterType="map">
+        update work
+        <set>
+            <if test="record.workId != null">
+                work_id = #{record.workId,jdbcType=VARCHAR},
+            </if>
+            <if test="record.processNumber != null">
+                process_number = #{record.processNumber,jdbcType=VARCHAR},
+            </if>
+            <if test="record.productId != null">
+                product_id = #{record.productId,jdbcType=VARCHAR},
+            </if>
+            <if test="record.processId != null">
+                process_id = #{record.processId,jdbcType=VARCHAR},
+            </if>
+            <if test="record.deviceId != null">
+                device_id = #{record.deviceId,jdbcType=VARCHAR},
+            </if>
+            <if test="record.rating != null">
+                rating = #{record.rating,jdbcType=INTEGER},
+            </if>
+        </set>
+        <if test="_parameter != null">
+            <include refid="Update_By_Example_Where_Clause"/>
+        </if>
+    </update>
+    <update id="updateByExample" parameterType="map">
+        update work
+        set work_id = #{record.workId,jdbcType=VARCHAR},
         process_number = #{record.processNumber,jdbcType=VARCHAR},
-      </if>
-      <if test="record.productId != null">
         product_id = #{record.productId,jdbcType=VARCHAR},
-      </if>
-      <if test="record.processId != null">
         process_id = #{record.processId,jdbcType=VARCHAR},
-      </if>
-      <if test="record.deviceId != null">
         device_id = #{record.deviceId,jdbcType=VARCHAR},
-      </if>
-      <if test="record.rating != null">
-        rating = #{record.rating,jdbcType=INTEGER},
-      </if>
-    </set>
-    <if test="_parameter != null">
-      <include refid="Update_By_Example_Where_Clause" />
-    </if>
-  </update>
-  <update id="updateByExample" parameterType="map">
-    update work
-    set work_id = #{record.workId,jdbcType=VARCHAR},
-      process_number = #{record.processNumber,jdbcType=VARCHAR},
-      product_id = #{record.productId,jdbcType=VARCHAR},
-      process_id = #{record.processId,jdbcType=VARCHAR},
-      device_id = #{record.deviceId,jdbcType=VARCHAR},
-      rating = #{record.rating,jdbcType=INTEGER}
-    <if test="_parameter != null">
-      <include refid="Update_By_Example_Where_Clause" />
-    </if>
-  </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.cskaoyan.pojo.Work">
-    update work
-    <set>
-      <if test="processNumber != null">
-        process_number = #{processNumber,jdbcType=VARCHAR},
-      </if>
-      <if test="productId != null">
-        product_id = #{productId,jdbcType=VARCHAR},
-      </if>
-      <if test="processId != null">
-        process_id = #{processId,jdbcType=VARCHAR},
-      </if>
-      <if test="deviceId != null">
-        device_id = #{deviceId,jdbcType=VARCHAR},
-      </if>
-      <if test="rating != null">
-        rating = #{rating,jdbcType=INTEGER},
-      </if>
-    </set>
-    where work_id = #{workId,jdbcType=VARCHAR}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="com.cskaoyan.pojo.Work">
-    update work
-    set process_number = #{processNumber,jdbcType=VARCHAR},
-      product_id = #{productId,jdbcType=VARCHAR},
-      process_id = #{processId,jdbcType=VARCHAR},
-      device_id = #{deviceId,jdbcType=VARCHAR},
-      rating = #{rating,jdbcType=INTEGER}
-    where work_id = #{workId,jdbcType=VARCHAR}
-  </update>
+        rating = #{record.rating,jdbcType=INTEGER}
+        <if test="_parameter != null">
+            <include refid="Update_By_Example_Where_Clause"/>
+        </if>
+    </update>
+    <update id="updateByPrimaryKeySelective" parameterType="com.cskaoyan.pojo.Work">
+        update work
+        <set>
+            <if test="processNumber != null">
+                process_number = #{processNumber,jdbcType=VARCHAR},
+            </if>
+            <if test="productId != null">
+                product_id = #{productId,jdbcType=VARCHAR},
+            </if>
+            <if test="processId != null">
+                process_id = #{processId,jdbcType=VARCHAR},
+            </if>
+            <if test="deviceId != null">
+                device_id = #{deviceId,jdbcType=VARCHAR},
+            </if>
+            <if test="rating != null">
+                rating = #{rating,jdbcType=INTEGER},
+            </if>
+        </set>
+        where work_id = #{workId,jdbcType=VARCHAR}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.cskaoyan.pojo.Work">
+        update work
+        set process_number = #{processNumber,jdbcType=VARCHAR},
+            product_id     = #{productId,jdbcType=VARCHAR},
+            process_id     = #{processId,jdbcType=VARCHAR},
+            device_id      = #{deviceId,jdbcType=VARCHAR},
+            rating         = #{rating,jdbcType=INTEGER}
+        where work_id = #{workId,jdbcType=VARCHAR}
+    </update>
+
+    <!--分页查询所有作业-->
+    <resultMap id="workResultMap" type="com.cskaoyan.pojo.WorkVO">
+        <id column="work_id" property="workId"/>
+        <result column="process_number" property="processNumber"/>
+        <result column="product_id" property="productId"/>
+        <result column="process_id" property="processId"/>
+        <result column="device_id" property="deviceId"/>
+        <result column="rating" property="rating"/>
+        <association property="product" javaType="com.cskaoyan.pojo.Product">
+            <result column="product_id" property="productId"/>
+            <result column="product_name" property="productName"/>
+        </association>
+        <association property="process" javaType="com.cskaoyan.pojo.Process">
+            <result column="process_id" property="processId"/>
+        </association>
+        <association property="device" javaType="com.cskaoyan.pojo.Device">
+            <result column="device_id" property="deviceId"/>
+            <result column="device_name" property="deviceName"/>
+        </association>
+    </resultMap>
+
+    <select id="selectAllWorkByPage" parameterType="com.cskaoyan.pojo.WorkVO" resultMap="workResultMap">
+        select w.work_id,
+               w.process_number,
+               w.device_id,
+               d.device_name,
+               w.process_id,
+               w.product_id,
+               pt.product_name,
+               w.rating
+        from work w
+                 LEFT JOIN process ps ON ps.process_id = w.process_id
+                 LEFT JOIN product pt ON pt.product_id = w.product_id
+                 LEFT JOIN device d ON d.device_id = w.device_id
+        limit #{rows} offset #{offset}
+    </select>
+
+    <!--按条件查询作业总数-->
+    <select id="selectWorkCountByCondition" parameterType="com.cskaoyan.pojo.WorkVO" resultType="java.lang.Integer">
+        select count(*)
+        from work w
+        LEFT JOIN process ps ON ps.process_id = w.process_id
+        LEFT JOIN product pt ON pt.product_id = w.product_id
+        LEFT JOIN device d ON d.device_id = w.device_id
+        <where>
+            <if test="work.workId != null">
+                work_id like #{work.workId}
+            </if>
+            <if test="work.product.productName != null">
+                and product_name like #{work.product.productName}
+            </if>
+            <if test="work.device.deviceName != null">
+                and device_name like #{work.device.deviceName}
+            </if>
+            <if test="work.process.processId != null">
+                and ps.process_id like #{work.process.processId}
+            </if>
+        </where>
+    </select>
+
+    <!--按条件查询作业-->
+    <select id="selectWorkByConditionByPage" parameterType="com.cskaoyan.pojo.WorkVO" resultMap="workResultMap">
+        select w.work_id,
+        w.process_number,
+        w.device_id,
+        d.device_name,
+        w.process_id,
+        w.product_id,
+        pt.product_name,
+        w.rating
+        from work w
+        LEFT JOIN process ps ON ps.process_id = w.process_id
+        LEFT JOIN product pt ON pt.product_id = w.product_id
+        LEFT JOIN device d ON d.device_id = w.device_id
+        <where>
+            <if test="work.workId != null">
+                work_id like #{work.workId}
+            </if>
+            <if test="work.product.productName != null">
+                and product_name like #{work.product.productName}
+            </if>
+            <if test="work.device.deviceName != null">
+                and device_name like #{work.device.deviceName}
+            </if>
+            <if test="work.process.processId != null">
+                and ps.process_id like #{work.process.processId}
+            </if>
+        </where>
+        limit #{rows} offset #{offset}
+    </select>
+
+    <select id="selectAllWork" parameterType="com.cskaoyan.pojo.WorkVO" resultMap="workResultMap">
+        select w.work_id,
+               w.process_number,
+               w.device_id,
+               d.device_name,
+               w.process_id,
+               w.product_id,
+               pt.product_name,
+               w.rating
+        from work w
+                 LEFT JOIN process ps ON ps.process_id = w.process_id
+                 LEFT JOIN product pt ON pt.product_id = w.product_id
+                 LEFT JOIN device d ON d.device_id = w.device_id
+    </select>
+
+    <select id="selectWorkByWorkId" parameterType="java.lang.String" resultMap="workResultMap">
+        select w.work_id,
+               w.process_number,
+               w.device_id,
+               d.device_name,
+               w.process_id,
+               w.product_id,
+               pt.product_name,
+               w.rating
+        from work w
+                 LEFT JOIN process ps ON ps.process_id = w.process_id
+                 LEFT JOIN product pt ON pt.product_id = w.product_id
+                 LEFT JOIN device d ON d.device_id = w.device_id
+        where work_id = #{workId}
+    </select>
 </mapper>

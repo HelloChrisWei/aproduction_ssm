@@ -1,5 +1,6 @@
 package com.cskaoyan.service.DeviceService.ServiceImpl;
 
+import com.cskaoyan.exception.OrderException;
 import com.cskaoyan.mapper.DeviceTypeMapper;
 import com.cskaoyan.pojo.DeviceType;
 import com.cskaoyan.pojo.ResponseStatus;
@@ -34,5 +35,22 @@ public class DeviceTypeServiceImpl implements DeviceTypeService {
             responseStatus.setMsg("无法插入");
         }
         return responseStatus;
+    }
+
+    @Override
+    public ResponseStatus deleteType(String[] ids) {
+        ResponseStatus status = new ResponseStatus();
+        try {
+            for (String id : ids) {
+                deviceTypeMapper.deleteByPrimaryKey(id);
+            }
+            status.setStatus(200);
+            status.setMsg("OK");
+        } catch (Exception e) {
+            e.printStackTrace();
+            status.setStatus(520);
+            status.setMsg("批量删除有误");
+        }
+        return status;
     }
 }

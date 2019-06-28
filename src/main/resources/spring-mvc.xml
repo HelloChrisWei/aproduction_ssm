@@ -14,22 +14,22 @@
         http://www.springframework.org/schema/aop
         https://www.springframework.org/schema/aop/spring-aop.xsd">
 
+    <mvc:annotation-driven conversion-service="myConversionService"/>
+
+    <bean id="myConversionService" class="org.springframework.format.support.FormattingConversionServiceFactoryBean">
+        <property name="converters">
+            <set>
+                <bean class="com.cskaoyan.converter.DateConverter"/>
+            </set>
+        </property>
+    </bean>
+
 
     <context:component-scan base-package="com.cskaoyan.controller">
         <!--只扫描含有@Controller的-->
         <context:include-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
     </context:component-scan>
 
-
-    <mvc:annotation-driven conversion-service="conversionService"/>
-    <bean id="myconverter" class="com.cskaoyan.controller.Device.StringtoDateConverter"/>
-    <bean id="conversionService" class="org.springframework.format.support.FormattingConversionServiceFactoryBean">
-        <property name="converters">
-            <set>
-                <ref bean="myconverter"/>
-            </set>
-        </property>
-    </bean>
 
     <!-- 视图解析器 -->
     <bean class="org.springframework.web.servlet.view.BeanNameViewResolver"/>

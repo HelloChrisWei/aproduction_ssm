@@ -8,4 +8,5 @@ import java.util.List;
 public interface DeviceTypeService {
     public List findAllTypeDevice();
     public ResponseStatus insertTypeDevice(DeviceType deviceType);
+    public ResponseStatus deleteType(String[] ids);
 }

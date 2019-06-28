@@ -304,7 +304,8 @@
     </select>
 
     <select id="selectCustomCountByCondition" resultType="java.lang.Integer">
-        select count(*) from custom
+        select count(*)
+        from custom
         <where>
             <if test="record.customId != null">
                 custom_id like #{record.customId}
