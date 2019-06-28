@@ -104,4 +104,20 @@ public class UnqualifyApplyVO {
     public void setNote(String note) {
         this.note = note;
     }
+
+    @Override
+    public String toString() {
+        return "UnqualifyApplyVO{" +
+                "unqualifyApplyId='" + unqualifyApplyId + '\'' +
+                ", productId='" + productId + '\'' +
+                ", productName='" + productName + '\'' +
+                ", unqualifyItem='" + unqualifyItem + '\'' +
+                ", unqualifyCount=" + unqualifyCount +
+                ", assemblyDate=" + assemblyDate +
+                ", empId='" + empId + '\'' +
+                ", empName='" + empName + '\'' +
+                ", applyDate=" + applyDate +
+                ", note='" + note + '\'' +
+                '}';
+    }
 }

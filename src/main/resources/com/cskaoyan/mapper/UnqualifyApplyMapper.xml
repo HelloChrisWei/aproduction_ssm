@@ -11,6 +11,21 @@
     <result column="apply_date" jdbcType="TIMESTAMP" property="applyDate" />
     <result column="note" jdbcType="VARCHAR" property="note" />
   </resultMap>
+
+  <resultMap id="BaseResultMapForVO" type="com.cskaoyan.pojo.UnqualifyApplyVO">
+    <id column="unqualify_apply_id" jdbcType="VARCHAR" property="unqualifyApplyId" />
+    <result column="product_id" jdbcType="VARCHAR" property="productId" />
+    <result column="unqualify_item" jdbcType="VARCHAR" property="unqualifyItem" />
+    <result column="unqualify_count" jdbcType="INTEGER" property="unqualifyCount" />
+    <result column="assembly_date" jdbcType="TIMESTAMP" property="assemblyDate" />
+    <result column="emp_id" jdbcType="VARCHAR" property="empId" />
+    <result column="apply_date" jdbcType="TIMESTAMP" property="applyDate" />
+    <result column="note" jdbcType="VARCHAR" property="note" />
+    <!--新增VO对象多出的属性 product_name, emp_name-->
+    <result column="product_name" jdbcType="VARCHAR" property="productName"/>
+    <result column="emp_name" jdbcType="VARCHAR" property="empName"/>
+  </resultMap>
+
   <sql id="Example_Where_Clause">
     <where>
       <foreach collection="oredCriteria" item="criteria" separator="or">
@@ -256,4 +271,25 @@
       note = #{note,jdbcType=VARCHAR}
     where unqualify_apply_id = #{unqualifyApplyId,jdbcType=VARCHAR}
   </update>
+
+
+  <!--VO对象新增-->
+  <select id="selectAllRecords" resultMap="BaseResultMapForVO">
+    SELECT
+    t1.unqualify_apply_id,
+    t1.product_id,
+    t1.unqualify_item,
+    t1.unqualify_count,
+    t1.assembly_date,
+    t1.emp_id,
+    t1.apply_date,
+    t1.note,
+    t2.emp_name,
+    t3.product_name
+    FROM unqualify_apply t1
+    LEFT JOIN `employee` t2 on t1.emp_id = t2.emp_id
+    LEFT JOIN product t3 on t1.product_id = t3.product_id
+    limit #{rows} offset #{offset}
+  </select>
+
 </mapper>
