@@ -79,32 +79,6 @@
     graduate_school, education_form, department_id
   </sql>
 
-  <select id="findAllEmployee" parameterType="com.cskaoyan.pojo.Employee" resultMap="BaseResultMap">
-    select
-    *
-    from employee
-
---     e.emp_id,
---     e.emp_name,
---     e.sex,
---     e.id_code,
---     e.birthday,
---     e.join_date,
---     e.status,
---     e.education,
---     e.degree,
---     e.major,
---     e.graduate_school,
---     e.education_form,
---     e.department_id,
---     d.department_name
---     from employee e
---     left join department d on d.department_id = e.department_id
-
-  </select>
-
-
-
 
   <select id="selectByExample" parameterType="com.cskaoyan.pojo.EmployeeExample" resultMap="BaseResultMap">
     select
@@ -363,4 +337,46 @@
       department_id = #{departmentId,jdbcType=VARCHAR}
     where emp_id = #{empId,jdbcType=VARCHAR}
   </update>
+
+<!--查询员工表|Mapper-->
+  <resultMap id="employeeResultMapper" type="com.cskaoyan.pojo.EmployeeVO">
+    <id column="emp_id" property="empId"/>
+    <result column="sex" property="sex"/>
+    <result column="id_code" property="idCode"/>
+    <result column="birthday" property="birthday"/>
+    <result column=" join_date" property="joinDate"/>
+    <result column="status" property="status"/>
+    <result column="education" property="education"/>
+    <result column="degree" property="degree"/>
+    <result column="major" property="major"/>
+    <result column="graduate_school" property="graduateSchool"/>
+    <result column="education_form" property="educationForm"/>
+    <result column="department_id" property="departmentId"/>
+    <association property="department" javaType="com.cskaoyan.pojo.Department">
+      <result column="department_id" property="departmentId"/>
+      <result column="department_name" property="departmentName"/>
+    </association>
+
+  </resultMap>
+
+<!--分页查询员工部分表-->
+  <select id="selectAllEmployeePage" parameterType="com.cskaoyan.pojo.EmployeeVO" resultMap="employeeResultMapper">
+    select
+      e.emp_id,
+      e.emp_name,
+      e.sex,
+      e.id_code,
+      e.birthday,
+      e.join_date,
+      e.status,
+      e.education,
+      e.degree,
+      e.major,
+      e.graduate_school,
+      e.education_form,
+      d.department_name
+      from employee e
+      left join department d on d.department_id =e.department_id
+    limit #{rows} offset #{offset}
+  </select>
 </mapper>
