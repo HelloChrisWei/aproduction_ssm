@@ -3,10 +3,10 @@ package com.cskaoyan.service.quality.impl;
 import com.cskaoyan.mapper.UnqualifyApplyMapper;
 import com.cskaoyan.pojo.*;
 import com.cskaoyan.service.quality.UnQualityService;
-import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -26,15 +26,19 @@ public class UnQualityServiceImpl implements UnQualityService {
      * @return
      */
     @Override
-    public List<UnqualifyApplyVO> getUnqualityList(int page, int rows) {
-        int total = (int) unqualifyApplyMapper.countByExample(new UnqualifyApplyExample());
-
-        rows = total < rows ? total : rows;
+    public EasyUiDataGridResult getUnqualityList(int page, int rows) {
+        EasyUiDataGridResult<UnqualifyApplyVO> result = new EasyUiDataGridResult<>();
         int offset = (page - 1) * rows;
 
         List<UnqualifyApplyVO> unqualifyApplyVOList = unqualifyApplyMapper.selectAllRecords(rows, offset);
 
-        return unqualifyApplyVOList;
+        // 返回查出了多少条数据
+        int total = unqualifyApplyVOList.size();
+
+        result.setRows(unqualifyApplyVOList);
+        result.setTotal(total);
+
+        return result;
     }
 
     /**
@@ -78,5 +82,38 @@ public class UnQualityServiceImpl implements UnQualityService {
             return new ResponseStatus(0, "更新失败", null, 0, null);
         }
         return new ResponseStatus(200, null, null, 0, null);
+    }
+
+    @Override
+    public EasyUiDataGridResult searchById(String unqualifyApplyId, int page, int rows) {
+        EasyUiDataGridResult<UnqualifyApplyVO> result = new EasyUiDataGridResult<>();
+        List<UnqualifyApplyVO> unqualifyApplyVOList = new ArrayList<>();
+
+        UnqualifyApplyVO unqualifyApplyVO = unqualifyApplyMapper.selectByPrimaryKeyVO(unqualifyApplyId);
+        // 防止出现rows=[null]从而造成在搜索栏中输入了不存在的ID，页面还显示所有数据
+        if (unqualifyApplyVO != null) {
+            unqualifyApplyVOList.add(unqualifyApplyVO);
+        }
+
+        result.setRows(unqualifyApplyVOList);
+        result.setTotal(1);
+
+        return result;
+    }
+
+    @Override
+    public EasyUiDataGridResult selectByExample(UnqualifyApplyVO unqualifyApplyVOExample, int page, int rows) {
+        EasyUiDataGridResult<UnqualifyApplyVO> result = new EasyUiDataGridResult<>();
+        int offset = (page - 1) * rows;
+
+        List<UnqualifyApplyVO> unqualifyApplyVOList = unqualifyApplyMapper.selectByExampleVO(unqualifyApplyVOExample, rows, offset);
+
+        // 返回查出了多少条数据
+        int total = unqualifyApplyVOList.size();
+
+        result.setRows(unqualifyApplyVOList);
+        result.setTotal(total);
+
+        return result;
     }
 }

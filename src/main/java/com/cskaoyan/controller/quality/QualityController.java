@@ -24,8 +24,7 @@ public class QualityController {
     @Autowired
     private UnQualityService unQualityService;
 
-    /*查询业务代码*/
-
+    /*-------------查询业务代码-----------------*/
 
     @RequestMapping("/find")
     public String turnToUnqualifyList() {
@@ -36,32 +35,39 @@ public class QualityController {
     @RequestMapping("/list")
     @ResponseBody
     public EasyUiDataGridResult list(@RequestParam("page") int page, @RequestParam("rows") int rows) {
-        EasyUiDataGridResult<UnqualifyApplyVO> result = new EasyUiDataGridResult<>();
 
-        List<UnqualifyApplyVO> list = unQualityService.getUnqualityList(page, rows);
-        int total = unQualityService.getTotalRecordNum();
-
-        result.setRows(list);
-        result.setTotal(total);
-
-        return result;
+        return unQualityService.getUnqualityList(page, rows);
     }
 
 
-
-    // TODO
+    /**
+     * 按主键（不合格品申请编号）查询条目
+     * @param unqualifyApplyId
+     * @param page
+     * @param rows
+     * @return
+     */
     @RequestMapping(value = "/search_unqualify_by_unqualifyId",method = RequestMethod.GET)
     @ResponseBody
     public EasyUiDataGridResult searchById(@RequestParam("searchValue") String unqualifyApplyId, @RequestParam("page") int page, @RequestParam("rows") int rows) {
-        EasyUiDataGridResult<UnqualifyApplyVO> result = new EasyUiDataGridResult<>();
+        return unQualityService.searchById(unqualifyApplyId, page, rows);
+    }
 
-        List<UnqualifyApplyVO> list = unQualityService.getUnqualityList(page, rows);
-        int total = unQualityService.getTotalRecordNum();
 
-        result.setRows(list);
-        result.setTotal(total);
+    /**
+     * 按ProductName(产品名称)实现模糊查询
+     * @param productName 产品名称
+     * @param page
+     * @param rows
+     * @return
+     */
+    @RequestMapping(value = "/search_unqualify_by_productName",method = RequestMethod.GET)
+    @ResponseBody
+    public EasyUiDataGridResult searchByProductName(@RequestParam("searchValue") String productName, @RequestParam("page") int page, @RequestParam("rows") int rows) {
+        UnqualifyApplyVO unqualifyApplyVOExample = new UnqualifyApplyVO();
+        unqualifyApplyVOExample.setProductName(productName);
 
-        return result;
+        return unQualityService.selectByExample(unqualifyApplyVOExample, page, rows);
     }
 
 
@@ -82,6 +88,7 @@ public class QualityController {
         return "unqualify_add";
     }
 
+    // TODO  人员get_data接口未实现  实现后做
 //    @RequestMapping("/unqualify/insert")
 //    @ResponseBody
 //    public ResponseStatus insert() {
@@ -100,7 +107,6 @@ public class QualityController {
 //    }
 
     /*删除业务代码*/
-
     /**
      * 权限控制 不处理 直接转发
      * @return
@@ -138,7 +144,6 @@ public class QualityController {
         return "unqualify_edit";
     }
 
-
     /**
      * 修改条目的单个项目：备注
      * @param unqualifyApplyId 待修改项目的主键
@@ -155,7 +160,6 @@ public class QualityController {
         return unQualityService.updateByPrimaryKeySelective(unqualifyApply);
     }
 
-
     /**
      * 修改条目的多个项目
      * @param record
@@ -167,9 +171,6 @@ public class QualityController {
 
         return unQualityService.updateByPrimaryKey(record);
     }
-
-
-
 
 
 

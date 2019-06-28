@@ -25,4 +25,11 @@ public class EasyUiDataGridResult<T> {
         this.rows = rows;
     }
 
+    @Override
+    public String toString() {
+        return "EasyUiDataGridResult{" +
+                "total=" + total +
+                ", rows=" + rows +
+                '}';
+    }
 }

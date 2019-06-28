@@ -82,4 +82,18 @@ public class UnqualifyApply {
     public void setNote(String note) {
         this.note = note == null ? null : note.trim();
     }
+
+    @Override
+    public String toString() {
+        return "UnqualifyApply{" +
+                "unqualifyApplyId='" + unqualifyApplyId + '\'' +
+                ", productId='" + productId + '\'' +
+                ", unqualifyItem='" + unqualifyItem + '\'' +
+                ", unqualifyCount=" + unqualifyCount +
+                ", assemblyDate=" + assemblyDate +
+                ", empId='" + empId + '\'' +
+                ", applyDate=" + applyDate +
+                ", note='" + note + '\'' +
+                '}';
+    }
 }
