@@ -1,5 +1,6 @@
 package com.cskaoyan.mapper;
 
+import com.cskaoyan.pojo.EasyUiDataGridResult;
 import com.cskaoyan.pojo.Employee;
 import com.cskaoyan.pojo.EmployeeExample;
 import java.util.List;
@@ -29,5 +30,5 @@ public interface EmployeeMapper {
     int updateByPrimaryKey(Employee record);
 
     //新增方法
-    List<Employee> findAllEmployee();
+    List<Employee> selectAllEmployeePage(@Param("rows") int rows, @Param("offset") int offset);
 }

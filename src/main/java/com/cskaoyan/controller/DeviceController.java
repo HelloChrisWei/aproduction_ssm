@@ -51,12 +51,12 @@ public class DeviceController {
     public List<DeviceType> deviceTypeId(){
         return this.typelist();
     }
-    @RequestMapping("employee/get_data")
+   /* @RequestMapping("employee/get_data")
     @ResponseBody
     public List<Employee> employeeId(){
         List<Employee> list = new EmployeeController().list();
         return list;
-    }
+    }*/
 
 
     //-----------------------------------------------

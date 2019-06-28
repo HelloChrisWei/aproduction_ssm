@@ -254,14 +254,14 @@
         <version>1.4.0</version>
     </dependency>
         <dependency>
-            <groupId>maven_repository.org.mybatis</groupId>
+            <groupId>org.mybatis</groupId>
             <artifactId>mybatis</artifactId>
-            <version>3.4.5</version>
+            <version>3.5.1</version>
         </dependency>
         <dependency>
-            <groupId>maven_repository.org.springframework</groupId>
+            <groupId>org.springframework</groupId>
             <artifactId>spring-test</artifactId>
-            <version>4.2.4.RELEASE</version>
+            <version>5.1.7.RELEASE</version>
             <scope>test</scope>
         </dependency>
     </dependencies>
