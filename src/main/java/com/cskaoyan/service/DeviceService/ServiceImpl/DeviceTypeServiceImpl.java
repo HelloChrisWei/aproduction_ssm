@@ -3,20 +3,23 @@ package com.cskaoyan.service.DeviceService.ServiceImpl;
 import com.cskaoyan.exception.OrderException;
 import com.cskaoyan.mapper.DeviceTypeMapper;
 import com.cskaoyan.pojo.DeviceType;
+import com.cskaoyan.pojo.EasyUiDataGridResult;
 import com.cskaoyan.pojo.ResponseStatus;
 import com.cskaoyan.service.DeviceService.DeviceTypeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 import java.util.List;
 
 @Service
 public class DeviceTypeServiceImpl implements DeviceTypeService {
     @Autowired
     DeviceTypeMapper deviceTypeMapper;
+
     //获取全部的设备种类，并存入集合
     @Override
     public List findAllTypeDevice() {
-        List<DeviceType>list = deviceTypeMapper.findAllDevice();
+        List<DeviceType> list = deviceTypeMapper.findAllDevice();
         return list;
     }
 
@@ -29,7 +32,7 @@ public class DeviceTypeServiceImpl implements DeviceTypeService {
                 responseStatus.setMsg("添加成功");
                 responseStatus.setStatus(200);
             }
-        }catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
             responseStatus.setStatus(0);
             responseStatus.setMsg("无法插入");
@@ -39,18 +42,53 @@ public class DeviceTypeServiceImpl implements DeviceTypeService {
 
     @Override
     public ResponseStatus deleteType(String[] ids) {
-        ResponseStatus status = new ResponseStatus();
+        ResponseStatus responseStatus = new ResponseStatus();
         try {
             for (String id : ids) {
                 deviceTypeMapper.deleteByPrimaryKey(id);
             }
-            status.setStatus(200);
-            status.setMsg("OK");
+            responseStatus.setStatus(200);
+            responseStatus.setMsg("OK");
         } catch (Exception e) {
             e.printStackTrace();
-            status.setStatus(520);
-            status.setMsg("批量删除有误");
+            responseStatus.setStatus(520);
+            responseStatus.setMsg("批量删除有误");
         }
-        return status;
+        return responseStatus;
+    }
+
+    @Override
+    public ResponseStatus updateByPrimaryKeySelective(DeviceType deviceType) {
+        ResponseStatus responseStatus = new ResponseStatus();
+        try {
+            deviceTypeMapper.updateByPrimaryKeySelective(deviceType);
+            responseStatus.setStatus(200);
+            responseStatus.setMsg("OK");
+        } catch (Exception e) {
+            e.printStackTrace();
+            responseStatus.setStatus(520);
+            responseStatus.setMsg("无法插入");
+        }
+
+        return responseStatus;
+    }
+
+    @Override
+    public EasyUiDataGridResult searchByTypeId(String TypeId, int page, int rows) {
+        EasyUiDataGridResult<DeviceType> result = new EasyUiDataGridResult<>();
+        String typyid= "%"+TypeId+"%";
+        List<DeviceType> deviceTypes = deviceTypeMapper.searchByTypeId(typyid);
+        result.setRows(deviceTypes);
+        result.setTotal(2);
+        return result;
+    }
+    @Override
+    public EasyUiDataGridResult searchByTypeName(String TypeName, int page, int rows) {
+        EasyUiDataGridResult<DeviceType> result = new EasyUiDataGridResult<>();
+        String typyname= "%"+TypeName+"%";
+        List<DeviceType> deviceTypes = deviceTypeMapper.searchByTypeName(typyname);
+        result.setRows(deviceTypes);
+        result.setTotal(1);
+        return result;
     }
 }
