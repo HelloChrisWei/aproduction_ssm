@@ -2,6 +2,7 @@ package com.cskaoyan.controller.Device;
 
 import com.cskaoyan.pojo.Device;
 import com.cskaoyan.pojo.DeviceMaintain;
+import com.cskaoyan.pojo.EasyUiDataGridResult;
 import com.cskaoyan.service.DeviceService.DeviceMaintainService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -17,7 +18,7 @@ public class DeviceMaintainController {
     @RequestMapping("deviceMaintain/get_data")
     @ResponseBody
     public List<DeviceMaintain> deviceTypeId(){
-        List allDevice = deviceMaintainService.findAllDeviceMaintain();
+        List allDevice = deviceMaintainService.findDeviceMaintain();
         return allDevice;
     }
 
@@ -30,9 +31,8 @@ public class DeviceMaintainController {
 
     @RequestMapping("deviceMaintain/list")
     @ResponseBody
-    public List<DeviceMaintain> Maintainlist() {
-        List<DeviceMaintain> allDevice = deviceMaintainService.findAllDeviceMaintain();
-        return allDevice;
+    public EasyUiDataGridResult Maintainlist(int page,int rows) {
+        return deviceMaintainService.findAllDeviceMaintain(page, rows);
     }
 
 

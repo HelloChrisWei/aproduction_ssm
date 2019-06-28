@@ -2,6 +2,7 @@ package com.cskaoyan.controller.Device;
 
 import com.cskaoyan.pojo.Device;
 import com.cskaoyan.pojo.DeviceFault;
+import com.cskaoyan.pojo.EasyUiDataGridResult;
 import com.cskaoyan.service.DeviceService.ServiceImpl.DeviceFaultServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -18,7 +19,7 @@ public class DeviceFaultController {
     @RequestMapping("deviceFault/get_data")
     @ResponseBody
     public List<DeviceFault> deviceTypeId(){
-        List allDevice = deviceFaultService.findAllDeviceFault();
+        List allDevice = deviceFaultService.findDeviceFault();
         return allDevice;
     }
 
@@ -31,8 +32,7 @@ public class DeviceFaultController {
 
     @RequestMapping("deviceFault/list")
     @ResponseBody
-    public List<DeviceFault> faultlist() {
-        List<DeviceFault> allDevice = deviceFaultService.findAllDeviceFault();
-        return allDevice;
+    public EasyUiDataGridResult faultlist(int page, int rows) {
+        return deviceFaultService.findAllDeviceFault(page, rows);
     }
 }

@@ -20,7 +20,7 @@ public class DeviceTypeController {
     @RequestMapping("deviceType/get_data")
     @ResponseBody
     public List<DeviceType> deviceTypeId(){
-        List allDevice = deviceTypeService.findAllTypeDevice();
+        List allDevice = deviceTypeService.findTypeDevice();
         return allDevice;
     }
 
@@ -33,9 +33,8 @@ public class DeviceTypeController {
 
     @RequestMapping("deviceType/list")
     @ResponseBody
-    public List<DeviceType> typelist() {
-        List allDevice = deviceTypeService.findAllTypeDevice();
-        return allDevice;
+    public EasyUiDataGridResult typelist(int page,int rows) {
+        return deviceTypeService.findAllTypeDevice(page, rows);
     }
 
     //------------------------------------------

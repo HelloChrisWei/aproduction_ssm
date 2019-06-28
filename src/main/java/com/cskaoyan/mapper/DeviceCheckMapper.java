@@ -3,10 +3,15 @@ package com.cskaoyan.mapper;
 import com.cskaoyan.pojo.DeviceCheck;
 import com.cskaoyan.pojo.DeviceCheckExample;
 import java.util.List;
+
+import com.cskaoyan.pojo.DeviceType;
 import org.apache.ibatis.annotations.Param;
 
 public interface DeviceCheckMapper {
     List findAllDeviceCheck();
+    List<DeviceCheck> searchByCheckId(String checkId);
+
+    List<DeviceCheck> searchByCheckName(String checkName);
 
     long countByExample(DeviceCheckExample example);
 

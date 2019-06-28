@@ -3,9 +3,11 @@ package com.cskaoyan.controller.Device;
 
 import com.cskaoyan.pojo.Device;
 import com.cskaoyan.pojo.DeviceType;
+import com.cskaoyan.pojo.EasyUiDataGridResult;
 import com.cskaoyan.service.DeviceService.ServiceImpl.DeviceListServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import java.util.List;
@@ -17,8 +19,13 @@ public class DeviceListController {
     @RequestMapping("deviceList/get_data")
     @ResponseBody
     public List<Device> deviceTypeId(){
-        List allDevice = deviceListService.findAllDeviceList();
+        List allDevice = deviceListService.findDeviceList();
         return allDevice;
+    }
+    @RequestMapping("deviceList/get/{deviceId}")
+    @ResponseBody
+    public Device SsearchDeviceDetail(@PathVariable("deviceId") String deviceId){
+        return deviceListService.searchDeviceById(deviceId);
     }
 
 
@@ -31,9 +38,8 @@ public class DeviceListController {
 
     @RequestMapping("deviceList/list")
     @ResponseBody
-    public List<Device> Listlist() {
-        List allDevice = deviceListService.findAllDeviceList();
-        return allDevice;
+    public EasyUiDataGridResult Listlist(int page,int rows) {
+        return deviceListService.findAllDeviceList(page, rows);
     }
 
     //------------------------------------------------

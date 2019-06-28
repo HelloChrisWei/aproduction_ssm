@@ -90,12 +90,18 @@
       order by ${orderByClause}
     </if>
   </select>
-  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+  <select id="searchByCheckId" parameterType="java.lang.String" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
     from device_check
-    where device_check_id = #{deviceCheckId,jdbcType=VARCHAR}
+    where device_check_id like #{deviceCheckId,jdbcType=VARCHAR}
   </select>
+  <!--<select id="searchByCheckName" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from device_check
+    where device_check_id like #{deviceCheckId,jdbcType=VARCHAR}
+  </select>-->
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
     delete from device_check
     where device_check_id = #{deviceCheckId,jdbcType=VARCHAR}
