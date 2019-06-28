@@ -3,6 +3,7 @@ package com.cskaoyan.mapper;
 import com.cskaoyan.pojo.TechnologyRequirement;
 import com.cskaoyan.pojo.TechnologyRequirementExample;
 import java.util.List;
+
 import org.apache.ibatis.annotations.Param;
 
 public interface TechnologyRequirementMapper {
@@ -27,5 +28,7 @@ public interface TechnologyRequirementMapper {
     int updateByPrimaryKeySelective(TechnologyRequirement record);
 
     int updateByPrimaryKey(TechnologyRequirement record);
+
     List<TechnologyRequirement> selectAllTechnologyRequirementByPage();
+
 }

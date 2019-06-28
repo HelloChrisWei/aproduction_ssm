@@ -26,6 +26,8 @@ public class TechnologyController {
         modelAndView.setViewName("technology_list");
         return modelAndView;
     }
+
+
     /*返回list json数据*/
     @RequestMapping("technology/list")
     @ResponseBody
@@ -56,8 +58,10 @@ public class TechnologyController {
     @RequestMapping("/technology/edit_judge")
     public String technologyEditJudge(){return "technology_edit";}
 
+
     @RequestMapping("/technology/edit")
     public String technologyEdit(){return "technology_edit";}
+
 
     @RequestMapping("/technology/update_all")
     @ResponseBody
@@ -65,9 +69,11 @@ public class TechnologyController {
         return technologyService.updateTechnology(record);
     }
 
+
     @RequestMapping("/technology/delete_judge")
     @ResponseBody
     public ResponseStatus technologyDeleteJudge(){return new ResponseStatus();}
+
 
     @RequestMapping("/technology/delete_batch")
     @ResponseBody
