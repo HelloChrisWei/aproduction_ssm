@@ -27,4 +27,14 @@ public interface MaterialMapper {
     int updateByPrimaryKeySelective(Material record);
 
     int updateByPrimaryKey(Material record);
+
+    //自增接口
+    List<Material> selectAllMaterialByPage(@Param("rows") int rows, @Param("offset") int offset);
+
+    int selectMaterialCountByCondition(@Param("material") Material material);
+
+    List<Material> selectMaterialByConditionByPage(@Param("material") Material material, @Param("rows") int rows, @Param("offset") int offset);
+
+    List<Material> selectAllMaterial();
+    
 }

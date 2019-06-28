@@ -1,11 +1,14 @@
 package com.cskaoyan.service.scheduling.impl;
 
+import com.cskaoyan.annotation.ProceedTime;
 import com.cskaoyan.exception.OrderException;
 import com.cskaoyan.mapper.OrderMapper;
 import com.cskaoyan.pojo.*;
 import com.cskaoyan.service.scheduling.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -16,6 +19,7 @@ public class OrderServiceImpl implements OrderService {
     private OrderMapper orderMapper;
 
     @Override
+    @ProceedTime
     public EasyUiDataGridResult<OrderVO> selectAllOrderByPage(int page, int rows) {
         EasyUiDataGridResult<OrderVO> result = new EasyUiDataGridResult<>();
         OrderExample example = new OrderExample();
@@ -31,6 +35,7 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
+    @ProceedTime
     public ResponseStatus insert(Order order) {
         ResponseStatus status = new ResponseStatus();
         try {
@@ -48,6 +53,7 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
+    @ProceedTime
     public ResponseStatus updateByPrimaryKeySelective(Order order) {
         ResponseStatus status = new ResponseStatus();
         try {
@@ -65,6 +71,8 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
+    @ProceedTime
+    @Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
     public ResponseStatus deleteBatch(String[] ids) throws OrderException {
         ResponseStatus status = new ResponseStatus();
         try {
@@ -96,6 +104,7 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
+    @ProceedTime
     public EasyUiDataGridResult<OrderVO> searchOrderByOrderId(String orderId, int page, int rows) {
         OrderVO order = new OrderVO();
         Custom custom = new Custom();
@@ -109,6 +118,7 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
+    @ProceedTime
     public EasyUiDataGridResult<OrderVO> searchOrderByCustomName(String customName, int page, int rows) {
         OrderVO order = new OrderVO();
         Custom custom = new Custom();
@@ -122,6 +132,7 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
+    @ProceedTime
     public EasyUiDataGridResult<OrderVO> searchOrderByProductName(String productName, int page, int rows) {
         OrderVO order = new OrderVO();
         Custom custom = new Custom();
@@ -135,11 +146,13 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
+    @ProceedTime
     public OrderVO selectOrderByOrderId(String orderId) {
         return orderMapper.selectOrderByOrderId(orderId);
     }
 
     @Override
+    @ProceedTime
     public List<OrderVO> selectAllOrder() {
         return orderMapper.selectAllOrder();
     }

@@ -1,6 +1,11 @@
 package com.cskaoyan.controller.scheduling;
 
 import com.cskaoyan.pojo.ResponseStatus;
+import org.apache.commons.io.FileUtils;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -24,14 +29,10 @@ public class FileAndPictureController {
         String filename = file.getOriginalFilename();
         String contextPath = request.getContextPath();
 
-        // 将文件夹打散
-        int code = filename.hashCode();
-        String string = Integer.toHexString(code);
-        char[] chars = string.toCharArray();
+        filename = UUID.randomUUID().toString().replace("-", "").toUpperCase() + "_" + filename;
 
-        //取十六进制HashCode的前两位作为文件夹路径
-        filename = chars[0] + "/" + chars[1] + "/" + filename;
         String realPath = request.getServletContext().getRealPath("/WEB-INF/file/");
+
         File uploadFile = new File(realPath + filename);
         // 如果文件夹不存在，创建
         if (!uploadFile.getParentFile().exists()) {
@@ -50,41 +51,52 @@ public class FileAndPictureController {
         return status;
     }
 
-    @RequestMapping("/file/download")
+    @RequestMapping("file/download")
+    public ResponseEntity<byte[]> export(String fileName, HttpServletRequest request) throws IOException {
+
+        String name = fileName.substring(fileName.lastIndexOf("/") + 1);
+        HttpHeaders headers = new HttpHeaders();
+        String realPath = request.getSession().getServletContext().getRealPath("/WEB-INF/file/");
+
+        File file = new File(realPath + name);
+
+        headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);
+        headers.setContentDispositionFormData("attachment", name);
+
+        return new ResponseEntity<>(FileUtils.readFileToByteArray(file), headers, HttpStatus.CREATED);
+    }
+
+    @RequestMapping("/file/delete")
     @ResponseBody
-    public ResponseStatus FileDownload(String filename, HttpServletRequest request, HttpServletResponse response) {
-        String realPath = request.getServletContext().getRealPath("/");
+    public ResponseStatus deleteFile(String fileName, HttpServletRequest request) {
         String contextPath = request.getContextPath();
-        String replace = filename.replace(contextPath, "WEB-INF");
-
-        int index = replace.lastIndexOf("/");
-        String downloadFile = replace.substring(index + 1);
-
-        response.setCharacterEncoding("utf-8");
-        response.setContentType("multipart/form-data");
-        response.setHeader("Content-Disposition", "attachment;fileName=" + downloadFile);
-
-        try (InputStream inputStream = new FileInputStream(realPath + "/" + replace);
-             ServletOutputStream outputStream = response.getOutputStream()) {
-            byte[] b = new byte[2048];
-            int length;
-            while ((length = inputStream.read(b)) > 0) {
-                outputStream.write(b, 0, length);
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
+        String filename = fileName.substring(contextPath.length());
+        String realPath = request.getSession().getServletContext().getRealPath("");
+        File file = new File(realPath, filename);
+        if (file.exists()) {
+            file.delete();
         }
-        return new ResponseStatus();
+        ResponseStatus status = new ResponseStatus();
+        status.setData("success");
+        return status;
     }
 
     @RequestMapping("/pic/upload")
     @ResponseBody
     public ResponseStatus pictureUpload(MultipartFile uploadFile, HttpServletRequest request) {
         String fileName = uploadFile.getOriginalFilename();
-        fileName = UUID.randomUUID().toString().replace("-", "").toUpperCase() + "_" + fileName;
         String contextPath = request.getContextPath();
-        String path = request.getServletContext().getRealPath("/WEB-INF/image/upload/");
-        File file = new File(path + fileName);
+
+        fileName = UUID.randomUUID().toString().replace("-", "").toUpperCase() + "_" + fileName;
+
+        String realPath = request.getServletContext().getRealPath("/WEB-INF/image/upload/");
+
+        File file = new File(realPath + fileName);
+
+        // 如果文件夹不存在，创建
+        if (!file.getParentFile().exists()) {
+            file.getParentFile().mkdirs();
+        }
 
         try {
             uploadFile.transferTo(file);
@@ -94,8 +106,22 @@ public class FileAndPictureController {
 
         ResponseStatus status = new ResponseStatus();
         status.setError(0);
-        status.setUrl(contextPath + "/pic/" + fileName);
+        status.setUrl(contextPath + "/image/upload/" + fileName);
         return status;
     }
 
+    @RequestMapping("/pic/delete")
+    @ResponseBody
+    public ResponseStatus deletePicture(String picName, HttpServletRequest request) {
+        String contextPath = request.getContextPath();
+        String filename = picName.substring(contextPath.length());
+        String realPath = request.getSession().getServletContext().getRealPath("");
+        File file = new File(realPath, filename);
+        if (file.exists()) {
+            file.delete();
+        }
+        ResponseStatus status = new ResponseStatus();
+        status.setData("success");
+        return status;
+    }
 }

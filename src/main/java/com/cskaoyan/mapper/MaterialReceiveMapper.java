@@ -3,6 +3,8 @@ package com.cskaoyan.mapper;
 import com.cskaoyan.pojo.MaterialReceive;
 import com.cskaoyan.pojo.MaterialReceiveExample;
 import java.util.List;
+
+import com.cskaoyan.pojo.MaterialReceiveVO;
 import org.apache.ibatis.annotations.Param;
 
 public interface MaterialReceiveMapper {
@@ -27,4 +29,15 @@ public interface MaterialReceiveMapper {
     int updateByPrimaryKeySelective(MaterialReceive record);
 
     int updateByPrimaryKey(MaterialReceive record);
+
+    // 自主创建
+    List<MaterialReceiveVO> selectAllMaterialReceiveByPage(@Param("rows") int rows, @Param("offset") int offset);
+
+    int selectMaterialReceiveCountByCondition(@Param("materialReceive") MaterialReceiveVO materialReceive);
+
+    List<MaterialReceiveVO> selectMaterialReceiveByConditionByPage(@Param("materialReceive") MaterialReceiveVO materialReceive, @Param("rows") int rows, @Param("offset") int offset);
+
+    List<MaterialReceiveVO> selectAllMaterialReceive();
+
+    MaterialReceiveVO selectMaterialReceiveByReceiveId(@Param("receiveId") String receiveId);
 }
