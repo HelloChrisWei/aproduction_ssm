@@ -103,4 +103,10 @@ public class DeviceTypeServiceImpl implements DeviceTypeService {
         result.setTotal(1);
         return result;
     }
+
+    @Override
+    public DeviceType searchTypeId(String searchValue) {
+        DeviceType deviceType = deviceTypeMapper.searchTypeId(searchValue);
+        return deviceType;
+    }
 }

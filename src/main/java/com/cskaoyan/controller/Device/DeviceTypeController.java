@@ -1,12 +1,14 @@
 package com.cskaoyan.controller.Device;
 
 
+import com.cskaoyan.pojo.Device;
 import com.cskaoyan.pojo.DeviceType;
 import com.cskaoyan.pojo.EasyUiDataGridResult;
 import com.cskaoyan.pojo.ResponseStatus;
 import com.cskaoyan.service.DeviceService.ServiceImpl.DeviceTypeServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -23,6 +25,12 @@ public class DeviceTypeController {
         List allDevice = deviceTypeService.findTypeDevice();
         return allDevice;
     }
+    @RequestMapping("deviceType/get/{deviceTypeId}")
+    @ResponseBody
+    public DeviceType SearchDeviceTypeDetail(@PathVariable("deviceTypeId") String deviceTypeId){
+        return deviceTypeService.searchTypeId(deviceTypeId);
+    }
+
 
     //-------------------------------------------
     //实现设备种类查询模块
