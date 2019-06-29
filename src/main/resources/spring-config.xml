@@ -28,7 +28,6 @@
         <property name="location" value="classpath:jdbc.properties" />
     </bean>
 
-
     <!--SqlSessionFactory工厂类-->
     <!--<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
         <property name="dataSource" ref="datasource"/>
@@ -36,9 +35,8 @@
         <property name="configLocation" value="classpath:mybatis.xml"/>
     </bean>-->
 
-
     <!-- druid datasource配置  需要自己新建一个jdbc.properties -->
-    <bean id="datasource" class="com.alibaba.druid.pool.DruidDataSource" init-method="init" destroy-method="close">
+    <bean id="myDatasource" class="com.alibaba.druid.pool.DruidDataSource" init-method="init" destroy-method="close">
         <!-- 基本属性 url、user、password -->
         <property name="driverClassName" value="${driver}"/>
         <property name="url" value="${url}" />
@@ -68,6 +66,12 @@
         <property name="filters" value="stat" />
     </bean>
 
+    <!--事务管理器-->
+    <bean id="txManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="myDatasource"/>
+    </bean>
+
+    <tx:annotation-driven transaction-manager="txManager"/>
 
     <!--告诉MyBatis要在那儿寻找sql语句 包的扫描-->
     <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
@@ -75,40 +79,10 @@
         <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"/>
     </bean>
 
-
-<!--    &lt;!&ndash; 事务管理器 &ndash;&gt;-->
-<!--    <bean id="txManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">-->
-<!--        &lt;!&ndash; 数据源 &ndash;&gt;-->
-<!--        <property name="dataSource" ref="datasource" />-->
-<!--    </bean>-->
-
-<!--    &lt;!&ndash; 通知 &ndash;&gt;-->
-<!--    <tx:advice id="txAdvice" transaction-manager="txManager">-->
-<!--        <tx:attributes>-->
-<!--            <tx:method name="find*" read-only="true" />-->
-<!--            <tx:method name="get*" read-only="true" />-->
-<!--            <tx:method name="view*" read-only="true" />-->
-<!--            <tx:method name="select*" read-only="true" />-->
-<!--            <tx:method name="save*"/>-->
-<!--            <tx:method name="insert*"/>-->
-<!--            <tx:method name="add*"/>-->
-<!--            <tx:method name="create*"/>-->
-<!--            <tx:method name="delete*"/>-->
-<!--            <tx:method name="update*"/>-->
-<!--            &lt;!&ndash; 以防遗漏 &ndash;&gt;-->
-<!--            <tx:method name="*"/>-->
-<!--        </tx:attributes>-->
-<!--    </tx:advice>-->
-
-<!--    &lt;!&ndash; 切面 &ndash;&gt;-->
-<!--    <aop:config>-->
-<!--        &lt;!&ndash;切入点必须是在service层&ndash;&gt;-->
-<!--        <aop:advisor advice-ref="txAdvice" pointcut="execution(* com.zck.erp.service.*.*(..))" />-->
-<!--    </aop:config>-->
     <!--分页插件-->
 
     <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
-        <property name="dataSource" ref="datasource"/>
+        <property name="dataSource" ref="myDatasource"/>
         <property name="configLocation" value="classpath:mybatis.xml"/>
         <!--自动扫描mapper.xml文件-->
         <property name="mapperLocations" value="classpath:com/cskaoyan/mapper/*.xml"></property>
