@@ -11,6 +11,21 @@
     <result column="result" jdbcType="VARCHAR" property="result" />
     <result column="note" jdbcType="VARCHAR" property="note" />
   </resultMap>
+
+  <resultMap id="BaseResultMapForVO" type="com.cskaoyan.pojo.FinalMeasuretCheckVO">
+    <id column="f_measure_check_id" jdbcType="VARCHAR" property="fMeasureCheckId" />
+    <result column="order_id" jdbcType="VARCHAR" property="orderId" />
+    <result column="check_item" jdbcType="VARCHAR" property="checkItem" />
+    <result column="cdate" jdbcType="TIMESTAMP" property="cdate" />
+    <result column="measure_data" jdbcType="VARCHAR" property="measureData" />
+    <result column="emp_id" jdbcType="VARCHAR" property="empId" />
+    <result column="result" jdbcType="VARCHAR" property="result" />
+    <result column="note" jdbcType="VARCHAR" property="note" />
+    <!--新增VO对象多出的属性 emp_name-->
+    <result column="emp_name" jdbcType="VARCHAR" property="empName"/>
+
+  </resultMap>
+
   <sql id="Example_Where_Clause">
     <where>
       <foreach collection="oredCriteria" item="criteria" separator="or">
@@ -255,4 +270,22 @@
       note = #{note,jdbcType=VARCHAR}
     where f_measure_check_id = #{fMeasureCheckId,jdbcType=VARCHAR}
   </update>
+
+
+  <!--####################VO对象新增##################-->
+  <select id="selectAllRecords" resultMap="BaseResultMapForVO">
+    SELECT
+    t1.f_measure_check_id,
+    t1.order_id,
+    t1.check_item,
+    t1.cdate,
+    t1.measure_data,
+    t1.emp_id,
+    t1.result,
+    t1.note,
+    t2.emp_name
+    FROM final_measuret_check t1
+    LEFT JOIN `employee` t2 on t1.emp_id = t2.emp_id
+    limit #{rows} offset #{offset}
+  </select>
 </mapper>

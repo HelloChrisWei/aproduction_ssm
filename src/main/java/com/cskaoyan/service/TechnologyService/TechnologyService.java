@@ -18,5 +18,8 @@ public interface TechnologyService {
     ResponseStatus updateTechnology(Technology record);
     //删除操作
     ResponseStatus deleteBatchTechnology(String[] ids);
-
+    //回显
+    Technology searchTechnologyData(String technologyId);
+    //数据列表
+    List<Technology> findTechnologyData();
 }
