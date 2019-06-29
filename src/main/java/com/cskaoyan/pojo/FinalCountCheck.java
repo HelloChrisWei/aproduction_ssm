@@ -2,7 +2,19 @@ package com.cskaoyan.pojo;
 
 import java.math.BigDecimal;
 import java.util.Date;
-
+/*fCountCheckId: dsaf
+        orderId: 111111
+        checkItem: asdf
+        sample: 33
+        checkNumber: 32
+        unqualify: 32
+        qualify: 1.00
+        cdate: 2019-06-29 00:00:00
+        measureData: 3
+        empId: 12
+        result: asdf
+        note: asfd
+        productParams:*/
 public class FinalCountCheck {
     private String fCountCheckId;
 

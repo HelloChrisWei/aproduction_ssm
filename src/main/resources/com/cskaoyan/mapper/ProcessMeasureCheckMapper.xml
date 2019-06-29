@@ -11,6 +11,20 @@
     <result column="result" jdbcType="VARCHAR" property="result" />
     <result column="note" jdbcType="VARCHAR" property="note" />
   </resultMap>
+
+  <resultMap id="BaseResultMapForVO" type="com.cskaoyan.pojo.ProcessMeasureCheckVO">
+    <id column="p_measure_check_id" jdbcType="VARCHAR" property="pMeasureCheckId" />
+    <result column="process_id" jdbcType="VARCHAR" property="processId" />
+    <result column="check_item" jdbcType="VARCHAR" property="checkItem" />
+    <result column="cdate" jdbcType="TIMESTAMP" property="cdate" />
+    <result column="measure_data" jdbcType="VARCHAR" property="measureData" />
+    <result column="emp_id" jdbcType="VARCHAR" property="empId" />
+    <result column="result" jdbcType="VARCHAR" property="result" />
+    <result column="note" jdbcType="VARCHAR" property="note" />
+    <!--VO新增-->
+    <result column="emp_name" jdbcType="VARCHAR" property="empName"/>
+  </resultMap>
+
   <sql id="Example_Where_Clause">
     <where>
       <foreach collection="oredCriteria" item="criteria" separator="or">
@@ -73,6 +87,12 @@
     p_measure_check_id, process_id, check_item, cdate, measure_data, emp_id, result, 
     note
   </sql>
+  <sql id="Base_Column_List4VO">
+    t1.p_measure_check_id, t1.process_id, t1.check_item, t1.cdate, t1.measure_data, t1.emp_id, t1.result,
+    t1.note, t2.emp_name
+  </sql>
+
+
   <select id="selectByExample" parameterType="com.cskaoyan.pojo.ProcessMeasureCheckExample" resultMap="BaseResultMap">
     select
     <if test="distinct">
@@ -256,4 +276,26 @@
       note = #{note,jdbcType=VARCHAR}
     where p_measure_check_id = #{pMeasureCheckId,jdbcType=VARCHAR}
   </update>
+
+
+
+  <!--  ############Custom############ -->
+  <select id="selectAllRecords" resultMap="BaseResultMapForVO">
+    SELECT
+    <include refid="Base_Column_List4VO" />
+    FROM process_measure_check t1
+    LEFT JOIN `employee` t2 on t1.emp_id = t2.emp_id
+    limit #{rows} offset #{offset}
+  </select>
+
+  <!--模糊查询-->
+  <select id="selectByPrimaryKey4VO" resultMap="BaseResultMapForVO">
+    SELECT
+    <include refid="Base_Column_List4VO" />
+    FROM process_measure_check t1
+    LEFT JOIN `employee` t2 on t1.emp_id = t2.emp_id
+    WHERE t1.p_measure_check_id LIKE CONCAT(CONCAT('%', #{example.pMeasureCheckId}), '%')
+    limit #{rows} offset #{offset}
+  </select>
+
 </mapper>

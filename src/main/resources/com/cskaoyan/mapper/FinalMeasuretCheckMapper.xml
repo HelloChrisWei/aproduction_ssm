@@ -87,6 +87,17 @@
   <sql id="Base_Column_List">
     f_measure_check_id, order_id, check_item, cdate, measure_data, emp_id, result, note
   </sql>
+  <sql id="Base_Column_List4VO">
+    t1.f_measure_check_id,
+    t1.order_id,
+    t1.check_item,
+    t1.cdate,
+    t1.measure_data,
+    t1.emp_id,
+    t1.result,
+    t1.note,
+    t2.emp_name
+  </sql>
   <select id="selectByExample" parameterType="com.cskaoyan.pojo.FinalMeasuretCheckExample" resultMap="BaseResultMap">
     select
     <if test="distinct">
@@ -272,20 +283,37 @@
   </update>
 
 
-  <!--####################VO对象新增##################-->
+
+  <!--  ############Custom############ -->
   <select id="selectAllRecords" resultMap="BaseResultMapForVO">
     SELECT
-    t1.f_measure_check_id,
-    t1.order_id,
-    t1.check_item,
-    t1.cdate,
-    t1.measure_data,
-    t1.emp_id,
-    t1.result,
-    t1.note,
-    t2.emp_name
+    <include refid="Base_Column_List4VO" />
     FROM final_measuret_check t1
     LEFT JOIN `employee` t2 on t1.emp_id = t2.emp_id
     limit #{rows} offset #{offset}
   </select>
+
+  <!--模糊查询-->
+  <select id="selectByPrimaryKey4VO" resultMap="BaseResultMapForVO">
+    SELECT
+    <include refid="Base_Column_List4VO" />
+    FROM final_measuret_check t1
+    LEFT JOIN `employee` t2 on t1.emp_id = t2.emp_id
+    WHERE t1.f_measure_check_id LIKE CONCAT(CONCAT('%', #{example.fMeasureCheckId}), '%')
+    limit #{rows} offset #{offset}
+  </select>
+
+  <!--TODO 通用化-->
+  <select id="selectByCondition4VO" resultMap="BaseResultMapForVO">
+    SELECT
+    <include refid="Base_Column_List4VO" />
+    FROM final_measuret_check t1
+    LEFT JOIN `employee` t2 on t1.emp_id = t2.emp_id
+    WHERE
+    t1.order_id = #{example.orderId}
+    limit #{rows} offset #{offset}
+  </select>
+
+
+
 </mapper>

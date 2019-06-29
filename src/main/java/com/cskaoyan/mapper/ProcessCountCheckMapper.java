@@ -3,6 +3,8 @@ package com.cskaoyan.mapper;
 import com.cskaoyan.pojo.ProcessCountCheck;
 import com.cskaoyan.pojo.ProcessCountCheckExample;
 import java.util.List;
+
+import com.cskaoyan.pojo.ProcessCountCheckVO;
 import org.apache.ibatis.annotations.Param;
 
 public interface ProcessCountCheckMapper {
@@ -27,4 +29,11 @@ public interface ProcessCountCheckMapper {
     int updateByPrimaryKeySelective(ProcessCountCheck record);
 
     int updateByPrimaryKey(ProcessCountCheck record);
+
+    /*Custom Methods For VO*/
+    List<ProcessCountCheckVO> selectAllRecords(@Param("rows") int rows, @Param("offset") int offset);
+
+    List<ProcessCountCheckVO> selectByPrimaryKey4VO(@Param("example") ProcessCountCheckVO example, @Param("rows") int rows, @Param("offset") int offset);
+
+
 }
