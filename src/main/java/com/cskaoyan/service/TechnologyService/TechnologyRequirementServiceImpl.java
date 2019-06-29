@@ -89,5 +89,29 @@ public class TechnologyRequirementServiceImpl implements TechnologyRequirementSe
         return status;
     }
 
+    @Override
+    public EasyUiDataGridResult<TechnologyRequirement> search_technologyRequirement_by_technologyRequirementId(String tRId, int page, int rows) {
+        TechnologyRequirement record = new TechnologyRequirement();
+        record.setTechnologyRequirementId("%" + tRId +"%");
+        return fuzzyQuery(record,page,rows);
+    }
+    public EasyUiDataGridResult<TechnologyRequirement> fuzzyQuery(TechnologyRequirement record,int page,int rows){
+
+        EasyUiDataGridResult<TechnologyRequirement> result = new EasyUiDataGridResult<>();
+        PageHelper.startPage(page,rows);
+        List<TechnologyRequirement> technologyRequirements = requirementMapper.selectTechnologyRequirementByCondition(record);
+        int total = (int) requirementMapper.countByExampleByCondition(record);
+        result.setRows(technologyRequirements);
+        result.setTotal(total);
+        return result;
+    }
+
+    @Override
+    public EasyUiDataGridResult<TechnologyRequirement> search_technologyRequirement_by_technologyName(String tRName, int page, int rows) {
+        TechnologyRequirement record = new TechnologyRequirement();
+        record.setTechnologyRequirementId("%" + tRName +"%");
+        return fuzzyQuery(record,page,rows);
+    }
+
 
 }
