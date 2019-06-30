@@ -9,9 +9,11 @@ public interface DeviceTypeMapper {
     List<DeviceType> findAllDevice();
 
     List<DeviceType> searchByTypeId(String typeId);
+
     DeviceType searchTypeId(String typeId);
 
     List<DeviceType> searchByTypeName(String typeName);
+
     DeviceType searchTypeName(String typeName);
 
     int insertTypeDevice(DeviceType deviceType);

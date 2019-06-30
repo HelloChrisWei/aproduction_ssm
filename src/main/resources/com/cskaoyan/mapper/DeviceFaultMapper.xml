@@ -9,6 +9,17 @@
     <result column="device_fault_date" jdbcType="TIMESTAMP" property="deviceFaultDate" />
     <result column="device_fault_maintenance" jdbcType="VARCHAR" property="deviceFaultMaintenance" />
   </resultMap>
+  <resultMap id="ResultMap" type="com.cskaoyan.pojo.DeviceFaultVO">
+    <id column="device_fault_id" jdbcType="VARCHAR" property="deviceFaultId" />
+    <result column="device_id" jdbcType="VARCHAR" property="deviceId" />
+    <result column="device_fault_cause" jdbcType="VARCHAR" property="deviceFaultCause" />
+    <result column="device_fault_detail" jdbcType="VARCHAR" property="deviceFaultDetail" />
+    <result column="device_fault_date" jdbcType="TIMESTAMP" property="deviceFaultDate" />
+    <result column="device_fault_maintenance" jdbcType="VARCHAR" property="deviceFaultMaintenance" />
+    <association property="deviceName" javaType="String">
+    <result column="dname" jdbcType="VARCHAR" property="deviceName"/>
+  </association>
+  </resultMap>
   <sql id="Example_Where_Clause">
     <where>
       <foreach collection="oredCriteria" item="criteria" separator="or">
@@ -71,10 +82,33 @@
     device_fault_id, device_id, device_fault_cause, device_fault_detail, device_fault_date, 
     device_fault_maintenance
   </sql>
+  <sql id="Join_List">
+    df.*,d.`device_name` dname
+  </sql>
   <select id="findAllDeviceFault" parameterType="com.cskaoyan.pojo.DeviceFault" resultMap="BaseResultMap">
     select
     <include refid="Base_Column_List" />
     from device_fault
+  </select>
+  <select id="findDeviceFault" parameterType="com.cskaoyan.pojo.DeviceFaultVO" resultMap="ResultMap">
+    select
+    <include refid="Join_List"/>
+    from device_fault df
+    left join device d on df.`device_id` =  d.`device_id`
+  </select>
+  <select id="searchByFaultId" parameterType="com.cskaoyan.pojo.DeviceFaultVO" resultMap="ResultMap">
+    select
+    <include refid="Join_List"/>
+    from device_fault df
+    left join device d on df.`device_id` =  d.`device_id`
+    where df.`device_fault_id` like #{deviceFaultId,jdbcType=VARCHAR}
+  </select>
+  <select id="searchByDeviceName" parameterType="com.cskaoyan.pojo.DeviceFaultVO" resultMap="ResultMap">
+    select
+    <include refid="Join_List"/>
+    from device_fault df
+    left join device d on df.`device_id` =  d.`device_id`
+    where d.`device_name` like #{deviceDeviceName,jdbcType=VARCHAR}
   </select>
   <select id="selectByExample" parameterType="com.cskaoyan.pojo.DeviceFaultExample" resultMap="BaseResultMap">
     select

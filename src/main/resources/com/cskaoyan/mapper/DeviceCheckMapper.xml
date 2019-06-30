@@ -94,6 +94,12 @@
     <include refid="Base_Column_List" />
     from device_check
   </select>
+  <select id="searchCheckId" parameterType="com.cskaoyan.pojo.DeviceCheck" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from device_check dc
+    where device_check_id = #{deviceCheckId,jdbcType=VARCHAR}
+  </select>
   <select id="findDeviceCheck" parameterType="com.cskaoyan.pojo.DeviceCheckVO" resultMap="ResultMap">
     select
     <include refid="join_List" />
@@ -129,7 +135,7 @@
     from device_check dc
     left join device d on dc.`device_id` =  d.`device_id`
     left join employee e ON dc.`device_check_emp_id` = e.`emp_id`
-    where d.`device_name` like #{deviceNamejdbcType=VARCHAR}
+    where d.`device_name` like #{deviceName,jdbcType=VARCHAR}
   </select>
 
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String">

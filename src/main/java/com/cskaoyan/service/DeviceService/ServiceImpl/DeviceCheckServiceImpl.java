@@ -106,4 +106,9 @@ public class DeviceCheckServiceImpl implements DeviceCheckService {
         easyUiDataGridResult.setTotal((int) deviceCheckMapper.countByExample(deviceCheckExample));
         return easyUiDataGridResult;
     }
+    @Override
+    public DeviceCheck searchCheckId(String searchValue) {
+        DeviceCheck deviceCheck = deviceCheckMapper.searchCheckId(searchValue);
+        return deviceCheck;
+    }
 }

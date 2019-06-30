@@ -16,6 +16,7 @@ public interface DeviceCheckMapper {
     List<DeviceCheckVO> searchByCheckId(String checkId);
 
     List<DeviceCheckVO> searchByCheckName(String checkName);
+    DeviceCheck searchCheckId(String checkId);
 
     long countByExample(DeviceCheckExample example);
 

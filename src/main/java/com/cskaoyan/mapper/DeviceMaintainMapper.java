@@ -3,10 +3,18 @@ package com.cskaoyan.mapper;
 import com.cskaoyan.pojo.DeviceMaintain;
 import com.cskaoyan.pojo.DeviceMaintainExample;
 import java.util.List;
+
+import com.cskaoyan.pojo.DeviceMaintainVO;
 import org.apache.ibatis.annotations.Param;
 
 public interface DeviceMaintainMapper {
-    List findAllDeviceMaintain();
+    List<DeviceMaintain> findAllDeviceMaintain();
+
+    List<DeviceMaintainVO> findDeviceMaintain();
+
+    List<DeviceMaintainVO> searchByMaintainId(String MaintainId);
+
+    List<DeviceMaintainVO> searchByDeviceFaultId(String DeviceFaultId);
 
     long countByExample(DeviceMaintainExample example);
 

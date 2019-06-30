@@ -10,6 +10,18 @@
     <result column="device_maintain_cost" jdbcType="DECIMAL" property="deviceMaintainCost" />
     <result column="note" jdbcType="VARCHAR" property="note" />
   </resultMap>
+  <resultMap id="ResultMap" type="com.cskaoyan.pojo.DeviceMaintainVO">
+    <id column="device_maintain_id" jdbcType="VARCHAR" property="deviceMaintainId" />
+    <result column="device_fault_id" jdbcType="VARCHAR" property="deviceFaultId" />
+    <result column="device_maintain_emp_id" jdbcType="VARCHAR" property="deviceMaintainEmpId" />
+    <result column="device_maintain_date" jdbcType="TIMESTAMP" property="deviceMaintainDate" />
+    <result column="device_maintain_result" jdbcType="VARCHAR" property="deviceMaintainResult" />
+    <result column="device_maintain_cost" jdbcType="DECIMAL" property="deviceMaintainCost" />
+    <result column="note" jdbcType="VARCHAR" property="note" />
+    <association property="deviceMaintainEmp" javaType="String">
+      <result column="dmEmp" jdbcType="VARCHAR" property="deviceMaintainEmp"/>
+    </association>
+  </resultMap>
   <sql id="Example_Where_Clause">
     <where>
       <foreach collection="oredCriteria" item="criteria" separator="or">
@@ -72,10 +84,42 @@
     device_maintain_id, device_fault_id, device_maintain_emp_id, device_maintain_date, 
     device_maintain_result, device_maintain_cost, note
   </sql>
+  <sql id="Join_List">
+    dm.*,e.`emp_name` dmEmp
+  </sql>
   <select id="findAllDeviceMaintain" parameterType="com.cskaoyan.pojo.DeviceMaintain" resultMap="BaseResultMap">
     select
     <include refid="Base_Column_List" />
     from device_maintain
+  </select>
+  <select id="findDeviceMaintain" parameterType="com.cskaoyan.pojo.DeviceMaintainVO" resultMap="ResultMap">
+    select
+    <include refid="Join_List" />
+    from device_maintain dm
+    left join employee e on dm.`device_maintain_emp_id` = e.`emp_id`
+  </select>
+
+
+
+
+<!--  !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!-->
+
+
+
+
+  <select id="searchByMaintainId" parameterType="com.cskaoyan.pojo.DeviceMaintainVO" resultMap="ResultMap">
+    select
+    <include refid="Join_List" />
+    from device_maintain dm
+    left join employee e on dm.`device_maintain_emp_id` = e.`emp_id`
+    Where device_maintain_id like #{deviceMaintainId}
+  </select>
+  <select id="searchByDeviceFaultId" parameterType="com.cskaoyan.pojo.DeviceMaintainVO" resultMap="ResultMap">
+    select
+    <include refid="Join_List" />
+    from device_maintain dm
+    left join employee e on dm.`device_maintain_emp_id` = e.`emp_id`
+    Where device_fault_id like #{deviceFualtId}
   </select>
   <select id="selectByExample" parameterType="com.cskaoyan.pojo.DeviceMaintainExample" resultMap="BaseResultMap">
     select

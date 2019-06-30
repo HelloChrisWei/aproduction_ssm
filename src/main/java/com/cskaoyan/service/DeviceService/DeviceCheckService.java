@@ -13,4 +13,5 @@ public interface DeviceCheckService {
     public ResponseStatus updateByPrimaryKeySelective(DeviceCheck deviceCheck);
     public EasyUiDataGridResult searchByCheckId(String searchValue, int page, int rows);
     public EasyUiDataGridResult searchByCheckName(String searchValue, int page, int rows);
+    public DeviceCheck searchCheckId(String searchValue);
 }

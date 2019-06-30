@@ -1,13 +1,19 @@
 package com.cskaoyan.mapper;
 
-import com.cskaoyan.pojo.DeviceFault;
-import com.cskaoyan.pojo.DeviceFaultExample;
+import com.cskaoyan.pojo.*;
+
 import java.util.List;
+
 import org.apache.ibatis.annotations.Param;
 
 public interface DeviceFaultMapper {
     List<DeviceFault> findAllDeviceFault();
 
+    List<DeviceFaultVO> findDeviceFault();
+
+    List<DeviceFaultVO> searchByFaultId(String faultId);
+
+    List<DeviceFaultVO> searchByDeviceName(String faultName);
     long countByExample(DeviceFaultExample example);
 
     int deleteByExample(DeviceFaultExample example);

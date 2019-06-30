@@ -21,6 +21,11 @@ public class DeviceCheckController {
         List allDevice = deviceCheckService.findDeviceCheck();
         return allDevice;
     }
+    @RequestMapping("deviceCheck/get/{deviceCheckId}")
+    @ResponseBody
+    public DeviceCheck SearchDeviceTypeDetail(@PathVariable("deviceCheckId") String deviceCheckId){
+        return deviceCheckService.searchCheckId(deviceCheckId);
+    }
     //--------------------------------------------------------
     //实现设备例检功能
     @RequestMapping("device/deviceCheck")
@@ -66,6 +71,14 @@ public class DeviceCheckController {
 
     //----------------------------------------------------
     //种类界面实现修改功能
+    @RequestMapping("deviceCheck/update_all")
+    public String eupdateAll() {
+        return "forward:update";
+    }
+    @RequestMapping("deviceCheck/update_note")
+    public String eupdateNote() {
+        return "forward:update";
+    }
     @RequestMapping("deviceCheck/edit_judge")
     public String edit_judge() {
         return "forward:edit";

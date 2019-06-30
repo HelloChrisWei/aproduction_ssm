@@ -79,6 +79,10 @@ public class DeviceTypeController {
 
     //----------------------------------------------------
     //种类界面实现修改功能
+    @RequestMapping("deviceType/update_all")
+    public String updateAll() {
+        return "forward:update";
+    }
     @RequestMapping("deviceType/edit_judge")
     public String edit_judge() {
         return "forward:edit";

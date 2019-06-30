@@ -74,6 +74,14 @@ public class DeviceListController {
     }
     //----------------------------------------------------
     //台账界面实现修改功能
+    @RequestMapping("deviceList/update_all")
+    public String updateAll() {
+        return "forward:update";
+    }
+    @RequestMapping("deviceList/update_note")
+    public String updateNote() {
+        return "forward:update";
+    }
     @RequestMapping("deviceList/edit_judge")
     public String edit_judge() {
         return "forward:edit";
