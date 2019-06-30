@@ -13,8 +13,6 @@ import java.util.List;
 public class DeviceListServiceImpl implements DeviceListService {
     @Autowired
     DeviceMapper deviceListMapper;
-    @Autowired
-    DeviceTypeMapper deviceTypeMapper;
 
     @Override
     public List<Device> findDeviceList(){
@@ -71,5 +69,53 @@ public class DeviceListServiceImpl implements DeviceListService {
         }
         return responseStatus;
     }
+    @Override
+    public ResponseStatus updateByPrimaryKeySelective(Device device) {
+        ResponseStatus responseStatus = new ResponseStatus();
+        try {
+            deviceListMapper.updateByPrimaryKeySelective(device);
+            responseStatus.setStatus(200);
+            responseStatus.setMsg("OK");
+        } catch (Exception e) {
+            e.printStackTrace();
+            responseStatus.setStatus(520);
+            responseStatus.setMsg("无法插入");
+        }
+        return responseStatus;
+    }
+    @Override
+    public EasyUiDataGridResult SearchByDeviceId(String deviceId, int page, int rows) {
+        PageHelper.startPage(page,rows);
+        //
+        EasyUiDataGridResult<DeviceVO> easyUiDataGridResult = new EasyUiDataGridResult<>();
+        String id= "%"+deviceId+"%";
+        DeviceExample deviceExample = new DeviceExample();
+
+        easyUiDataGridResult.setRows( deviceListMapper.searchByDeviceId(id));
+
+        easyUiDataGridResult.setTotal((int) deviceListMapper.countByExample(deviceExample));
+        return easyUiDataGridResult;
+    }
+    @Override
+    public EasyUiDataGridResult SearchBydeviceName(String deviceName, int page, int rows) {
+        EasyUiDataGridResult<DeviceVO> result = new EasyUiDataGridResult<>();
+        String dName= "%"+deviceName+"%";
+        List<DeviceVO> deviceTypes = deviceListMapper.searchByDeviceName(dName);
+        result.setRows(deviceTypes);
+        DeviceExample deviceExample = new DeviceExample();
+        result.setTotal((int) deviceListMapper.countByExample(deviceExample));
+        return result;
+    }
+    @Override
+    public EasyUiDataGridResult SearchBydeviceTypeName(String deviceTypeName, int page, int rows) {
+        EasyUiDataGridResult<DeviceVO> result = new EasyUiDataGridResult<>();
+        String tname= "%"+deviceTypeName+"%";
+        List<DeviceVO> deviceTypes = deviceListMapper.searchByTypeName(tname);
+        result.setRows(deviceTypes);
+        DeviceExample deviceExample = new DeviceExample();
+        result.setTotal((int) deviceListMapper.countByExample(deviceExample));
+        return result;
+    }
+
 
 }

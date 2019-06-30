@@ -87,12 +87,16 @@ public class DeviceTypeServiceImpl implements DeviceTypeService {
 
     @Override
     public EasyUiDataGridResult searchByTypeId(String TypeId, int page, int rows) {
-        EasyUiDataGridResult<DeviceType> result = new EasyUiDataGridResult<>();
+        PageHelper.startPage(page,rows);
+        //
+        EasyUiDataGridResult<DeviceType> easyUiDataGridResult = new EasyUiDataGridResult<>();
         String typyid= "%"+TypeId+"%";
-        List<DeviceType> deviceTypes = deviceTypeMapper.searchByTypeId(typyid);
-        result.setRows(deviceTypes);
-        result.setTotal(2);
-        return result;
+        DeviceTypeExample deviceTypeExample = new DeviceTypeExample();
+
+        easyUiDataGridResult.setRows( deviceTypeMapper.searchByTypeId(typyid));
+
+        easyUiDataGridResult.setTotal((int) deviceTypeMapper.countByExample(deviceTypeExample));
+        return easyUiDataGridResult;
     }
     @Override
     public EasyUiDataGridResult searchByTypeName(String TypeName, int page, int rows) {
@@ -100,7 +104,8 @@ public class DeviceTypeServiceImpl implements DeviceTypeService {
         String typyname= "%"+TypeName+"%";
         List<DeviceType> deviceTypes = deviceTypeMapper.searchByTypeName(typyname);
         result.setRows(deviceTypes);
-        result.setTotal(1);
+        DeviceTypeExample deviceTypeExample = new DeviceTypeExample();
+        result.setTotal((int) deviceTypeMapper.countByExample(deviceTypeExample));
         return result;
     }
 

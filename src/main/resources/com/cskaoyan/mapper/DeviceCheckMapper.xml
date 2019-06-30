@@ -9,6 +9,21 @@
     <result column="device_check_result" jdbcType="VARCHAR" property="deviceCheckResult" />
     <result column="device_check_fault_id" jdbcType="VARCHAR" property="deviceCheckFaultId" />
   </resultMap>
+  <resultMap id="ResultMap" type="com.cskaoyan.pojo.DeviceCheckVO">
+    <id column="device_check_id" jdbcType="VARCHAR" property="deviceCheckId" />
+    <result column="device_id" jdbcType="VARCHAR" property="deviceId" />
+    <result column="device_check_emp_id" jdbcType="VARCHAR" property="deviceCheckEmpId" />
+    <result column="device_check_date" jdbcType="TIMESTAMP" property="deviceCheckDate" />
+    <result column="device_check_result" jdbcType="VARCHAR" property="deviceCheckResult" />
+    <result column="device_check_fault_id" jdbcType="VARCHAR" property="deviceCheckFaultId" />
+    <association property="deviceName" javaType="String">
+      <result column="dname" jdbcType="VARCHAR" property="deviceName"/>
+    </association>
+    <association property="deviceKeeper" javaType="String">
+      <result column="ename" jdbcType="VARCHAR" property="empName"/>
+    </association>
+  </resultMap>
+
   <sql id="Example_Where_Clause">
     <where>
       <foreach collection="oredCriteria" item="criteria" separator="or">
@@ -71,10 +86,20 @@
     device_check_id, device_id, device_check_emp_id, device_check_date, device_check_result, 
     device_check_fault_id
   </sql>
+  <sql id="join_List">
+    dc.*,d.`device_name` dname,e.`emp_name` ename
+  </sql>
   <select id="findAllDeviceCheck" parameterType="com.cskaoyan.pojo.DeviceCheck" resultMap="BaseResultMap">
     select
     <include refid="Base_Column_List" />
     from device_check
+  </select>
+  <select id="findDeviceCheck" parameterType="com.cskaoyan.pojo.DeviceCheckVO" resultMap="ResultMap">
+    select
+    <include refid="join_List" />
+    from device_check dc
+    left join device d on dc.`device_id` =  d.`device_id`
+    LEFT JOIN employee e ON dc.`device_check_emp_id` = e.`emp_id`
   </select>
   <select id="selectByExample" parameterType="com.cskaoyan.pojo.DeviceCheckExample" resultMap="BaseResultMap">
     select
@@ -90,18 +115,23 @@
       order by ${orderByClause}
     </if>
   </select>
-  <select id="searchByCheckId" parameterType="java.lang.String" resultMap="BaseResultMap">
-    select 
-    <include refid="Base_Column_List" />
-    from device_check
+  <select id="searchByCheckId" parameterType="java.lang.String" resultMap="ResultMap">
+    select
+    <include refid="join_List" />
+    from device_check dc
+    left join device d on dc.`device_id` =  d.`device_id`
+    left join employee e ON dc.`device_check_emp_id` = e.`emp_id`
     where device_check_id like #{deviceCheckId,jdbcType=VARCHAR}
   </select>
-  <!--<select id="searchByCheckName" parameterType="java.lang.String" resultMap="BaseResultMap">
+  <select id="searchByCheckName" parameterType="java.lang.String" resultMap="ResultMap">
     select
-    <include refid="Base_Column_List" />
-    from device_check
-    where device_check_id like #{deviceCheckId,jdbcType=VARCHAR}
-  </select>-->
+    <include refid="join_List" />
+    from device_check dc
+    left join device d on dc.`device_id` =  d.`device_id`
+    left join employee e ON dc.`device_check_emp_id` = e.`emp_id`
+    where d.`device_name` like #{deviceNamejdbcType=VARCHAR}
+  </select>
+
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
     delete from device_check
     where device_check_id = #{deviceCheckId,jdbcType=VARCHAR}

@@ -111,6 +111,30 @@
     LEFT JOIN device_type dt ON d.`device_type_id` = dt.`device_type_id`
     LEFT JOIN employee e ON d.`device_keeper_id` = e.`emp_id`
   </select>
+  <select id="searchByDeviceId" resultMap="ResultMap">
+    select
+    <include refid="JoinList"/>
+    from device d
+    LEFT JOIN device_type dt ON d.`device_type_id` = dt.`device_type_id`
+    LEFT JOIN employee e ON d.`device_keeper_id` = e.`emp_id`
+    where d.`device_id` like #{deviceId}
+  </select>
+  <select id="searchByDeviceName" resultMap="ResultMap">
+    select
+    <include refid="JoinList"/>
+    from device d
+    LEFT JOIN device_type dt ON d.`device_type_id` = dt.`device_type_id`
+    LEFT JOIN employee e ON d.`device_keeper_id` = e.`emp_id`
+    where d.`device_name` like #{deviceName}
+  </select>
+  <select id="searchByTypeName" resultMap="ResultMap">
+    select
+    <include refid="JoinList"/>
+    from device d
+    LEFT JOIN device_type dt ON d.`device_type_id` = dt.`device_type_id`
+    LEFT JOIN employee e ON d.`device_keeper_id` = e.`emp_id`
+    where dt.`device_type_name` like #{deviceTypeName}
+  </select>
   <insert id="addList" parameterType="com.cskaoyan.pojo.Device">
     insert into device ( <include refid="Base_Column_List"/> )
     values (#{deviceId},

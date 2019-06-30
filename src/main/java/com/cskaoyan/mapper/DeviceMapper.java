@@ -13,6 +13,12 @@ public interface DeviceMapper {
     //用来显示页面类处多表查询的信息
     List<DeviceVO> findDeviceList();
 
+    List<DeviceVO> searchByDeviceId(String id);
+
+    List<DeviceVO> searchByDeviceName(String DeviceName);
+
+    List<DeviceVO> searchByTypeName(String TypeName);
+
     int addList(Device device);
     long countByExample(DeviceExample example);
 

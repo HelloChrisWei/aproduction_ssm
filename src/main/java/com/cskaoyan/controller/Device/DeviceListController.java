@@ -60,7 +60,7 @@ public class DeviceListController {
         return deviceListService.addList(d);
     }
     //-------------------------------------------------
-    //种类界面实现删除功能
+    //台账界面实现删除功能
     @RequestMapping("deviceList/delete_judge")
     @ResponseBody
     public ResponseStatus deleteJudge() {
@@ -71,6 +71,44 @@ public class DeviceListController {
     @ResponseBody
     public ResponseStatus deleteBatch(String[] ids) {
         return deviceListService.deleteDevice(ids);
+    }
+    //----------------------------------------------------
+    //台账界面实现修改功能
+    @RequestMapping("deviceList/edit_judge")
+    public String edit_judge() {
+        return "forward:edit";
+    }
+
+    @RequestMapping("deviceList/edit")
+    public String editType() {
+        return "deviceList_edit";
+    }
+
+    @RequestMapping("deviceList/update")
+    @ResponseBody
+    public ResponseStatus updateDevice(Device device) {
+        return deviceListService.updateByPrimaryKeySelective(device);
+    }
+    //-----------------------------------------------
+    //实现台账界面的查找功能
+    @RequestMapping("deviceList/search_device_by_deviceId")
+    @ResponseBody
+    public EasyUiDataGridResult SearchByDeviceId(String searchValue, int page, int rows) {
+        EasyUiDataGridResult result = deviceListService.SearchByDeviceId(searchValue, page, rows);
+        return result;
+    }
+
+    @RequestMapping("deviceList/search_device_by_deviceName")
+    @ResponseBody
+    public EasyUiDataGridResult SearchBydeviceName(String searchValue, int page, int rows) {
+        EasyUiDataGridResult result = deviceListService.SearchBydeviceName(searchValue, page, rows);
+        return result;
+    }
+    @RequestMapping("deviceList/search_device_by_deviceTypeName")
+    @ResponseBody
+    public EasyUiDataGridResult SearchBydeviceTypeName(String searchValue, int page, int rows) {
+        EasyUiDataGridResult result = deviceListService.SearchBydeviceTypeName(searchValue, page, rows);
+        return result;
     }
 
 }

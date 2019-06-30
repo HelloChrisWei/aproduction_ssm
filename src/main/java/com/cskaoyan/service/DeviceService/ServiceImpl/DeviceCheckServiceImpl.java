@@ -19,14 +19,14 @@ public class DeviceCheckServiceImpl implements DeviceCheckService {
         return deviceCheckMapper.findAllDeviceCheck();
     }
     @Override
-    public EasyUiDataGridResult<DeviceCheck> findAllDeviceCheck(int page, int rows) {
+    public EasyUiDataGridResult<DeviceCheckVO> findAllDeviceCheck(int page, int rows) {
         PageHelper.startPage(page,rows);
         //创建EasyUiDataGridResult类，目的:封装list数据
-        EasyUiDataGridResult<DeviceCheck> easyUiDataGridResult = new EasyUiDataGridResult<>();
+        EasyUiDataGridResult<DeviceCheckVO> easyUiDataGridResult = new EasyUiDataGridResult<>();
         //目的:获取总条目数
         DeviceCheckExample deviceCheckExample = new DeviceCheckExample();
         //封装list
-        easyUiDataGridResult.setRows( deviceCheckMapper.findAllDeviceCheck());
+        easyUiDataGridResult.setRows( deviceCheckMapper.findDeviceCheck());
         //获取总数
         easyUiDataGridResult.setTotal((int) deviceCheckMapper.countByExample(deviceCheckExample));
         return easyUiDataGridResult;
@@ -82,20 +82,28 @@ public class DeviceCheckServiceImpl implements DeviceCheckService {
     }
     @Override
     public EasyUiDataGridResult searchByCheckId(String CheckId, int page, int rows) {
-        EasyUiDataGridResult<DeviceCheck> result = new EasyUiDataGridResult<>();
+        PageHelper.startPage(page,rows);
+        EasyUiDataGridResult<DeviceCheckVO> easyUiDataGridResult = new EasyUiDataGridResult<>();
         String checkid= "%"+CheckId+"%";
-        List<DeviceCheck> deviceChecks = deviceCheckMapper.searchByCheckId(checkid);
-        result.setRows(deviceChecks);
-        result.setTotal(2);
-        return result;
+        //目的:获取总条目数
+        DeviceCheckExample deviceCheckExample = new DeviceCheckExample();
+        //封装list
+        easyUiDataGridResult.setRows( deviceCheckMapper.searchByCheckId(checkid));
+        //获取总数
+        easyUiDataGridResult.setTotal((int) deviceCheckMapper.countByExample(deviceCheckExample));
+        return easyUiDataGridResult;
     }
     @Override
     public EasyUiDataGridResult searchByCheckName(String CheckName, int page, int rows) {
-        EasyUiDataGridResult<DeviceCheck> result = new EasyUiDataGridResult<>();
+        PageHelper.startPage(page,rows);
+        EasyUiDataGridResult<DeviceCheckVO> easyUiDataGridResult = new EasyUiDataGridResult<>();
         String checkname= "%"+CheckName+"%";
-        List<DeviceCheck> deviceChecks = deviceCheckMapper.searchByCheckName(checkname);
-        result.setRows(deviceChecks);
-        result.setTotal(1);
-        return result;
+        //目的:获取总条目数
+        DeviceCheckExample deviceCheckExample = new DeviceCheckExample();
+        //封装list
+        easyUiDataGridResult.setRows(deviceCheckMapper.searchByCheckName(checkname));
+        //获取总数
+        easyUiDataGridResult.setTotal((int) deviceCheckMapper.countByExample(deviceCheckExample));
+        return easyUiDataGridResult;
     }
 }

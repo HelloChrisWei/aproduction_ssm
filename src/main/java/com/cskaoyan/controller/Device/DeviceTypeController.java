@@ -91,7 +91,7 @@ public class DeviceTypeController {
 
     @RequestMapping("deviceType/update")
     @ResponseBody
-    public ResponseStatus uodateType(DeviceType deviceType) {
+    public ResponseStatus updateType(DeviceType deviceType) {
         return deviceTypeService.updateByPrimaryKeySelective(deviceType);
     }
 
