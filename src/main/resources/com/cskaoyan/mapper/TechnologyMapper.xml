@@ -286,15 +286,16 @@
     limit #{rows} offset #{offset}
   </select>-->
   <!--回显-->
-  <select id="selectTechnologyMessage" resultMap="BaseResultMap">
-    select technology_name,
+  <select id="selectTechnologyById" resultMap="BaseResultMap">
+    select  technology_id,
+            technology_name,
             price,
             vital_process_period,
             standard_capacity,
             overtime_standard_capacity,
             overtime_overfulfil_capacity,
             double_capacity,
-            overfulfil_capacity from technology where technology_id = #{technologyId,jdbcType=VARCHAR}
+            overfulfil_capacity from technology where technology_id like #{tId}
   </select>
   <!--下拉-->
   <select id="selectAllTechnology" resultMap="BaseResultMap">
@@ -302,4 +303,16 @@
     <include refid="Base_Column_List"></include>
     from technology
   </select>
+  <select id="selectTechnologyByName" resultMap="BaseResultMap">
+    select technology_id,
+            technology_name,
+            price,
+            vital_process_period,
+            standard_capacity,
+            overtime_standard_capacity,
+            overtime_overfulfil_capacity,
+            double_capacity,
+            overfulfil_capacity from technology where technology_name like #{tName}
+  </select>
+
 </mapper>

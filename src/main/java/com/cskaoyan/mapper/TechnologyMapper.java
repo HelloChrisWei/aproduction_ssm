@@ -34,4 +34,8 @@ public interface TechnologyMapper {
     List<Technology> selectAllTechnologyByPage();
 
     List<Technology> selectAllTechnology();
+
+    List<Technology> selectTechnologyById(String tId);
+
+    List<Technology> selectTechnologyByName(String tName);
 }

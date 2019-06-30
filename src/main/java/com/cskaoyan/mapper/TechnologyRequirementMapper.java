@@ -31,8 +31,9 @@ public interface TechnologyRequirementMapper {
 
     List<TechnologyRequirement> selectAllTechnologyRequirementByPage();
 
-    List<TechnologyRequirement> selectTechnologyRequirementByCondition(TechnologyRequirement record);
+    List<TechnologyRequirement> selectTechnologyRequirementById(String technologyRequirementId);
 
-    long countByExampleByCondition(TechnologyRequirement record);
+    List<TechnologyRequirement> selectTechnologyRequirementByName(String technologyName);
+
 
 }

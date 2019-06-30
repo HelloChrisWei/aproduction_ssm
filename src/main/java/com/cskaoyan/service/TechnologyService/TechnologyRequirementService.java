@@ -17,5 +17,5 @@ public interface TechnologyRequirementService {
 
     EasyUiDataGridResult<TechnologyRequirement> search_technologyRequirement_by_technologyRequirementId(String tRId, int page, int rows);
 
-    EasyUiDataGridResult<TechnologyRequirement> search_technologyRequirement_by_technologyName(String tRName, int page, int rows);
+    EasyUiDataGridResult<TechnologyRequirement> search_technologyRequirement_by_technologyName(String tName, int page, int rows);
 }
