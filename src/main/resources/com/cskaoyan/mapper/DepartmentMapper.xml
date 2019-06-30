@@ -67,11 +67,7 @@
   <sql id="Base_Column_List">
     department_id, department_name, note
   </sql>
-  <select id="findAllDeparment" parameterType="com.cskaoyan.pojo.Department" resultMap="BaseResultMap">
-    select
-    <include refid="Base_Column_List" />
-    from department
-  </select>
+
   <select id="selectByExample" parameterType="com.cskaoyan.pojo.DepartmentExample" resultMap="BaseResultMap">
     select
     <if test="distinct">
@@ -183,5 +179,47 @@
       note = #{note,jdbcType=VARCHAR}
     where department_id = #{departmentId,jdbcType=VARCHAR}
   </update>
+  <!--显示所有部门信息-->
+  <select id="selectAllDepartmentPage" parameterType="com.cskaoyan.pojo.Department" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from department
+    limit #{rows} offset #{offset}
+  </select>
+<!--查詢部門的name-->
+  <select id="selectDepartmentName" parameterType="com.cskaoyan.pojo.Department" resultMap="BaseResultMap">
+       select
+         department_id, department_name, note
+        from department
+  </select>
 
+  <!--條件查詢-->
+  <select id="searchDepartmentPage" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List"/>
+    from department
+    <where>
+    <if test="department.departmentId != null">
+      department_id like #{department.departmentId}
+    </if>
+    <if test="department.departmentName != null">
+      and department_name like #{department.departmentName}
+    </if>
+    </where>
+    limit #{rows} offset #{offset}
+  </select>
+
+  <!--查詢所有用戶數量-->
+  <select id="searchDepartmentCount" resultType="java.lang.Integer">
+    select count(*)
+    from department
+    <where>
+      <if test="record.departmentId != null">
+        department_id like #{record.departmentId}
+      </if>
+      <if test="record.departmentName != null">
+        and department_name = #{record.departmentName}
+      </if>
+    </where>
+  </select>
 </mapper>

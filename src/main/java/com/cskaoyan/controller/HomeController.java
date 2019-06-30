@@ -21,7 +21,8 @@ public class HomeController {
     /*登录页面*/
     @RequestMapping("/")
     public String defaultLogin() {
-        return "login";
+//        return "login";
+        return "home";
     }
 
     /*登录页面*/
