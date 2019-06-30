@@ -321,6 +321,8 @@
     </set>
     where emp_id = #{empId,jdbcType=VARCHAR}
   </update>
+
+  <!--更新員工-->
   <update id="updateByPrimaryKey" parameterType="com.cskaoyan.pojo.Employee">
     update employee
     set emp_name = #{empName,jdbcType=VARCHAR},
@@ -342,9 +344,10 @@
   <resultMap id="employeeResultMapper" type="com.cskaoyan.pojo.EmployeeVO">
     <id column="emp_id" property="empId"/>
     <result column="sex" property="sex"/>
+    <result column="emp_name" property="empName"/>
     <result column="id_code" property="idCode"/>
     <result column="birthday" property="birthday"/>
-    <result column=" join_date" property="joinDate"/>
+    <result column="join_date" property="joinDate"/>
     <result column="status" property="status"/>
     <result column="education" property="education"/>
     <result column="degree" property="degree"/>
@@ -379,4 +382,54 @@
       left join department d on d.department_id =e.department_id
     limit #{rows} offset #{offset}
   </select>
+
+  <!--新增员工表-->
+  <insert id="addAllEmployee" parameterType="com.cskaoyan.pojo.Employee">
+    insert into employee (emp_id, emp_name, sex,
+      id_code, birthday, join_date,
+      status, education, degree,
+      major, graduate_school, education_form,
+      department_id)
+    values (#{empId,jdbcType=VARCHAR}, #{empName,jdbcType=VARCHAR}, #{sex,jdbcType=CHAR},
+      #{idCode,jdbcType=VARCHAR}, #{birthday,jdbcType=DATE}, #{joinDate,jdbcType=DATE},
+      #{status,jdbcType=VARCHAR}, #{education,jdbcType=VARCHAR}, #{degree,jdbcType=VARCHAR},
+      #{major,jdbcType=VARCHAR}, #{graduateSchool,jdbcType=VARCHAR}, #{educationForm,jdbcType=VARCHAR},
+      #{departmentId,jdbcType=VARCHAR})
+  </insert>
+
+<!--  条件查询总数-->
+  <select id="searchEmployeeCount" resultType="java.lang.Integer">
+    select count(*)
+    from employee
+    <where>
+      <if test="employee.empId != null">
+        emp_id like #{employee.empId}
+      </if>
+      <if test="employee.empName != null">
+        and emp_name like #{employee.empName}
+      </if>
+    </where>
+  </select>
+
+  <select id="searchEmployeePage" resultMap="employeeResultMapper">
+    select
+    <include refid="Base_Column_List"/>
+    from employee
+    <where>
+      <if test="employee.empId != null">
+        emp_id like #{employee.empId}
+      </if>
+      <if test="employee.empName != null">
+      and emp_name like #{employee.empName}
+    </if>
+    </where>
+  </select>
+
+<!--  查询所有员工-->
+  <select id="selectEmployeeData" parameterType="com.cskaoyan.pojo.Employee" resultMap="employeeResultMapper">
+    select <include refid="Base_Column_List"/>
+    from
+    employee
+  </select>
+
 </mapper>

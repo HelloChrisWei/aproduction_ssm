@@ -4,6 +4,7 @@ package com.cskaoyan.controller.Device;
 import com.cskaoyan.pojo.Device;
 import com.cskaoyan.pojo.DeviceType;
 import com.cskaoyan.pojo.EasyUiDataGridResult;
+import com.cskaoyan.pojo.ResponseStatus;
 import com.cskaoyan.service.DeviceService.ServiceImpl.DeviceListServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -24,7 +25,7 @@ public class DeviceListController {
     }
     @RequestMapping("deviceList/get/{deviceId}")
     @ResponseBody
-    public Device SsearchDeviceDetail(@PathVariable("deviceId") String deviceId){
+    public Device SearchDeviceDetail(@PathVariable("deviceId") String deviceId){
         return deviceListService.searchDeviceById(deviceId);
     }
 
@@ -43,7 +44,7 @@ public class DeviceListController {
     }
 
     //------------------------------------------------
-//    设备台账新增功能实现
+//    设备台账新增功能实现，，需要依赖其他模块
     @RequestMapping("deviceList/add_judge")
     public String add() {
         System.out.println("add-judge");
@@ -51,18 +52,63 @@ public class DeviceListController {
     }
     @RequestMapping("deviceList/add")
     public String addtest() {
-//        int i =deviceService.addList(device);
-        System.out.println("addtest");
         return "deviceList_add";
     }//---这两步的目的都是获取到提交的表单
-
-/*    @RequestMapping("employee/get_data")
+    @RequestMapping("deviceList/insert")
     @ResponseBody
-    public List<Employee> employeeId(){
-        List<Employee> allEmployee = employeeService.findAllEmployee();
-        return allEmployee;
-    }*/
+    public ResponseStatus insert(Device d) {
+        return deviceListService.addList(d);
+    }
+    //-------------------------------------------------
+    //台账界面实现删除功能
+    @RequestMapping("deviceList/delete_judge")
+    @ResponseBody
+    public ResponseStatus deleteJudge() {
+        return new ResponseStatus();
+    }
 
+    @RequestMapping("deviceList/delete_batch")
+    @ResponseBody
+    public ResponseStatus deleteBatch(String[] ids) {
+        return deviceListService.deleteDevice(ids);
+    }
+    //----------------------------------------------------
+    //台账界面实现修改功能
+    @RequestMapping("deviceList/edit_judge")
+    public String edit_judge() {
+        return "forward:edit";
+    }
 
+    @RequestMapping("deviceList/edit")
+    public String editType() {
+        return "deviceList_edit";
+    }
+
+    @RequestMapping("deviceList/update")
+    @ResponseBody
+    public ResponseStatus updateDevice(Device device) {
+        return deviceListService.updateByPrimaryKeySelective(device);
+    }
+    //-----------------------------------------------
+    //实现台账界面的查找功能
+    @RequestMapping("deviceList/search_device_by_deviceId")
+    @ResponseBody
+    public EasyUiDataGridResult SearchByDeviceId(String searchValue, int page, int rows) {
+        EasyUiDataGridResult result = deviceListService.SearchByDeviceId(searchValue, page, rows);
+        return result;
+    }
+
+    @RequestMapping("deviceList/search_device_by_deviceName")
+    @ResponseBody
+    public EasyUiDataGridResult SearchBydeviceName(String searchValue, int page, int rows) {
+        EasyUiDataGridResult result = deviceListService.SearchBydeviceName(searchValue, page, rows);
+        return result;
+    }
+    @RequestMapping("deviceList/search_device_by_deviceTypeName")
+    @ResponseBody
+    public EasyUiDataGridResult SearchBydeviceTypeName(String searchValue, int page, int rows) {
+        EasyUiDataGridResult result = deviceListService.SearchBydeviceTypeName(searchValue, page, rows);
+        return result;
+    }
 
 }

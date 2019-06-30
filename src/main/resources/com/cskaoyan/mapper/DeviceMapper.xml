@@ -14,6 +14,25 @@
     <result column="device_keeper_id" jdbcType="VARCHAR" property="deviceKeeperId" />
     <result column="note" jdbcType="VARCHAR" property="note" />
   </resultMap>
+  <resultMap id="ResultMap" type="com.cskaoyan.pojo.DeviceVO">
+    <id column="device_id" jdbcType="VARCHAR" property="deviceId" />
+    <result column="device_name" jdbcType="VARCHAR" property="deviceName" />
+    <result column="device_type_id" jdbcType="VARCHAR" property="deviceTypeId" />
+    <result column="device_status_id" jdbcType="VARCHAR" property="deviceStatusId" />
+    <result column="device_status" jdbcType="VARCHAR" property="deviceStatus" />
+    <result column="device_purchase_date" jdbcType="TIMESTAMP" property="devicePurchaseDate" />
+    <result column="device_purchase_price" jdbcType="DECIMAL" property="devicePurchasePrice" />
+    <result column="device_manufacture_date" jdbcType="TIMESTAMP" property="deviceManufactureDate" />
+    <result column="device_service_life" jdbcType="TIMESTAMP" property="deviceServiceLife" />
+    <result column="device_keeper_id" jdbcType="VARCHAR" property="deviceKeeperId" />
+    <result column="note" jdbcType="VARCHAR" property="note" />
+    <association property="deviceTypeName" javaType="String">
+      <result column="dtname" jdbcType="VARCHAR" property="deviceTypeName"/>
+    </association>
+    <association property="deviceKeeper" javaType="String">
+      <result column="ename" jdbcType="VARCHAR" property="empName"/>
+    </association>
+  </resultMap>
   <sql id="Example_Where_Clause">
     <where>
       <foreach collection="oredCriteria" item="criteria" separator="or">
@@ -77,10 +96,44 @@
     device_purchase_price, device_manufacture_date, device_service_life, device_keeper_id, 
     note
   </sql>
+  <sql id="JoinList">
+    d.*,dt.`device_type_name`dtname,e.`emp_name` ename
+  </sql>
   <select id="findAllDeviceList" parameterType="com.cskaoyan.pojo.Device" resultMap="BaseResultMap">
     select
     <include refid="Base_Column_List" />
     from device
+  </select>
+  <select id="findDeviceList" resultMap="ResultMap">
+    select
+    <include refid="JoinList"/>
+    from device d
+    LEFT JOIN device_type dt ON d.`device_type_id` = dt.`device_type_id`
+    LEFT JOIN employee e ON d.`device_keeper_id` = e.`emp_id`
+  </select>
+  <select id="searchByDeviceId" resultMap="ResultMap">
+    select
+    <include refid="JoinList"/>
+    from device d
+    LEFT JOIN device_type dt ON d.`device_type_id` = dt.`device_type_id`
+    LEFT JOIN employee e ON d.`device_keeper_id` = e.`emp_id`
+    where d.`device_id` like #{deviceId}
+  </select>
+  <select id="searchByDeviceName" resultMap="ResultMap">
+    select
+    <include refid="JoinList"/>
+    from device d
+    LEFT JOIN device_type dt ON d.`device_type_id` = dt.`device_type_id`
+    LEFT JOIN employee e ON d.`device_keeper_id` = e.`emp_id`
+    where d.`device_name` like #{deviceName}
+  </select>
+  <select id="searchByTypeName" resultMap="ResultMap">
+    select
+    <include refid="JoinList"/>
+    from device d
+    LEFT JOIN device_type dt ON d.`device_type_id` = dt.`device_type_id`
+    LEFT JOIN employee e ON d.`device_keeper_id` = e.`emp_id`
+    where dt.`device_type_name` like #{deviceTypeName}
   </select>
   <insert id="addList" parameterType="com.cskaoyan.pojo.Device">
     insert into device ( <include refid="Base_Column_List"/> )

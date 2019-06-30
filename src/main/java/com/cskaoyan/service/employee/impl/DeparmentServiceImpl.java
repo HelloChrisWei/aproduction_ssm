@@ -1,6 +1,8 @@
 package com.cskaoyan.service.employee.impl;
 import com.cskaoyan.mapper.DepartmentMapper;
 import com.cskaoyan.pojo.Department;
+import com.cskaoyan.pojo.DepartmentExample;
+import com.cskaoyan.pojo.EasyUiDataGridResult;
 import com.cskaoyan.pojo.ResponseStatus;
 import com.cskaoyan.service.employee.DeparmentService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,9 +15,17 @@ public class DeparmentServiceImpl implements DeparmentService {
     @Autowired
     DepartmentMapper departmentMapper;
     @Override
-    public List<Department> findAllDeparment() {
-        List<Department> allDeparment = departmentMapper.findAllDeparment();
-        return allDeparment;
+    public EasyUiDataGridResult<Department> selectAllDepartmentPage(int page, int rows) {
+        EasyUiDataGridResult<Department> result = new EasyUiDataGridResult<Department>();
+        DepartmentExample example = new DepartmentExample();
+       long count = departmentMapper.countByExample(example);
+        rows = count < rows ? (int) count :rows;
+        int offset = (page - 1) * rows;
+
+        List<Department> departments = departmentMapper.selectAllDepartmentPage(rows, offset);
+        result.setRows(departments);
+        result.setTotal((int) count);
+        return result;
     }
 
     //新增
@@ -70,7 +80,43 @@ public class DeparmentServiceImpl implements DeparmentService {
         return status;
     }
 
+    @Override
+    public List<Department> selectDepartmentName() {
+        return departmentMapper.selectDepartmentName();
+    }
 
+    @Override
+    public EasyUiDataGridResult<Department> searchDepartmentById(String departmentId, int page, int rows) {
+        Department department = new Department();
+        department.setDepartmentId("%" + departmentId + "%");
+        return preHandle(department,page,rows);
+    }
+
+    @Override
+    public EasyUiDataGridResult<Department> searchDepartmentByName(String departmentName, int page, int rows) {
+        Department department = new Department();
+        department.setDepartmentName("%" + departmentName + "%");
+        return preHandle(department,page,rows);
+    }
+
+    @Override
+    public Department selectByPrimaryKey(String departmentId) {
+        return departmentMapper.selectByPrimaryKey(departmentId);
+    }
+
+    private  EasyUiDataGridResult<Department> preHandle(Department department,int page,int rows){
+        EasyUiDataGridResult<Department> result = new EasyUiDataGridResult<Department>();
+    //獲取數量進行分頁
+        int count = departmentMapper.searchDepartmentCount(department);
+        rows = count <rows ? count :rows;
+        int offset = (page - 1) * rows;
+
+        List<Department> departments = departmentMapper.searchDepartmentPage(department, rows, offset);
+        result.setRows(departments);
+        result.setTotal(count);
+        return result;
+    }
 
 
 }
+

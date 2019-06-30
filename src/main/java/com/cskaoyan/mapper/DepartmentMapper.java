@@ -6,12 +6,22 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
 public interface DepartmentMapper {
-    List<Department> findAllDeparment();
+    List<Department> selectAllDepartmentPage(@Param("rows") int rows,@Param("offset") int offset);
+
     int addDepartment(Department department);
+
     int  editDeparmentById(Department record );
+
     int deleteByPrimaryKey(String departmentId);
-//逆向工程自动生成的方法
-    long countByExample(DepartmentExample example);
+
+    List<Department> selectDepartmentName();
+
+    int searchDepartmentCount(@Param("record") Department department);
+
+    List<Department> searchDepartmentPage(@Param("department") Department department,@Param("rows") int rows,@Param("offset") int offset);
+
+    //逆向工程自动生成的方法
+    long  countByExample(DepartmentExample example);
 
     int deleteByExample(DepartmentExample example);
 
@@ -21,7 +31,7 @@ public interface DepartmentMapper {
 
     List<Department> selectByExample(DepartmentExample example);
 
-    Department selectByPrimaryKey(String departmentId);
+     Department selectByPrimaryKey(String departmentId);
 
     int updateByExampleSelective(@Param("record") Department record, @Param("example") DepartmentExample example);
 

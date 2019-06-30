@@ -116,4 +116,14 @@ public class UnQualityServiceImpl implements UnQualityService {
 
         return result;
     }
+
+    @Override
+    public ResponseStatus insert(UnqualifyApply record) {
+        int affectedRows = unqualifyApplyMapper.insert(record);
+        if (affectedRows != 1) {
+            return new ResponseStatus(0, "Fail", null, 0, null);
+
+        }
+        return new ResponseStatus(200, "OK", null, 0, null);
+    }
 }

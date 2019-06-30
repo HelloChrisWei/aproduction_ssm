@@ -15,4 +15,5 @@ public interface DeviceTypeService {
     public ResponseStatus updateByPrimaryKeySelective(DeviceType deviceType);
     public EasyUiDataGridResult searchByTypeId(String searchValue,int page,int rows);
     public EasyUiDataGridResult searchByTypeName(String searchValue,int page,int rows);
+    public DeviceType searchTypeId(String searchValue);
 }
