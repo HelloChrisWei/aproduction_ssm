@@ -17,7 +17,7 @@ public class DeviceCheckVO {
 
     private String deviceName;
 
-    private String deviceKeeper;
+    private String deviceCheckEmp;
 
     public String getDeviceName() {
         return deviceName;
@@ -27,12 +27,12 @@ public class DeviceCheckVO {
         this.deviceName = deviceName;
     }
 
-    public String getDeviceKeeper() {
-        return deviceKeeper;
+    public String getDeviceCheckEmp() {
+        return deviceCheckEmp;
     }
 
-    public void setDeviceKeeper(String deviceKeeper) {
-        this.deviceKeeper = deviceKeeper;
+    public void setDeviceCheckEmp(String deviceCheckEmp) {
+        this.deviceCheckEmp = deviceCheckEmp;
     }
 
     public String getDeviceCheckId() {
@@ -93,7 +93,7 @@ public class DeviceCheckVO {
                 ", deviceCheckResult='" + deviceCheckResult + '\'' +
                 ", deviceCheckFaultId='" + deviceCheckFaultId + '\'' +
                 ", deviceName='" + deviceName + '\'' +
-                ", deviceKeeper='" + deviceKeeper + '\'' +
+                ", deviceKeeper='" + deviceCheckEmp + '\'' +
                 '}';
     }
 }

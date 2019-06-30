@@ -56,7 +56,7 @@ public class DeviceCheckController {
         return deviceCheckService.insertCheckDevice(deviceCheck);
     }
     //-------------------------------------------------
-    //种类界面实现删除功能
+    //例检界面实现删除功能
     @RequestMapping("deviceCheck/delete_judge")
     @ResponseBody
     public ResponseStatus deleteJudge() {
@@ -70,7 +70,7 @@ public class DeviceCheckController {
     }
 
     //----------------------------------------------------
-    //种类界面实现修改功能
+    //例检界面实现修改功能
     @RequestMapping("deviceCheck/update_all")
     public String eupdateAll() {
         return "forward:update";
@@ -95,7 +95,7 @@ public class DeviceCheckController {
         return deviceCheckService.updateByPrimaryKeySelective(deviceCheck);
     }
     //-----------------------------------------------
-    //实现种类界面的查找功能
+    //实现例检界面的查找功能
     @RequestMapping("deviceCheck/search_deviceCheck_by_deviceCheckId")
     @ResponseBody
     public EasyUiDataGridResult searchByCheckId(String searchValue, int page, int rows) {

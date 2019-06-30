@@ -19,7 +19,7 @@
     <association property="deviceName" javaType="String">
       <result column="dname" jdbcType="VARCHAR" property="deviceName"/>
     </association>
-    <association property="deviceKeeper" javaType="String">
+    <association property="deviceCheckEmp" javaType="String">
       <result column="ename" jdbcType="VARCHAR" property="empName"/>
     </association>
   </resultMap>
