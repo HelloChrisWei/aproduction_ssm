@@ -114,5 +114,13 @@ public class FinalCountCheckServiceImpl implements FinalCountCheckService {
         return new ResponseStatus(200, "OK", null, 0, null);
     }
 
+    @Override
+    public ResponseStatus insert(FinalCountCheck record) {
+        int affectedRows = finalCountCheckMapper.insert(record);
+        if (affectedRows != 1) {
+            return new ResponseStatus(0, "Fail", null, 0, null);
 
+        }
+        return new ResponseStatus(200, "OK", null, 0, null);
+    }
 }

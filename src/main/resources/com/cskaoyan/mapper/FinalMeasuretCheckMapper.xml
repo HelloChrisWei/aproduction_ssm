@@ -290,7 +290,6 @@
     <include refid="Base_Column_List4VO" />
     FROM final_measuret_check t1
     LEFT JOIN `employee` t2 on t1.emp_id = t2.emp_id
-    limit #{rows} offset #{offset}
   </select>
 
   <!--模糊查询-->

@@ -285,7 +285,6 @@
     <include refid="Base_Column_List4VO" />
     FROM process_measure_check t1
     LEFT JOIN `employee` t2 on t1.emp_id = t2.emp_id
-    limit #{rows} offset #{offset}
   </select>
 
   <!--模糊查询-->
@@ -295,7 +294,7 @@
     FROM process_measure_check t1
     LEFT JOIN `employee` t2 on t1.emp_id = t2.emp_id
     WHERE t1.p_measure_check_id LIKE CONCAT(CONCAT('%', #{example.pMeasureCheckId}), '%')
-    limit #{rows} offset #{offset}
+--     limit #{rows} offset #{offset}
   </select>
 
 </mapper>

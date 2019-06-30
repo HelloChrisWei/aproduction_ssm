@@ -31,4 +31,9 @@ public interface TechnologyRequirementMapper {
 
     List<TechnologyRequirement> selectAllTechnologyRequirementByPage();
 
+    List<TechnologyRequirement> selectTechnologyRequirementById(String technologyRequirementId);
+
+    List<TechnologyRequirement> selectTechnologyRequirementByName(String technologyName);
+
+
 }

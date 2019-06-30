@@ -95,4 +95,18 @@ public class TechnologyRequirementController {
     public ResponseStatus deleteTechnologyRequirement(String[] ids){
         return requirementService.deleteBatchTechnologyRequirement(ids);
     }
+
+    @RequestMapping("/technologyRequirement/search_technologyRequirement_by_technologyRequirementId")
+    @ResponseBody
+    public EasyUiDataGridResult<TechnologyRequirement>
+            search_technologyRequirement_by_technologyRequirementId(String searchValue,int page,int rows){
+        return requirementService.search_technologyRequirement_by_technologyRequirementId(searchValue,page,rows);
+    }
+
+    @RequestMapping("/technologyRequirement/search_technologyRequirement_by_technologyName")
+    @ResponseBody
+    public EasyUiDataGridResult <TechnologyRequirement>
+            search_technologyRequirement_by_technologyName(String searchValue,int page,int rows){
+            return requirementService.search_technologyRequirement_by_technologyName(searchValue,page,rows);
+    }
 }

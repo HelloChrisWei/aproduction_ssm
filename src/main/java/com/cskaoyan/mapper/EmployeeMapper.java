@@ -1,6 +1,4 @@
 package com.cskaoyan.mapper;
-
-import com.cskaoyan.pojo.EasyUiDataGridResult;
 import com.cskaoyan.pojo.Employee;
 import com.cskaoyan.pojo.EmployeeExample;
 import java.util.List;
@@ -10,8 +8,6 @@ public interface EmployeeMapper {
     long countByExample(EmployeeExample example);
 
     int deleteByExample(EmployeeExample example);
-
-    int deleteByPrimaryKey(String empId);
 
     int insert(Employee record);
 
@@ -27,8 +23,26 @@ public interface EmployeeMapper {
 
     int updateByPrimaryKeySelective(Employee record);
 
+
+
+    //自己新增方法
+    List<Employee> selectAllEmployeePage(@Param("rows") int rows, @Param("offset") int offset);
+
+    int searchEmployeeCount(@Param("employee") Employee employee);
+
+    List<Employee> searchEmployeePage(@Param("employee") Employee employee,@Param("rows") int rows,@Param("offset") int offset );
+
+    int addAllEmployee(Employee employee);
+
     int updateByPrimaryKey(Employee record);
 
-    //新增方法
-    List<Employee> selectAllEmployeePage(@Param("rows") int rows, @Param("offset") int offset);
+    int deleteByPrimaryKey(String empId);
+
+    List<Employee> selectEmployeeData();
+
+
+
+
+
+
 }

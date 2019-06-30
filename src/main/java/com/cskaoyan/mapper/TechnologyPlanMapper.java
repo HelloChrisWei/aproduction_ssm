@@ -27,4 +27,12 @@ public interface TechnologyPlanMapper {
     int updateByPrimaryKeySelective(TechnologyPlan record);
 
     int updateByPrimaryKey(TechnologyPlan record);
+
+    List<TechnologyPlan> selectAllTechnologyPlanByPage();
+
+    List<TechnologyPlan> selectTechnologyPlanByPId(String pId);
+
+    List<TechnologyPlan> selectTechnologyPlanByTName(String tName);
+
+    List<TechnologyPlan> findTechnologyPlanData();
 }

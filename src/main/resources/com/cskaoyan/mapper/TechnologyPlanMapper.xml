@@ -258,4 +258,62 @@
       technology_plan_end = #{technologyPlanEnd,jdbcType=TIMESTAMP}
     where technology_plan_id = #{technologyPlanId,jdbcType=VARCHAR}
   </update>
+
+  <resultMap id="MyBaseResultMap" type="com.cskaoyan.pojo.TechnologyPlan">
+    <id column="technology_plan_id" jdbcType="VARCHAR" property="technologyPlanId" />
+    <result column="technology_id" jdbcType="VARCHAR" property="technologyId" />
+    <result column="batch_amount" jdbcType="INTEGER" property="batchAmount" />
+    <result column="start_plan" jdbcType="TIMESTAMP" property="startPlan" />
+    <result column="end_plan" jdbcType="TIMESTAMP" property="endPlan" />
+    <result column="commit_plan" jdbcType="TIMESTAMP" property="commitPlan" />
+    <result column="technology_plan_start" jdbcType="TIMESTAMP" property="technologyPlanStart" />
+    <result column="technology_plan_end" jdbcType="TIMESTAMP" property="technologyPlanEnd" />
+    <result column="technology_name"  property="technologyName"/>
+  </resultMap>
+  <select id="selectAllTechnologyPlanByPage" resultMap="MyBaseResultMap">
+    select tp.technology_plan_id,
+            tp.technology_id,
+            tp.batch_amount,
+            tp.start_plan,
+            tp.end_plan,
+            tp.commit_plan,
+            tp.technology_plan_start,
+            tp.technology_plan_end,
+            t.technology_name
+            from technology_plan tp
+            LEFT JOIN technology t on t.technology_id = tp.technology_id
+  </select>
+  <select id="selectTechnologyPlanByPId" resultMap="MyBaseResultMap">
+    select tp.technology_plan_id,
+            tp.technology_id,
+            tp.batch_amount,
+            tp.start_plan,
+            tp.end_plan,
+            tp.commit_plan,
+            tp.technology_plan_start,
+            tp.technology_plan_end,
+            t.technology_name
+            from technology_plan tp
+            LEFT JOIN technology t on t.technology_id = tp.technology_id
+            where technology_plan_id like #{pId}
+  </select>
+  <select id="selectTechnologyPlanByTName" resultMap="MyBaseResultMap">
+    select tp.technology_plan_id,
+            tp.technology_id,
+            tp.batch_amount,
+            tp.start_plan,
+            tp.end_plan,
+            tp.commit_plan,
+            tp.technology_plan_start,
+            tp.technology_plan_end,
+            t.technology_name
+            from technology_plan tp
+            LEFT JOIN technology t on t.technology_id = tp.technology_id
+            where technology_name like #{tName}
+  </select>
+  <select id="findTechnologyPlanData" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List"></include>
+    from technology_plan
+  </select>
 </mapper>

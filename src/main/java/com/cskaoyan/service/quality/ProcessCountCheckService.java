@@ -21,4 +21,5 @@ public interface ProcessCountCheckService {
     ResponseStatus updateByPrimaryKeySelective(ProcessCountCheck processCountCheck);
 
 
+    ResponseStatus insert(ProcessCountCheck record);
 }

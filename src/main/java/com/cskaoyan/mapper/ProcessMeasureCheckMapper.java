@@ -33,7 +33,7 @@ public interface ProcessMeasureCheckMapper {
     /*-----------------Custom Methods---------------*/
 
 
-    List<ProcessMeasureCheckVO> selectAllRecords(@Param("rows") int rows, @Param("offset") int offset);
+    List<ProcessMeasureCheckVO> selectAllRecords();
 
     /*精确查询*/
     List<ProcessMeasureCheckVO> selectByPrimaryKey4VO(@Param("example") ProcessMeasureCheckVO pMeasureCheckId, @Param("rows") int rows, @Param("offset") int offset);

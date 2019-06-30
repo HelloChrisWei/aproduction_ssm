@@ -98,7 +98,7 @@ public class ProcessCountCheckController {
     // TODO
     @RequestMapping(value = "/p_count_check/insert", method = RequestMethod.POST)
     @ResponseBody
-    public ResponseStatus insert() {
-        return null;
+    public ResponseStatus insert(ProcessCountCheck record) {
+        return processCountCheckService.insert(record);
     }
 }

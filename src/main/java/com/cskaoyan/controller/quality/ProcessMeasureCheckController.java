@@ -105,7 +105,7 @@ public class ProcessMeasureCheckController {
     // TODO
     @RequestMapping(value = "/p_measure_check/insert", method = RequestMethod.POST)
     @ResponseBody
-    public ResponseStatus insert() {
-        return null;
+    public ResponseStatus insert(ProcessMeasureCheck record) {
+        return processMeasureCheckService.insert(record);
     }
 }

@@ -81,5 +81,17 @@ public class TechnologyController {
         return technologyService.deleteBatchTechnology(ids);
     }
 
+    @RequestMapping("/technology/search_technology_by_technologyId")
+    @ResponseBody
+    public EasyUiDataGridResult<Technology> search_technologyPlan_by_technologyPlanId(String searchValue,int page,int rows){
+        return technologyService.search_technology_by_technologyId(searchValue,page,rows);
+    }
+
+    @RequestMapping("/technologyPlan/search_technology_by_technologyName")
+    @ResponseBody
+    public EasyUiDataGridResult <Technology>
+    search_technologyRequirement_by_technologyName(String searchValue,int page,int rows){
+        return technologyService.search_technologyPlan_by_technologyName(searchValue, page, rows);
+    }
 
 }

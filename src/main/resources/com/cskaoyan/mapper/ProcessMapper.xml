@@ -193,4 +193,25 @@
       quota = #{quota,jdbcType=INTEGER}
     where process_id = #{processId,jdbcType=VARCHAR}
   </update>
+  <select id="selectAllProcessByPage" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List"></include>
+    from process
+  </select>
+  <select id="selectProcessById" resultMap="BaseResultMap">
+    select process_id,
+            technology_plan_id,
+            sequence,
+            quota
+            from process
+            where process_id like #{pid}
+  </select>
+  <select id="selectProcessBytPId" resultMap="BaseResultMap">
+    select process_id,
+            technology_plan_id,
+            sequence,
+            quota
+            from process
+            where technology_plan_id like #{tRId}
+  </select>
 </mapper>

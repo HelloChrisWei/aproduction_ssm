@@ -22,4 +22,8 @@ public interface TechnologyService {
     Technology searchTechnologyData(String technologyId);
     //数据列表
     List<Technology> findTechnologyData();
+
+    EasyUiDataGridResult<Technology> search_technology_by_technologyId(String tId, int page, int rows);
+
+    EasyUiDataGridResult<Technology> search_technologyPlan_by_technologyName(String tName, int page, int rows);
 }

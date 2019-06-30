@@ -7,6 +7,7 @@ import com.cskaoyan.pojo.ResponseStatus;
 import com.cskaoyan.pojo.Technology;
 import com.cskaoyan.pojo.TechnologyExample;
 import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -106,5 +107,37 @@ public class TechnologyServiceImpl implements TechnologyService {
     @Override
     public List<Technology> findTechnologyData() {
         return technologyMapper.selectAllTechnology();
+    }
+
+    @Override
+    public EasyUiDataGridResult<Technology> search_technology_by_technologyId(String tId, int page, int rows) {
+        String id = "%" + tId + "%";
+        EasyUiDataGridResult<Technology> result = new EasyUiDataGridResult<>();
+
+        PageHelper.startPage(page, rows);
+        List<Technology> technologies = technologyMapper.selectTechnologyById(id);
+
+        PageInfo<Technology> info = new PageInfo<>(technologies);
+        int total = (int)info.getTotal();
+        //int total = (int) requirementMapper.countByExampleByCondition(record);
+        result.setRows(technologies);
+        result.setTotal(total);
+        return result;
+    }
+
+    @Override
+    public EasyUiDataGridResult<Technology> search_technologyPlan_by_technologyName(String tName, int page, int rows) {
+        String name = "%" + tName + "%";
+        EasyUiDataGridResult<Technology> result = new EasyUiDataGridResult<>();
+
+        PageHelper.startPage(page, rows);
+        List<Technology> technologies = technologyMapper.selectTechnologyByName(name);
+
+        PageInfo<Technology> info = new PageInfo<>(technologies);
+        int total = (int)info.getTotal();
+        //int total = (int) requirementMapper.countByExampleByCondition(record);
+        result.setRows(technologies);
+        result.setTotal(total);
+        return result;
     }
 }

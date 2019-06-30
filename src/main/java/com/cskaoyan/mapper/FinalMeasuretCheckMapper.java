@@ -31,7 +31,7 @@ public interface FinalMeasuretCheckMapper {
     int updateByPrimaryKey(FinalMeasuretCheck record);
 
     /* The following are custom methods -- Chris */
-    List<FinalMeasuretCheckVO> selectAllRecords(@Param("rows") int rows, @Param("offset") int offset);
+    List<FinalMeasuretCheckVO> selectAllRecords();
 
     List<FinalMeasuretCheckVO> selectByPrimaryKey4VO(@Param("fMeasureCheckId") String fMeasureCheckId, @Param("rows") int rows, @Param("offset") int offset);
 

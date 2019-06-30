@@ -1,9 +1,7 @@
 package com.cskaoyan.controller.quality;
 
-import com.cskaoyan.pojo.EasyUiDataGridResult;
+import com.cskaoyan.pojo.*;
 import com.cskaoyan.pojo.ResponseStatus;
-import com.cskaoyan.pojo.UnqualifyApply;
-import com.cskaoyan.pojo.UnqualifyApplyVO;
 import com.cskaoyan.service.quality.UnQualityService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -172,6 +170,13 @@ public class QualityController {
         return unQualityService.updateByPrimaryKey(record);
     }
 
+
+
+    @RequestMapping(value = "/insert", method = RequestMethod.POST)
+    @ResponseBody
+    public ResponseStatus insert(UnqualifyApply record) {
+        return unQualityService.insert(record);
+    }
 
 
 
