@@ -3,8 +3,6 @@ package com.cskaoyan.controller.quality;
 import com.cskaoyan.pojo.EasyUiDataGridResult;
 import com.cskaoyan.pojo.FinalCountCheck;
 import com.cskaoyan.pojo.ResponseStatus;
-import com.cskaoyan.service.quality.CommonController;
-import com.cskaoyan.service.quality.CommonService;
 import com.cskaoyan.service.quality.FinalCountCheckService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
