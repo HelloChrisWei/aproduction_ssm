@@ -21,4 +21,6 @@ public interface FinalCountCheckService {
     ResponseStatus updateByPrimaryKey(FinalCountCheck record);
 
     ResponseStatus updateByPrimaryKeySelective(FinalCountCheck record);
+
+    ResponseStatus insert(FinalCountCheck record);
 }

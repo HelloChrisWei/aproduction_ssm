@@ -127,8 +127,8 @@ public class FinalCountCheckController {
     // TODO
     @RequestMapping(value = "/f_count_check/insert", method = RequestMethod.POST)
     @ResponseBody
-    public ResponseStatus insert() {
-        return null;
+    public ResponseStatus insert(FinalCountCheck record) {
+        return finalCountCheckService.insert(record);
     }
 
 }

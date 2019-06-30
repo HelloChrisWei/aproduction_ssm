@@ -20,4 +20,6 @@ public interface ProcessMeasureCheckService {
     ResponseStatus updateByPrimaryKey(ProcessMeasureCheck record);
 
     ResponseStatus updateByPrimaryKeySelective(ProcessMeasureCheck record);
+
+    ResponseStatus insert(ProcessMeasureCheck record);
 }

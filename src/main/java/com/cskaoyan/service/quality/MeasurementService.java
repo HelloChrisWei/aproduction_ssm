@@ -16,4 +16,6 @@ public interface MeasurementService {
     ResponseStatus updateByPrimaryKeySelective(FinalMeasuretCheck finalMeasuretCheck);
 
     EasyUiDataGridResult searchByOrderId(String orderId, int page, int rows);
+
+    ResponseStatus insert(FinalMeasuretCheck record);
 }

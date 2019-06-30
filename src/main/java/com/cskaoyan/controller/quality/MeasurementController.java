@@ -104,8 +104,8 @@ public class MeasurementController {
     // TODO
     @RequestMapping(value = "/measure/insert", method = RequestMethod.POST)
     @ResponseBody
-    public ResponseStatus insert() {
-        return null;
+    public ResponseStatus insert(FinalMeasuretCheck record) {
+        return measurementService.insert(record);
     }
 
 }

@@ -1,9 +1,6 @@
 package com.cskaoyan.service.quality;
 
-import com.cskaoyan.pojo.EasyUiDataGridResult;
-import com.cskaoyan.pojo.ResponseStatus;
-import com.cskaoyan.pojo.UnqualifyApply;
-import com.cskaoyan.pojo.UnqualifyApplyVO;
+import com.cskaoyan.pojo.*;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
@@ -28,4 +25,6 @@ public interface UnQualityService {
     EasyUiDataGridResult searchById(String unqualifyApplyId, int page, int rows);
 
     EasyUiDataGridResult selectByExample(UnqualifyApplyVO unqualifyApplyVOExample, int page, int rows);
+
+    ResponseStatus insert(UnqualifyApply record);
 }

@@ -7,6 +7,8 @@ import com.cskaoyan.pojo.FinalMeasuretCheckVO;
 import com.cskaoyan.pojo.ResponseStatus;
 
 import com.cskaoyan.service.quality.MeasurementService;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -26,12 +28,16 @@ public class MeasurementServiceImpl implements MeasurementService {
     @Override
     public EasyUiDataGridResult fetchAllItems(int page, int rows) {
         EasyUiDataGridResult<FinalMeasuretCheckVO> result = new EasyUiDataGridResult<>();
-        int offset = (page - 1) * rows;
+        // 分页
+        PageHelper.startPage(page, rows);
+//        int offset = (page - 1) * rows;
 
-        List<FinalMeasuretCheckVO> finalCountCheckVOList = finalMeasuretCheckMapper.selectAllRecords(rows, offset);
+        List<FinalMeasuretCheckVO> finalCountCheckVOList = finalMeasuretCheckMapper.selectAllRecords();
 
+        PageInfo<FinalMeasuretCheckVO> info = new PageInfo<>(finalCountCheckVOList);
         // 返回查出了多少条数据
-        int total = finalCountCheckVOList.size();
+        int total = (int) info.getTotal();
+        //int total = finalCountCheckVOList.size();
 
         result.setRows(finalCountCheckVOList);
         result.setTotal(total);
@@ -42,6 +48,8 @@ public class MeasurementServiceImpl implements MeasurementService {
     @Override
     public EasyUiDataGridResult searchById(String fMeasureCheckId, int page, int rows) {
         EasyUiDataGridResult<FinalMeasuretCheckVO> result = new EasyUiDataGridResult<>();
+        // 分页
+        PageHelper.startPage(page,rows);
         int offset = (page - 1) * rows;
 
         // 初始化Example对象
@@ -77,6 +85,16 @@ public class MeasurementServiceImpl implements MeasurementService {
         result.setTotal(total);
 
         return result;
+    }
+
+    @Override
+    public ResponseStatus insert(FinalMeasuretCheck record) {
+        int affectedRows = finalMeasuretCheckMapper.insert(record);
+        if (affectedRows != 1) {
+            return new ResponseStatus(0, "Fail", null, 0, null);
+
+        }
+        return new ResponseStatus(200, "OK", null, 0, null);
     }
 
     //    TODO 添加事务

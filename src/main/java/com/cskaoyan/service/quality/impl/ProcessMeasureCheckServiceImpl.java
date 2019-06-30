@@ -3,6 +3,7 @@ package com.cskaoyan.service.quality.impl;
 import com.cskaoyan.mapper.ProcessMeasureCheckMapper;
 import com.cskaoyan.pojo.*;
 import com.cskaoyan.service.quality.ProcessMeasureCheckService;
+import com.github.pagehelper.PageHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -23,9 +24,13 @@ public class ProcessMeasureCheckServiceImpl implements ProcessMeasureCheckServic
     @Override
     public EasyUiDataGridResult fetchAllItems(int page, int rows) {
         EasyUiDataGridResult<ProcessMeasureCheckVO> result = new EasyUiDataGridResult<>();
-        int offset = (page - 1) * rows;
+        // 分页
+        PageHelper.startPage(page,rows);
 
-        List<ProcessMeasureCheckVO> processMeasureCheckVOList = processMeasureCheckMapper.selectAllRecords(rows, offset);
+//        int offset = (page - 1) * rows;
+
+//        List<ProcessMeasureCheckVO> processMeasureCheckVOList = processMeasureCheckMapper.selectAllRecords(rows, offset);
+        List<ProcessMeasureCheckVO> processMeasureCheckVOList = processMeasureCheckMapper.selectAllRecords();
 
         // 返回查出了多少条数据
         int total = processMeasureCheckVOList.size();
@@ -83,6 +88,16 @@ public class ProcessMeasureCheckServiceImpl implements ProcessMeasureCheckServic
     @Override
     public ResponseStatus updateByPrimaryKeySelective(ProcessMeasureCheck record) {
         int affectedRows = processMeasureCheckMapper.updateByPrimaryKeySelective(record);
+        if (affectedRows != 1) {
+            return new ResponseStatus(0, "Fail", null, 0, null);
+
+        }
+        return new ResponseStatus(200, "OK", null, 0, null);
+    }
+
+    @Override
+    public ResponseStatus insert(ProcessMeasureCheck record) {
+        int affectedRows = processMeasureCheckMapper.insert(record);
         if (affectedRows != 1) {
             return new ResponseStatus(0, "Fail", null, 0, null);
 
