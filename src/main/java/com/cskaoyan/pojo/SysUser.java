@@ -9,6 +9,17 @@ public class SysUser {
 
     private String locked;
 
+    // 新增
+    private String rolename = "超级管理员";
+
+    public String getRolename() {
+        return rolename;
+    }
+
+    public void setRolename(String rolename) {
+        this.rolename = rolename;
+    }
+
     public String getId() {
         return id;
     }

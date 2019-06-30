@@ -15,6 +15,23 @@
     <result column="result" jdbcType="VARCHAR" property="result" />
     <result column="note" jdbcType="VARCHAR" property="note" />
   </resultMap>
+
+  <resultMap id="BaseResultMapForVO" type="com.cskaoyan.pojo.FinalCountCheckVO">
+    <id column="f_count_check_id" jdbcType="VARCHAR" property="fCountCheckId" />
+    <result column="order_id" jdbcType="VARCHAR" property="orderId" />
+    <result column="check_item" jdbcType="VARCHAR" property="checkItem" />
+    <result column="sample" jdbcType="INTEGER" property="sample" />
+    <result column="check_number" jdbcType="INTEGER" property="checkNumber" />
+    <result column="unqualify" jdbcType="INTEGER" property="unqualify" />
+    <result column="qualify" jdbcType="DECIMAL" property="qualify" />
+    <result column="cdate" jdbcType="TIMESTAMP" property="cdate" />
+    <result column="measure_data" jdbcType="VARCHAR" property="measureData" />
+    <result column="emp_id" jdbcType="VARCHAR" property="empId" />
+    <result column="result" jdbcType="VARCHAR" property="result" />
+    <result column="note" jdbcType="VARCHAR" property="note" />
+    <result column="emp_name" jdbcType="VARCHAR" property="empName"/>
+  </resultMap>
+
   <sql id="Example_Where_Clause">
     <where>
       <foreach collection="oredCriteria" item="criteria" separator="or">
@@ -77,6 +94,11 @@
     f_count_check_id, order_id, check_item, sample, check_number, unqualify, qualify, 
     cdate, measure_data, emp_id, result, note
   </sql>
+  <sql id="Base_Column_List4VO">
+    t1.f_count_check_id, t1.order_id, t1.check_item, t1.sample, t1.check_number, t1.unqualify, t1.qualify,
+    t1.cdate, t1.measure_data, t1.emp_id, t1.result, t1.note, t2.emp_name
+  </sql>
+
   <select id="selectByExample" parameterType="com.cskaoyan.pojo.FinalCountCheckExample" resultMap="BaseResultMap">
     select
     <if test="distinct">
@@ -320,4 +342,39 @@
       note = #{note,jdbcType=VARCHAR}
     where f_count_check_id = #{fCountCheckId,jdbcType=VARCHAR}
   </update>
+
+
+<!--  ############Custom############ -->
+
+  <select id="selectAllRecords" resultMap="BaseResultMapForVO">
+    SELECT
+    <include refid="Base_Column_List4VO" />
+    FROM final_count_check t1
+    LEFT JOIN `employee` t2 on t1.emp_id = t2.emp_id
+    limit #{rows} offset #{offset}
+  </select>
+
+  <select id="selectByPrimaryKey4VO" resultMap="BaseResultMapForVO">
+    SELECT
+    <include refid="Base_Column_List4VO" />
+    FROM final_count_check t1
+    LEFT JOIN `employee` t2 on t1.emp_id = t2.emp_id
+    WHERE t1.f_count_check_id = #{fCountCheckId}
+    limit 1
+  </select>
+
+
+  <!--TODO 通用化-->
+  <select id="selectByCondition4VO" resultMap="BaseResultMapForVO">
+    SELECT
+    <include refid="Base_Column_List4VO" />
+    FROM final_count_check t1
+    LEFT JOIN `employee` t2 on t1.emp_id = t2.emp_id
+    WHERE
+    t1.order_id = #{example.orderId}
+    limit #{rows} offset #{offset}
+  </select>
+
+
+
 </mapper>

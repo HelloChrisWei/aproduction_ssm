@@ -3,6 +3,8 @@ package com.cskaoyan.mapper;
 import com.cskaoyan.pojo.ProcessMeasureCheck;
 import com.cskaoyan.pojo.ProcessMeasureCheckExample;
 import java.util.List;
+
+import com.cskaoyan.pojo.ProcessMeasureCheckVO;
 import org.apache.ibatis.annotations.Param;
 
 public interface ProcessMeasureCheckMapper {
@@ -27,4 +29,12 @@ public interface ProcessMeasureCheckMapper {
     int updateByPrimaryKeySelective(ProcessMeasureCheck record);
 
     int updateByPrimaryKey(ProcessMeasureCheck record);
+
+    /*-----------------Custom Methods---------------*/
+
+
+    List<ProcessMeasureCheckVO> selectAllRecords(@Param("rows") int rows, @Param("offset") int offset);
+
+    /*精确查询*/
+    List<ProcessMeasureCheckVO> selectByPrimaryKey4VO(@Param("example") ProcessMeasureCheckVO pMeasureCheckId, @Param("rows") int rows, @Param("offset") int offset);
 }

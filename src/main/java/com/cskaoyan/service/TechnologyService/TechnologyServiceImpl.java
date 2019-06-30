@@ -95,4 +95,16 @@ public class TechnologyServiceImpl implements TechnologyService {
         }
         return responseStatus;
     }
+
+    @Override
+    public Technology searchTechnologyData(String technologyId) {
+        Technology technology;
+        technology = technologyMapper.selectByPrimaryKey(technologyId);
+        return technology;
+    }
+
+    @Override
+    public List<Technology> findTechnologyData() {
+        return technologyMapper.selectAllTechnology();
+    }
 }

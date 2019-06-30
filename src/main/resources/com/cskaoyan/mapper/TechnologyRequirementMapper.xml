@@ -7,6 +7,8 @@
     <result column="requirement" jdbcType="VARCHAR" property="requirement" />
     <result column="add_time" jdbcType="TIMESTAMP" property="addTime" />
     <result column="revise_time" jdbcType="TIMESTAMP" property="reviseTime" />
+    <!--不能直接这样写-->
+    <!--<association property="technologyId" select="com.cskaoyan.mapper.TechnologyMapper.queryTechnologyNameById" column="technology_id"/>-->
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -210,4 +212,29 @@
       revise_time = #{reviseTime,jdbcType=TIMESTAMP}
     where technology_requirement_id = #{technologyRequirementId,jdbcType=VARCHAR}
   </update>
+  <!--新建查询一对一-->
+
+  <resultMap id="MyBaseResultMap" type="com.cskaoyan.pojo.TechnologyRequirement">
+    <id column="technology_requirement_id" jdbcType="VARCHAR" property="technologyRequirementId" />
+    <result column="technology_id" jdbcType="VARCHAR" property="technologyId" />
+    <result column="requirement" jdbcType="VARCHAR" property="requirement" />
+    <result column="add_time" jdbcType="TIMESTAMP" property="addTime" />
+    <result column="revise_time" jdbcType="TIMESTAMP" property="reviseTime" />
+    <result column="technology_id" property="technologyId"/>
+    <result column="technology_name" property="technologyName"/>
+    <!--<association property="technology" javaType="com.cskaoyan.pojo.Technology">-->
+
+    <!--</association>-->
+  </resultMap>
+  <select id="selectAllTechnologyRequirementByPage" resultMap="MyBaseResultMap">
+    select tr.technology_requirement_id,
+            tr.technology_id,
+            tr.requirement,
+            tr.add_time,
+            tr.revise_time,
+            t.technology_name
+            from technology_requirement tr
+            LEFT JOIN technology t on t.technology_id = tr.technology_id
+  </select>
+
 </mapper>

@@ -273,6 +273,7 @@
       overfulfil_capacity = #{overfulfilCapacity,jdbcType=INTEGER}
     where technology_id = #{technologyId,jdbcType=VARCHAR}
   </update>
+  <!--分页查询-->
   <select id="selectAllTechnologyByPage" resultMap="BaseResultMap">
     select
     <include refid="Base_Column_List"></include>
@@ -284,4 +285,21 @@
     from custom
     limit #{rows} offset #{offset}
   </select>-->
+  <!--回显-->
+  <select id="selectTechnologyMessage" resultMap="BaseResultMap">
+    select technology_name,
+            price,
+            vital_process_period,
+            standard_capacity,
+            overtime_standard_capacity,
+            overtime_overfulfil_capacity,
+            double_capacity,
+            overfulfil_capacity from technology where technology_id = #{technologyId,jdbcType=VARCHAR}
+  </select>
+  <!--下拉-->
+  <select id="selectAllTechnology" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List"></include>
+    from technology
+  </select>
 </mapper>
